@@ -5,8 +5,7 @@
 
 #define CF_STATECOUNT 6
 #define CF_MAXPLAYERCOUNT 4
-#define CF_MAXGRIDSIZE 12
-
+#define CF_MAXGRIDSIZE 24
 
 typedef struct cf_coordinates_t
 {
@@ -14,9 +13,7 @@ typedef struct cf_coordinates_t
         uint8_t col;
 } cf_coordinates_t;
 
-
 typedef int cf_cellState_t;
-
 
 typedef struct cf_grid_t
 {
@@ -24,9 +21,7 @@ typedef struct cf_grid_t
         cf_cellState_t cell[CF_MAXGRIDSIZE][CF_MAXGRIDSIZE];
 } cf_grid_t;
 
-
 typedef uint8_t cf_player_i;
-
 
 typedef struct cf_model_t
 {

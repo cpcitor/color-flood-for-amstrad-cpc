@@ -3,34 +3,33 @@
 #include "view.h"
 #include "platform_ui.h"
 
-int main()
+static cf_model_t model;
+
+int
+main()
 {
         dbglog( "In C" NL );
 
+        model.playerCount = 2;
+
         {
-                cf_model_t model;
+                uint8_t size;
 
-                model.playerCount = 2;
-
+                for ( size = 1; size <= CF_MAXGRIDSIZE; size++ )
                 {
-                        uint8_t size;
-
-                        for ( size = 1; size <= CF_MAXGRIDSIZE; size++ )
-                        {
-                                dbglog( "Will draw " );
-                                pause();
-
-                                model.grid.dimensions.row = size;
-                                model.grid.dimensions.col = model.grid.dimensions.row;
-
-                                cf_model_init( &model );
-
-                                cf_model_draw( &model );
-                        }
-
-                        dbglog( "drawn" NL );
+                        dbglog( "Will draw " );
                         pause();
+
+                        model.grid.dimensions.row = size;
+                        model.grid.dimensions.col = model.grid.dimensions.row;
+
+                        cf_model_init( &model );
+
+                        cf_model_draw( &model );
                 }
+
+                dbglog( "drawn" NL );
+                pause();
         }
 
         dbglog( "Returning..." NL );
