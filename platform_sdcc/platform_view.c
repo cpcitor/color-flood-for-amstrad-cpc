@@ -3,7 +3,7 @@
 
 #include "stdio.h"
 
-#define draw_one_byte() *( pos_local ) = value; ++pos_local
+#define draw_one_byte() screen_write(pos_local, value); ++pos_local
 #define draw_one_line_of_two_bytes() pos_local = pos_this_sel; draw_one_byte(); draw_one_byte(); pos_this_sel += line_stride;
 #define draw_one_line_of_four_bytes() pos_local = pos_this_sel; draw_one_byte(); draw_one_byte(); draw_one_byte(); draw_one_byte(); pos_this_sel += line_stride;
 
