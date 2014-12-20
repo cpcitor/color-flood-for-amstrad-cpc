@@ -3,33 +3,33 @@
 
 #include <stdio.h>
 
-void cf_coordinates_dump( cf_coordinates_t *this_coordinates )
+void cf_coordinates_dump( const cf_coordinates_t *const this_coordinates )
 {
         fprintf( stderr, "(row %d, col %d)", this_coordinates->row, this_coordinates->col );
 }
 
-void cf_grid_dump( cf_grid_t *this_grid )
+void cf_grid_dump( const cf_grid_t *const this_grid )
 {
         assert( this_grid->dimensions.row <= CF_MAXGRIDSIZE );
         assert( this_grid->dimensions.col <= CF_MAXGRIDSIZE );
 
         fprintf( stderr, "[\n" );
         {
-                sint8_t row = this_grid->dimensions.row;
+                uint8_t row;
 
-                while ( --row >= 0 )
+                for ( row = 0; row < this_grid->dimensions.row; row++ )
                 {
+                        uint8_t col;
                         fprintf( stderr, "[ " );
+
+                        for ( col = 0; col < this_grid->dimensions.col; col++ )
                         {
-                                sint8_t col = this_grid->dimensions.col;
-
-                                while ( --col >= 0 )
                                 {
-
                                         fprintf( stderr, "%d ", this_grid->cell[row][col] );
 
                                 }
                         }
+
                         fprintf( stderr, "]\n" );
                 }
 
@@ -37,7 +37,7 @@ void cf_grid_dump( cf_grid_t *this_grid )
         }
 }
 
-void cf_model_dump( cf_model_t *this_model )
+void cf_model_dump( const cf_model_t *const this_model )
 {
         fprintf( stderr,
                  "[Model @%p\n"
@@ -51,7 +51,7 @@ void cf_model_dump( cf_model_t *this_model )
 
         {
                 cf_player_i iplayer;
-                cf_coordinates_t *iph = &( this_model->playerHomes[0] );
+                const cf_coordinates_t *const iph = &( this_model->playerHomes[0] );
                 fprintf( stderr, "[PlayerHomes: " );
 
                 for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
@@ -64,4 +64,9 @@ void cf_model_dump( cf_model_t *this_model )
         }
 
         fprintf( stderr, "]\n" );
+}
+
+void cf_model_draw( cf_model_t *const this_model )
+{
+        cf_model_dump( this_model );
 }

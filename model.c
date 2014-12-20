@@ -1,6 +1,8 @@
 #include "model.h"
 
-void cf_grid_init( cf_grid_t *this_grid )
+#include "stdio.h"
+
+void cf_grid_init( cf_grid_t *const this_grid )
 {
         assert( this_grid->dimensions.row <= CF_MAXGRIDSIZE );
         assert( this_grid->dimensions.col <= CF_MAXGRIDSIZE );
@@ -10,24 +12,22 @@ void cf_grid_init( cf_grid_t *this_grid )
 
                 while ( --row >= 0 )
                 {
+                        sint8_t col = this_grid->dimensions.col;
 
+                        //printf( "\r\nr=%d", row );
+
+                        while ( --col >= 0 )
                         {
-                                sint8_t col = this_grid->dimensions.col;
+                                cf_cellState_t state = ( row * col ) % CF_STATECOUNT;
+                                this_grid->cell[row][col] = state;
+                                //printf( " c=%d", col );
 
-                                while ( --col >= 0 )
-                                {
-
-                                        this_grid->cell[row][col] = ( row * col ) % cf_colorCount;
-
-                                }
                         }
-
-
                 }
         }
 }
 
-void cf_model_init( cf_model_t *this_model )
+void cf_model_init( cf_model_t *const this_model )
 {
         assert( this_model->playerCount < CF_MAXPLAYERCOUNT );
 
@@ -63,7 +63,8 @@ void cf_model_init( cf_model_t *this_model )
         this_model->nextPlayer = 0;
 }
 
-void play( cf_model_t *thisModel, cf_cellState_t chosenColor )
+void play( cf_model_t *const thisModel, cf_cellState_t const chosenState )
 {
-
+        ( void )thisModel; // FIXME
+        ( void )chosenState; // FIXME
 }

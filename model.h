@@ -3,7 +3,7 @@
 
 #include "platform.h"
 
-static const int cf_colorCount = 6;
+#define CF_STATECOUNT 6
 #define CF_MAXPLAYERCOUNT 4
 #define CF_MAXGRIDSIZE 12
 
@@ -36,15 +36,11 @@ typedef struct cf_model_t
         cf_player_i nextPlayer;
 } cf_model_t;
 
-
-
-#include "platform_model.h"
-
 void cf_grid_init( cf_grid_t *this_grid );
 
 /** Initialize fields first ! */
 void cf_model_init( cf_model_t *this_model );
 
-void play( cf_model_t *thisModel, cf_cellState_t chosenColor );
+void play( cf_model_t *thisModel, cf_cellState_t chosenState );
 
 #endif /* __MODEL_H__ */

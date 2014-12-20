@@ -1,6 +1,9 @@
-10 memory &3fff
-20 load "colorflo.bin"
-30 print "Starting asm"
-40 call &4000
-50 print "Return from asm"
-60 input "Press Enter to restart",a$
+10 mode 0 : border 0 : ink 0,0 : ink 1,26
+16 ink 2,6 : ink 3,15 : ink 4,24 : ink 5,18 : ink 6,20 : ink 7, 2
+19 locate 1,12
+20 print "    Color  Flood"
+30 memory &3fff
+40 load "colorflo.bin"
+50 mode 0
+60 call &4000
+80 input "",a$

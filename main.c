@@ -1,11 +1,10 @@
 #include <stdio.h>
 
 #include "model.h"
+#include "view.h"
 
 int main()
 {
-        printf( "Hello World, hello stephane.\n" );
-
         {
                 cf_model_t model;
 
@@ -15,9 +14,8 @@ int main()
 
                 cf_model_init( &model );
 
+                cf_model_draw( &model );
                 cf_model_dump( &model );
-
-                printf( "Program end.\n" );
 
                 return 0;
         }
