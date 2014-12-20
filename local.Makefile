@@ -14,7 +14,7 @@ native: $(SRCS) $(SRCS_NATIVE)
 	$(CC) -g -o $@ $^ -Iplatform_native
 
 
-dsk2: platform_sdcc/colorflo.bas dsk $(CDTC_ENV_FOR_IDSK)
+dsk2: platform_sdcc/cf.bas dsk $(CDTC_ENV_FOR_IDSK)
 	( source $(CDTC_ENV_FOR_IDSK) ; \
-	iDSK colorflo.dsk -f -i $< -t 0 ; \
+	iDSK cf.dsk -f -i $< -t 0 ; \
 	)

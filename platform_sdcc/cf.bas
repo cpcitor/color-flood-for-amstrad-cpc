@@ -3,7 +3,7 @@
 19 locate 1,12
 20 print "    Color  Flood"
 30 memory &3fff
-40 load "colorflo.bin"
+40 load "cf.bin"
 50 mode 0
 60 call &4000
 80 input "",a$
