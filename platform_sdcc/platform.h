@@ -1,5 +1,5 @@
-#ifndef __TYPES_H__
-#define __TYPES_H__
+#ifndef __PLATFORM_H__
+#define __PLATFORM_H__
 
 /* SDCC types */
 typedef unsigned char uint8_t;
@@ -12,4 +12,4 @@ typedef signed short sint16_t;
 
 #include "screen.h"
 
-#endif /* __TYPES_H__ */
+#endif /* __PLATFORM_H__ */
