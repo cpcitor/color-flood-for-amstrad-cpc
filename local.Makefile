@@ -27,4 +27,11 @@ clean2:
 	-rm -f */src/*.lk */src/*.noi */src/*.rel */src/*.asm */src/*.ihx */src/*.lst */src/*.map */src/*.sym */src/*.rst */src/*.bin.log
 	-rm -f *.orig */*.orig
 
+clean-full: clean clean2 clean-native 
+
+test-sdcc: clean-full dsk2	
+	arnold -drivea cf.dsk 
+
+test-native: clean-full native
+	./native
 
