@@ -17,7 +17,12 @@
 #define str(s) #s
 
 /* Debugging enabled -- verify assertions at run time. */
-#define assert(x) do { if ((x) == 0) { dbglog("Assertion failed: " NL #x NL "File: " __FILE__ NL "Line: " xstr(__LINE__)); while (1); } } while (0)
+
+#if ASSERT_CONTINUES == 1
+#define assert(x) do { if ((x) == 0) { dbglog("Assertion failed: " NL #x NL "File: " __FILE__ NL "Line: " xstr(__LINE__) NL); } } while (0)
+#else
+#define assert(x) do { if ((x) == 0) { dbglog("Assertion failed: " NL #x NL "File: " __FILE__ NL "Line: " xstr(__LINE__) NL); while (1); } } while (0)
+#endif
 
 #endif
 
