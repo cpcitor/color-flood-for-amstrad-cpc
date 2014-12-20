@@ -5,6 +5,8 @@
 
 int main()
 {
+        dbglog( "In C" NL );
+
         {
                 cf_model_t model;
 
@@ -16,7 +18,8 @@ int main()
 
                 cf_model_draw( &model );
                 cf_model_dump( &model );
-
-                return 0;
         }
+
+        dbglog( "Returning..." NL );
+        return 0;
 }
