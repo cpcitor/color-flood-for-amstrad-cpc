@@ -51,7 +51,7 @@ void cf_model_init( cf_model_t *this_model )
                         }
 
                         iph->row = maxRowCol;
-                        iph->row = maxRowCol;
+                        iph->col = maxRowCol;
                         iph++;
 
                         iph->row = 0;
