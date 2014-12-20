@@ -15,7 +15,9 @@ int main()
 
                 cf_model_init( &model );
 
-                while ( 1 ) {} ;
+                cf_model_dump( &model );
+
+                printf( "Program end.\n" );
 
                 return 0;
         }
