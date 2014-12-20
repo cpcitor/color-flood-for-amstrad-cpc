@@ -54,7 +54,7 @@ void cf_model_dump( cf_model_t *this_model )
                 cf_coordinates_t *iph = &( this_model->playerHomes[0] );
                 fprintf( stderr, "[PlayerHomes: " );
 
-                for ( iplayer = 0; iplayer < CF_MAXPLAYERCOUNT; iplayer++ )
+                for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
                 {
                         cf_coordinates_dump( &iph[iplayer] );
                         fprintf( stderr, "\t" );
