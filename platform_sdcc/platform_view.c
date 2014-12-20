@@ -9,14 +9,12 @@
 
 const uint8_t state2byte[CF_STATECOUNT] = { 0x0C, 0xCC, 0x30, 0xF0, 0x3C, 0xFC };
 
+void cf_cell_draw_12( uint8_t row, uint8_t col, cf_cellState_t const state )
 //void cf_cell_draw( cf_coordinates_t *const coords, cf_cellState_t const  state )
-void cf_cell_draw_12( uint8_t row, uint8_t col, cf_cellState_t const  state )
 {
         uint8_t value = state2byte[state];
-
         {
                 static const int bytes_per_cell = 4;
-
                 uint8_t *pos_global = screen + row * char_stride * 2 + col * bytes_per_cell;
                 uint8_t *pos_this_sel = pos_global;
                 uint8_t *pos_local;
@@ -40,13 +38,11 @@ void cf_cell_draw_12( uint8_t row, uint8_t col, cf_cellState_t const  state )
         }
 }
 
-void cf_cell_draw_24( uint8_t row, uint8_t col, cf_cellState_t const  state )
+void cf_cell_draw_24( uint8_t row, uint8_t col, cf_cellState_t const state )
 {
         uint8_t value = state2byte[state];
-
         {
                 static const int bytes_per_cell = 2;
-
                 uint8_t *pos_this_sel = screen + row * char_stride + col * bytes_per_cell;
                 uint8_t *pos_local;
                 draw_one_line_of_two_bytes();
@@ -86,4 +82,3 @@ void cf_model_draw( const cf_model_t *const model )
 {
         cf_grid_draw( &model->grid );
 }
-
