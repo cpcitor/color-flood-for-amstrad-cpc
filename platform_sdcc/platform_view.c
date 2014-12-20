@@ -15,7 +15,7 @@ void cf_cell_draw_12( uint8_t row, uint8_t col, cf_cellState_t const  state )
         uint8_t value = state2byte[state];
 
         {
-                static const int bytes_per_cell = 2;
+                static const int bytes_per_cell = 4;
 
                 uint8_t *pos_global = screen + row * char_stride * 2 + col * bytes_per_cell;
                 uint8_t *pos_this_sel = pos_global;
@@ -28,7 +28,7 @@ void cf_cell_draw_12( uint8_t row, uint8_t col, cf_cellState_t const  state )
                 draw_one_line_of_four_bytes();
                 draw_one_line_of_four_bytes();
                 draw_one_line_of_four_bytes();
-                pos_local = pos_global + char_stride;
+                pos_this_sel = pos_global + char_stride;
                 draw_one_line_of_four_bytes();
                 draw_one_line_of_four_bytes();
                 draw_one_line_of_four_bytes();
@@ -77,7 +77,7 @@ void cf_grid_draw( const cf_grid_t *const grid )
                                 printf( "r=%d c=%d col=%d ", row, col, state );
                         }
 
-                        cf_cell_draw_24( row, col, state );
+                        cf_cell_draw_12( row, col, state );
                 }
         }
 }
