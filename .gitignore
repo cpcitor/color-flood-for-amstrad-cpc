@@ -1,0 +1,15 @@
+*~
+*.bin
+*.log
+*.dsk
+*.ihx
+*.lk
+*.map
+*.noi
+*.asm
+*.orig
+*.lst
+*.rel
+*.rst
+*.sym
+
