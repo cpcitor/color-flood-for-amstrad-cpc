@@ -1,9 +1,11 @@
+#include "platform.h"
 #include "model.h"
 #include "view.h"
 
 int main()
 {
         dbglog( "In C" NL );
+        //assert( 0 == 1 );
         //dbglogf( "sizeof(cf_model_t) = %lud" NL, sizeof( cf_model_t ) );
 
         {

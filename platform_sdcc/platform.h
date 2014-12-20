@@ -14,7 +14,7 @@ typedef unsigned short uint16_t;
 typedef signed short sint16_t;
 
 //#define assert(...)
-#include <assert.h>
+#include "sg_assert.h"
 
 #include "screen.h"
 
