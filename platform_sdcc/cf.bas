@@ -7,4 +7,4 @@
 40 load "cf.bin"
 50 mode 0
 60 call &1000
-80 input "",a$
+80 input "Back to BASIC. Press ENTER.",a$
