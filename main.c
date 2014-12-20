@@ -1,11 +1,10 @@
-#include <stdio.h>
-
 #include "model.h"
 #include "view.h"
 
 int main()
 {
         dbglog( "In C" NL );
+        //dbglogf( "sizeof(cf_model_t) = %lud" NL, sizeof( cf_model_t ) );
 
         {
                 cf_model_t model;
