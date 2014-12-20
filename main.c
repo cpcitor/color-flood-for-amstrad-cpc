@@ -1,24 +1,36 @@
 #include "platform.h"
 #include "model.h"
 #include "view.h"
+#include "platform_ui.h"
 
 int main()
 {
         dbglog( "In C" NL );
-        //assert( 0 == 1 );
-        //dbglogf( "sizeof(cf_model_t) = %lud" NL, sizeof( cf_model_t ) );
 
         {
                 cf_model_t model;
 
                 model.playerCount = 2;
-                model.grid.dimensions.row = 12;
-                model.grid.dimensions.col = 12;
 
-                cf_model_init( &model );
+                {
+                        uint8_t size;
 
-                cf_model_draw( &model );
-                cf_model_dump( &model );
+                        for ( size = 1; size <= CF_MAXGRIDSIZE; size++ )
+                        {
+                                dbglog( "Will draw ... " );
+                                pause();
+
+                                model.grid.dimensions.row = size;
+                                model.grid.dimensions.col = model.grid.dimensions.row;
+
+                                cf_model_init( &model );
+
+                                cf_model_draw( &model );
+                        }
+
+                        dbglog( "drawn" NL );
+                        pause();
+                }
         }
 
         dbglog( "Returning..." NL );
