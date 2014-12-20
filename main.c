@@ -17,7 +17,7 @@ int main()
 
                         for ( size = 1; size <= CF_MAXGRIDSIZE; size++ )
                         {
-                                dbglog( "Will draw ... " );
+                                dbglog( "Will draw " );
                                 pause();
 
                                 model.grid.dimensions.row = size;
