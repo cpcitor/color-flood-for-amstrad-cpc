@@ -1,4 +1,4 @@
-localproject: astyle dsk native
+localproject: astyle dsk2 native
 
 SRCS := $(wildcard *.c) platform_*/*.c #HACK
 HDRS := $(wildcard *.h)
@@ -11,3 +11,8 @@ CC = gcc
 native: $(SRCS)
 	$(CC) -g -o $@ $^ -Iplatform_native
 
+
+dsk2: platform_sdcc/colorflo.bas dsk $(CDTC_ENV_FOR_IDSK)
+	( source $(CDTC_ENV_FOR_IDSK) ; \
+	iDSK colorflo.dsk -f -i $< -t 0 ; \
+	)
