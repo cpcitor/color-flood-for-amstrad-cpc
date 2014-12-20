@@ -29,7 +29,7 @@ void cf_grid_init( cf_grid_t *this_grid )
 
 void cf_model_init( cf_model_t *this_model )
 {
-        assert( this_model->playerCount < cf_maxPlayerCount );
+        assert( this_model->playerCount < CF_MAXPLAYERCOUNT );
 
         cf_grid_init( &( this_model->grid ) );
 
