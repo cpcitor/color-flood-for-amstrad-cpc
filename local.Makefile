@@ -8,7 +8,7 @@ HDRS_NATIVE := $(wildcard platform_native/*.h)
 astyle: $(wildcard *.c */*.c *.h */*.h)
 	astyle --mode=c --lineend=linux --indent=spaces=8 --style=ansi --add-brackets --indent-switches --indent-classes --indent-preprocessor --convert-tabs --break-blocks --pad-oper --pad-paren-in --pad-header --unpad-paren --align-pointer=name $^ platform_*/*.h #HACK
 
-CC = gcc
+CC = gcc -W -Wall
 
 native: $(SRCS) $(SRCS_NATIVE)
 	$(CC) -g -o $@ $^ -Iplatform_native
