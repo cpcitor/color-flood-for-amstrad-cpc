@@ -10,6 +10,8 @@ main()
 {
         dbglog( "In C" NL );
 
+        cf_platform_init();
+
         model.playerCount = 2;
 
         {
@@ -17,8 +19,8 @@ main()
 
                 for ( size = 1; size <= CF_MAXGRIDSIZE; size++ )
                 {
-                        dbglog( "Will draw " );
-                        pause();
+                        //dbglogf( "Next %d", size );
+                        //pause();
 
                         model.grid.dimensions.row = size;
                         model.grid.dimensions.col = model.grid.dimensions.row;
@@ -28,8 +30,8 @@ main()
                         cf_model_draw( &model );
                 }
 
-                dbglog( "drawn" NL );
-                pause();
+                //dbglog( "drawn" NL );
+                //pause();
         }
 
         dbglog( "Returning..." NL );

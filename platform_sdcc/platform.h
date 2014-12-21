@@ -20,4 +20,6 @@ typedef signed short sint16_t;
 
 #include "screen.h"
 
+void cf_platform_init();
+
 #endif /* __PLATFORM_H__ */

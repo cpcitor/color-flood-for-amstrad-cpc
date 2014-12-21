@@ -13,4 +13,6 @@ typedef signed char sint8_t;
 //#define assert(...)
 #include <assert.h>
 
+#define cf_platform_init(...) (void)0
+
 #endif /* __PLATFORM_H__ */
