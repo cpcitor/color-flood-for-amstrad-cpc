@@ -40,6 +40,26 @@ void cf_cell_draw_12( uint8_t row, uint8_t col, cf_cellState_t const state )
         }
 }
 
+void cf_cell_draw_16( uint8_t row, uint8_t col, cf_cellState_t const state )
+{
+        uint8_t value = state2byte[state];
+        {
+                static const int bytes_per_cell_width = 3;
+                uint8_t *pos_this_sel = line_to_ptr[row * 12] + cf_grid_byte_offset_from_screen_start + col * bytes_per_cell_width;
+                uint8_t *pos_local;
+                uint8_t this_cell_row_i;
+
+                for ( this_cell_row_i = 0; this_cell_row_i < 12; this_cell_row_i++ )
+                {
+                        pos_local = pos_this_sel;
+                        draw_one_byte();
+                        draw_one_byte();
+                        draw_one_byte();
+                        screen_next_line( pos_this_sel );
+                }
+        }
+}
+
 void cf_cell_draw_24( uint8_t row, uint8_t col, cf_cellState_t const state )
 {
         uint8_t value = state2byte[state];
@@ -65,13 +85,20 @@ void cf_grid_draw( const cf_grid_t *const grid )
 
         cell_draw_function *cdf;
 
-        if ( ( grid->dimensions.row > 12 ) || ( grid->dimensions.col > 12 ) )
+        if ( ( grid->dimensions.row > 16 ) || ( grid->dimensions.col > 16 ) )
         {
                 cdf = cf_cell_draw_24;
         }
         else
         {
-                cdf = cf_cell_draw_12;
+                if ( ( grid->dimensions.row > 12 ) || ( grid->dimensions.col > 12 ) )
+                {
+                        cdf = cf_cell_draw_16;
+                }
+                else
+                {
+                        cdf = cf_cell_draw_12;
+                }
         }
 
         while ( --row >= 0 )
