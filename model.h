@@ -3,9 +3,9 @@
 
 #include "platform.h"
 
-#define CF_STATECOUNT 6
-#define CF_MAXPLAYERCOUNT 4
-#define CF_MAXGRIDSIZE 24
+enum { CF_STATECOUNT = 6 };
+enum { CF_MAXPLAYERCOUNT = 4 };
+enum { CF_MAXGRIDSIZE = 24 };
 
 typedef struct cf_coordinates_t
 {
