@@ -3,7 +3,8 @@
 
 #include <stdio.h>
 
-#define dbglog(...) fprintf(stderr, __VA_ARGS__);
+#define dbglog(msg) fprintf(stderr, "%s", msg);
+#define dbglogf(...) fprintf(stderr, __VA_ARGS__);
 #define NL "\012"
 
 typedef unsigned char uint8_t;

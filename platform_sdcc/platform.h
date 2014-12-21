@@ -1,10 +1,12 @@
 #ifndef __PLATFORM_H__
 #define __PLATFORM_H__
 
+#include <stdio.h>
+
 #include <cfwi/cfwi.h>
 
 #define dbglog(str) cfwi_txt_str0_output(str)
-//#define dbglogf(...) printf(__VA_ARGS__) // looks like SDCC's printf introduces bugs in program...
+#define dbglogf(...) printf(__VA_ARGS__) // looks like SDCC's printf introduces bugs in program...
 #define NL "\015\012"
 
 /* SDCC types */
