@@ -41,7 +41,7 @@ void cf_model_init( cf_model_t *const this_model )
                 iph++;
 
                 {
-                        int maxRowCol = CF_MAXGRIDSIZE - 1;
+                        uint8_t maxRowCol = CF_MAXGRIDSIZE - 1;
 
                         if ( this_model->playerCount >= 3 )
                         {

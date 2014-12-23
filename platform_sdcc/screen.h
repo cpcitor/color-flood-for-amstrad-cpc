@@ -12,8 +12,8 @@ enum { screen_line_count = 200 };
 extern uint8_t *line_to_ptr[screen_line_count];
 
 /* WARNING: Only works for screen at 0xC000, other cases would need two tests. */
-#define screen_write(ptr, value) do { assert(((unsigned int)ptr)>=0xc000); *ptr = value ; } while (0)
-/* #define screen_write(ptr, value) do { assert(((unsigned int)ptr)>=((uint16_t)screen)); *ptr = value ; } while (0) */
+#define screen_write(ptr, value) do { assert(((uint16_t)ptr)>=0xc000); *ptr = value ; } while (0)
+/* #define screen_write(ptr, value) do { assert(((unsigned uint16_t)ptr)>=((uint16_t)screen)); *ptr = value ; } while (0) */
 
 #define screen_next_line(ptr) do { ptr += line_stride; if ((uint16_t)ptr<0xC000) { ptr = ptr - 8 * line_stride + char_stride; } } while (0)
 
