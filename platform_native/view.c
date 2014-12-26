@@ -13,27 +13,29 @@ void cf_grid_dump( const cf_grid_t *const this_grid )
         assert( this_grid->dimensions.row <= CF_MAXGRIDSIZE );
         assert( this_grid->dimensions.col <= CF_MAXGRIDSIZE );
 
-        fprintf( stderr, "[\n" );
+        fprintf( stderr, "cf_grid_t grid = { .dimensions = { .row = %d, .col= %d }, .cell = {\n",
+                 this_grid->dimensions.row,
+                 this_grid->dimensions.col );
         {
                 uint8_t row;
 
                 for ( row = 0; row < this_grid->dimensions.row; row++ )
                 {
                         uint8_t col;
-                        fprintf( stderr, "[ " );
+                        fprintf( stderr, "{ " );
 
                         for ( col = 0; col < this_grid->dimensions.col; col++ )
                         {
                                 {
-                                        fprintf( stderr, "%d ", this_grid->cell[row][col] );
+                                        fprintf( stderr, "%d, ", this_grid->cell[row][col] );
 
                                 }
                         }
 
-                        fprintf( stderr, "]\n" );
+                        fprintf( stderr, "},\n" );
                 }
 
-                fprintf( stderr, "]\n" );
+                fprintf( stderr, "} };\n" );
         }
 }
 
