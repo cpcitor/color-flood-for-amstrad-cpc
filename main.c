@@ -3,8 +3,6 @@
 #include "view.h"
 #include "platform_ui.h"
 
-static cf_model_t model;
-
 int
 main()
 {

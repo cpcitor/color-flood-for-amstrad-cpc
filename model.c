@@ -2,6 +2,8 @@
 
 #include "stdio.h"
 
+cf_model_t model;
+
 void cf_grid_init( cf_grid_t *const this_grid )
 {
         assert( this_grid->dimensions.row <= CF_MAXGRIDSIZE );

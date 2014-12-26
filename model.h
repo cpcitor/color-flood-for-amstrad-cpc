@@ -31,6 +31,8 @@ typedef struct cf_model_t
         cf_player_i nextPlayer;
 } cf_model_t;
 
+extern cf_model_t model;
+
 void cf_grid_init( cf_grid_t *this_grid );
 
 /** Initialize fields first ! */
