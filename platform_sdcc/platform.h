@@ -11,11 +11,8 @@
 #define platform_print_formatted_string(...) printf(__VA_ARGS__)
 #define NL "\015\012"
 
-/* SDCC types */
-typedef unsigned char uint8_t;
-typedef signed char sint8_t;
-typedef unsigned short uint16_t;
-typedef signed short sint16_t;
+
+#include <stdint.h>
 
 //#define assert(...)
 #include "sg_assert.h"

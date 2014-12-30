@@ -81,7 +81,7 @@ void cf_cell_draw_24( uint8_t row, uint8_t col, cf_cellState_t const state )
 
 void cf_grid_draw( const cf_grid_t *const grid )
 {
-        sint8_t row = grid->dimensions.row;
+        int8_t row = grid->dimensions.row;
 
         cell_draw_function *cdf;
 
@@ -103,7 +103,7 @@ void cf_grid_draw( const cf_grid_t *const grid )
 
         while ( --row >= 0 )
         {
-                sint8_t col = grid->dimensions.col;
+                int8_t col = grid->dimensions.col;
 
                 while ( --col >= 0 )
                 {

@@ -17,11 +17,11 @@ void cf_grid_init( cf_grid_t *const this_grid )
         assert( this_grid->dimensions.col <= CF_MAXGRIDSIZE );
 
         {
-                sint8_t row = this_grid->dimensions.row;
+                int8_t row = this_grid->dimensions.row;
 
                 while ( --row >= 0 )
                 {
-                        sint8_t col = this_grid->dimensions.col;
+                        int8_t col = this_grid->dimensions.col;
 
                         //printf( "\r\nr=%d", row );
 
@@ -80,7 +80,7 @@ void cf_model_init( cf_model_t *const this_model )
                 ((cellState==to_process)?false:\
                  true))
 
-void walkTillObstacle( cf_grid_t *this_grid, uint8_t row, uint8_t col, cf_cellState_t oldState, cf_cellState_t newState, sint8_t direction )
+void walkTillObstacle( cf_grid_t *this_grid, uint8_t row, uint8_t col, cf_cellState_t oldState, cf_cellState_t newState, int8_t direction )
 {
         silmark();
         dbgvar_d( row );
@@ -123,7 +123,7 @@ void walkTillObstacle( cf_grid_t *this_grid, uint8_t row, uint8_t col, cf_cellSt
                 }
 
                 {
-                        sint8_t newCol = col + direction;
+                        int8_t newCol = col + direction;
 
                         dbgvar_d( newCol );
                         dbglog_nl();
@@ -180,11 +180,11 @@ uint16_t fillColor( cf_grid_t *this_grid,
                 {
                         foundPointsToProcess = 0;
                         {
-                                sint8_t row = this_grid->dimensions.row;
+                                int8_t row = this_grid->dimensions.row;
 
                                 while ( --row >= 0 )
                                 {
-                                        sint8_t col = this_grid->dimensions.col;
+                                        int8_t col = this_grid->dimensions.col;
 
                                         while ( --col >= 0 )
                                         {
@@ -214,11 +214,11 @@ uint16_t fillColor( cf_grid_t *this_grid,
         {
                 uint16_t newArea = 0;
 
-                sint8_t row = this_grid->dimensions.row;
+                int8_t row = this_grid->dimensions.row;
 
                 while ( --row >= 0 )
                 {
-                        sint8_t col = this_grid->dimensions.col;
+                        int8_t col = this_grid->dimensions.col;
 
                         while ( --col >= 0 )
                         {

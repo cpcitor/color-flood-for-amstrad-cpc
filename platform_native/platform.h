@@ -9,9 +9,7 @@
 #define platform_print_formatted_string(...) fprintf(stderr, __VA_ARGS__)
 #define NL "\012"
 
-typedef unsigned char uint8_t;
-typedef signed char sint8_t;
-typedef unsigned short uint16_t;
+#include <stdint.h>
 
 //#define assert(...)
 #include <assert.h>
