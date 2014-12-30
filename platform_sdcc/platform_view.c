@@ -123,5 +123,4 @@ void cf_grid_draw( const cf_grid_t *const grid )
 void cf_model_draw( const cf_model_t *const model )
 {
         cf_grid_draw( &model->grid );
-        cf_pause();
 }
