@@ -1,4 +1,5 @@
 #include "platform.h"
+#include "platform_ui.h"
 #include "../model.h"
 
 #include "stdio.h"
