@@ -77,9 +77,8 @@ void cf_model_init( cf_model_t *const this_model )
 }
 
 #define isObstacle(cellState, oldState, newState) ((cellState==oldState)?false:\
-                ((cellState==newState)?false:\
-                 ((cellState==to_process)?false:\
-                  true)))
+                ((cellState==to_process)?false:\
+                 true))
 
 void walkTillObstacle( cf_grid_t *this_grid, uint8_t row, uint8_t col, cf_cellState_t oldState, cf_cellState_t newState, sint8_t direction )
 {
