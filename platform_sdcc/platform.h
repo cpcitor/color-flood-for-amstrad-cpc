@@ -1,12 +1,23 @@
 #ifndef __PLATFORM_H__
 #define __PLATFORM_H__
 
+/* PLATFORM SDCC */
+
 #include <stdio.h>
 
 #include <cfwi/cfwi.h>
 
-#define dbglog(str) cfwi_txt_str0_output(str)
-#define dbglogf(...) printf(__VA_ARGS__) // looks like SDCC's printf introduces bugs in program...
+#define dbglog(msg) cfwi_txt_str0_output(msg)
+#define dbglogf(...) printf(__VA_ARGS__)
+#define dbgvar(VARNAME, FORMAT) dbglogf(#VARNAME "=" FORMAT NL, VARNAME);
+#define dbgvar_d(VARNAME) dbgvar(VARNAME, "%d");
+#define dbgvar_s(VARNAME) dbgvar(VARNAME, "%s");
+#define dbglog_nl() dbglog(NL);
+
+#define silmark()
+#define silmark_end()
+#define silmsg(...) silmark(); printf(__VA_ARGS__)
+#define silvar(VARNAME, FORMAT) silmsg(#VARNAME "= " #FORMAT NL, VARNAME);
 #define NL "\015\012"
 
 /* SDCC types */
