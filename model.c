@@ -8,6 +8,7 @@
 #include "platform_view.h"
 
 #include "stdio.h"
+#include "stdlib.h" //rand()
 
 cf_model_t global_model;
 
@@ -27,7 +28,7 @@ void cf_grid_init( cf_grid_t *const this_grid )
 
                         while ( --col >= 0 )
                         {
-                                cf_cellState_t state = ( row * col ) % CF_COLORCOUNT;
+                                cf_cellState_t state = rand() % CF_COLORCOUNT; // not exactly uniform but anyway
                                 this_grid->cell[row][col] = state;
                                 //printf( " c=%d", col );
 
