@@ -3,6 +3,6 @@
 
 #include "model.h"
 
-void model_test_fill();
+void model_test_all();
 
 #endif /* __MODEL_TEST_H__ */

@@ -108,8 +108,27 @@ void model_test_fill_fork()
         CDTC_ON_DEBUGLEVEL_GREATER_THAN( 1, cf_pause() );
 }
 
-void model_test_fill()
+void model_test_grid_sizes()
+{
+        uint8_t size;
+
+        for ( size = 1; size <= CF_MAXGRIDSIZE; size++ )
+        {
+                //dbglogf( "Next %d", size );
+                //cf_pause();
+
+                global_model.grid.dimensions.row = size;
+                global_model.grid.dimensions.col = global_model.grid.dimensions.row;
+
+                cf_model_init( &global_model );
+
+                cf_model_draw( &global_model );
+        }
+}
+
+void model_test_all()
 {
         model_test_fill_22();
         model_test_fill_fork();
+        model_test_grid_sizes();
 }
