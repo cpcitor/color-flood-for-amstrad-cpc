@@ -1,4 +1,4 @@
-localproject: astyle dsk2 native
+localproject: astyle cf2.dsk native
 
 SRCS := $(wildcard *.c)
 SRCS_NATIVE := $(wildcard platform_native/*.c)
