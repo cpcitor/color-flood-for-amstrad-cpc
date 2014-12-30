@@ -21,7 +21,7 @@ main()
                 for ( size = 1; size <= CF_MAXGRIDSIZE; size++ )
                 {
                         //dbglogf( "Next %d", size );
-                        //pause();
+                        //cf_pause();
 
                         model.grid.dimensions.row = size;
                         model.grid.dimensions.col = model.grid.dimensions.row;
@@ -32,7 +32,7 @@ main()
                 }
 
                 //dbglog( "drawn" NL );
-                //pause();
+                //cf_pause();
         }
 
         dbglog( "Returning..." NL );

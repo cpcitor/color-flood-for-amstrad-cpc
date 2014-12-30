@@ -2,7 +2,7 @@
 
 #include "platform.h"
 
-void pause()
+void cf_pause()
 {
         cfwi_txt_str0_output( "(key?" );
         fw_km_wait_key();
