@@ -5,27 +5,117 @@
 
 #include <platform.h> // defines NL platform_print_formatted_string and platform_print_plain_string
 
-#define dbglog(msg) platform_print_plain_string(msg)
-#define dbglogf(...) platform_print_formatted_string(__VA_ARGS__)
 
-#define dbgvar(VARNAME, FORMAT) dbglogf(#VARNAME "=" FORMAT " ", VARNAME);
-#define dbgvar_d(VARNAME) dbgvar(VARNAME, "%d");
-#define dbgvar_s(VARNAME) dbgvar(VARNAME, "%s");
-#define dbglog_nl() dbglog(NL);
+#ifdef CF_DEBUGLEVEL
+
+#if CF_DEBUGLEVEL >= 9
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_9(...) __VA_ARGS__
+#else
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_9(...)
+#endif
+
+#if CF_DEBUGLEVEL >= 8
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_8(...) __VA_ARGS__
+#else
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_8(...)
+#endif
+
+#if CF_DEBUGLEVEL >= 7
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_7(...) __VA_ARGS__
+#else
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_7(...)
+#endif
+
+#if CF_DEBUGLEVEL >= 6
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_6(...) __VA_ARGS__
+#else
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_6(...)
+#endif
+
+#if CF_DEBUGLEVEL >= 5
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_5(...) __VA_ARGS__
+#else
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_5(...)
+#endif
+
+#if CF_DEBUGLEVEL >= 4
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_4(...) __VA_ARGS__
+#else
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_4(...)
+#endif
+
+#if CF_DEBUGLEVEL >= 3
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_3(...) __VA_ARGS__
+#else
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_3(...)
+#endif
+
+#if CF_DEBUGLEVEL >= 2
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_2(...) __VA_ARGS__
+#else
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_2(...)
+#endif
+
+#if CF_DEBUGLEVEL >= 1
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_1(...) __VA_ARGS__
+#else
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_1(...)
+#endif
+
+#if CF_DEBUGLEVEL >= 0
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_0(...) __VA_ARGS__
+#else
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_0(...)
+#endif
+
+#else /* CF_DEBUGLEVEL */
+
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_9(...)
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_8(...)
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_7(...)
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_6(...)
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_5(...)
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_4(...)
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_3(...)
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_2(...)
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_1(...)
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN_0(...)
+
+#endif /* CF_DEBUGLEVEL */
+
+
+
+#define CDTC_ON_DEBUGLEVEL_GREATER_THAN(LOGLEVEL, ...) CDTC_ON_DEBUGLEVEL_GREATER_THAN_ ## LOGLEVEL (__VA_ARGS__)
+
+#define dbglog_unconditional(msg) platform_print_plain_string(msg)
+#define dbglogf_unconditional(...) platform_print_formatted_string(__VA_ARGS__)
+
+#define dbglogf(LOGLEVEL, FORMAT, ...) CDTC_ON_DEBUGLEVEL_GREATER_THAN_ ## LOGLEVEL ( dbglogf_unconditional( FORMAT, ##__VA_ARGS__) )
+#define dbglog(LOGLEVEL, MSG) CDTC_ON_DEBUGLEVEL_GREATER_THAN_ ## LOGLEVEL ( dbglog_unconditional( MSG ) )
+
+#define dbgvar(LOGLEVEL, VARNAME, FORMAT) dbglogf(LOGLEVEL, #VARNAME "=" FORMAT " ", VARNAME)
+#define dbgvar_d(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%d")
+#define dbgvar_s(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%s")
+#define dbglog_nl(LOGLEVEL) dbglog(LOGLEVEL, NL)
 
 #ifdef __GNUC__
 
-#define silmark() platform_print_formatted_string( NL "== in %s ==\t", __PRETTY_FUNCTION__)
-#define silmark_end() platform_print_formatted_string( NL "== quitting %s ==\t", __PRETTY_FUNCTION__)
-#define silmsg(...) platform_print_formatted_string( NL "%s: ", __PRETTY_FUNCTION__); platform_print_formatted_string( __VA_ARGS__); platform_print_formatted_string( NL);
-#define silvar(VARNAME, FORMAT) silmsg(#VARNAME "= " #FORMAT NL, VARNAME);
+#define silmark(LOGLEVEL) dbglogf( LOGLEVEL, NL "== in %s ==\t", __PRETTY_FUNCTION__)
+#define silmark_end(LOGLEVEL) dbglogf( LOGLEVEL, NL "== quitting %s ==\t", __PRETTY_FUNCTION__)
+
+#define silmsg(LOGLEVEL, FORMAT, ...) \
+        dbglogf( LOGLEVEL, NL "%s: ", __PRETTY_FUNCTION__); \
+        dbglogf( LOGLEVEL, FORMAT, ##__VA_ARGS__);      \
+        dbglog( LOGLEVEL, NL)
+
+#define silvar(LOGLEVEL, VARNAME, FORMAT) silmsg(#VARNAME "= " #FORMAT NL, VARNAME)
 
 #else /* __GNUC__ */
 
-#define silmark()
-#define silmark_end()
-#define silmsg(...) silmark(); platform_print_formatted_string(__VA_ARGS__)
-#define silvar(VARNAME, FORMAT) silmsg(#VARNAME "= " #FORMAT NL, VARNAME);
+#define silmark(LOGLEVEL)
+#define silmark_end(LOGLEVEL)
+#define silmsg(LOGLEVEL, FORMAT, ...) dbglogf(LOGLEVEL, FORMAT, ##__VA_ARGS__ )
+#define silvar(LOGLEVEL, VARNAME, FORMAT) silmsg(#VARNAME "= " #FORMAT NL, VARNAME)
 
 #endif /* __GNUC__ */
 

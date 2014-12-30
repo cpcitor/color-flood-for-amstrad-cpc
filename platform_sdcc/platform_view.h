@@ -1,6 +1,7 @@
 #ifndef __PLATFORM_VIEW_H__
 #define __PLATFORM_VIEW_H__
 
+#include "../model.h"
 #include "screen.h"
 
 #define cf_model_dump(...)

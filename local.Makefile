@@ -11,7 +11,7 @@ astyle: $(wildcard *.c */*.c *.h */*.h)
 CC = gcc -W -Wall
 
 native: $(SRCS) $(SRCS_NATIVE)
-	$(CC) -g -o $@ $^ -Iplatform_native
+	$(CC) $(CFLAGS) -g -o $@ $^ -Iplatform_native
 
 
 cf2.dsk: platform_sdcc/cf.bas dsk $(CDTC_ENV_FOR_CPCXFS)

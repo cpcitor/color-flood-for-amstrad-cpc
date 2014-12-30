@@ -5,9 +5,7 @@
 
 #include <stdio.h>
 
-#include <cfwi/cfwi.h>
-
-#define platform_print_plain_string(msg) cfwi_txt_str0_output(msg)
+#define platform_print_plain_string(msg) puts(msg)
 #define platform_print_formatted_string(...) printf(__VA_ARGS__)
 #define NL "\015\012"
 

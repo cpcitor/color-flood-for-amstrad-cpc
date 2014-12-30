@@ -80,57 +80,55 @@ void cf_model_init( cf_model_t *const this_model )
                 ((cellState==to_process)?false:\
                  true))
 
-void walkTillObstacle( cf_grid_t *this_grid, uint8_t row, uint8_t col, cf_cellState_t oldState, cf_cellState_t newState, int8_t direction )
+void walkTillObstacle( cf_grid_t *this_grid, uint8_t row, uint8_t col, cf_cellState_t oldState, cf_cellState_t onewState, int8_t direction )
 {
-        silmark();
-        dbgvar_d( row );
-        dbgvar_d( col );
-        dbgvar_d( direction );
-        dbglog_nl();
+        silmark( 2 );
+        dbgvar_d( 3, row );
+        dbgvar_d( 3, col );
+        dbgvar_d( 3, direction );
+        dbglog_nl( 3 );
 
-        cf_grid_draw( this_grid );
+        CDTC_ON_DEBUGLEVEL_GREATER_THAN( 3, cf_grid_draw( this_grid ) );
 
         do
         {
                 this_grid->cell[row][col] = processed;
 
-                silmsg( "marking %d,%d processed", row, col );
-                dbgvar_d( col );
-                dbglog_nl();
+                silmsg( 3, "marking %d,%d processed", row, col );
 
                 if ( row > 0 )
                 {
                         cf_cellState_t localStateNorth = this_grid->cell[row - 1][col];
-                        dbgvar_d( localStateNorth );
+                        dbgvar_d( 4, localStateNorth );
 
                         if ( !isObstacle( localStateNorth, oldState, newState ) )
                         {
                                 this_grid->cell[row - 1][col] = to_process;
-                                silmsg( "marking %d,%d to_process", row, col );
+                                silmsg( 3, "marking %d,%d to_process", row, col );
                         }
                 }
 
                 if ( row < this_grid->dimensions.row - 1 )
                 {
                         cf_cellState_t localStateSouth = this_grid->cell[row + 1][col];
-                        dbgvar_d( localStateSouth );
+                        dbgvar_d( 4, localStateSouth );
 
                         if ( !isObstacle( localStateSouth, oldState, newState ) )
                         {
                                 this_grid->cell[row + 1][col] = to_process;
-                                silmsg( "marking %d,%d to_process", row, col );
+                                silmsg( 3, "marking %d,%d to_process", row, col );
                         }
                 }
 
                 {
                         int8_t newCol = col + direction;
 
-                        dbgvar_d( newCol );
-                        dbglog_nl();
+                        dbgvar_d( 4, newCol );
+                        dbglog_nl( 4 );
 
                         if ( newCol < 0 )
                         {
-                                silmsg( "newCol < 0, exiting" );
+                                silmsg( 3, "newCol < 0, exiting" );
                                 return;
                         }
 
@@ -140,13 +138,13 @@ void walkTillObstacle( cf_grid_t *this_grid, uint8_t row, uint8_t col, cf_cellSt
                         }
 
                         col = newCol;
-                        dbgvar_d( col );
-                        dbglog_nl();
+                        dbgvar_d( 4, col );
+                        dbglog_nl( 4 );
                 }
 
                 {
                         cf_cellState_t localState = this_grid->cell[row][col];
-                        dbgvar_d( localState );
+                        dbgvar_d( 4, localState );
 
                         if ( isObstacle( localState, oldState, newState ) )
                         {
@@ -163,12 +161,12 @@ uint16_t fillColor( cf_grid_t *this_grid,
                     cf_cellState_t oldState,
                     cf_cellState_t newState )
 {
-        silmark();
-        dbgvar_d( startRow );
-        dbgvar_d( startCol );
-        dbglog_nl();
+        silmark( 1 );
+        dbgvar_d( 2, startRow );
+        dbgvar_d( 2, startCol );
+        dbglog_nl( 2 );
 
-        cf_grid_draw( this_grid );
+        CDTC_ON_DEBUGLEVEL_GREATER_THAN( 2, cf_grid_draw( this_grid ) );
 
         this_grid->cell[startRow][startCol] = to_process;
 
@@ -207,7 +205,7 @@ uint16_t fillColor( cf_grid_t *this_grid,
                 // Could be optimized for speed by not looping all grid each time.
         }
 
-        cf_grid_draw( this_grid );
+        CDTC_ON_DEBUGLEVEL_GREATER_THAN( 2, cf_grid_draw( this_grid ) );
 
         //Second pass: mark processed to newstate and count them.
 
@@ -232,8 +230,8 @@ uint16_t fillColor( cf_grid_t *this_grid,
                         }
                 }
 
-                cf_grid_draw( this_grid );
-                silmsg( "== return %d ==" NL, newArea );
+                CDTC_ON_DEBUGLEVEL_GREATER_THAN( 2, cf_grid_draw( this_grid ) );
+                silmsg( 2, "== return %d ==" NL, newArea );
 
                 return newArea;
         }

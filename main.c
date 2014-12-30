@@ -8,7 +8,7 @@
 int
 main()
 {
-        dbglog( "In C" NL );
+        dbglog( 0, "In C" NL );
 
         cf_platform_init();
 
@@ -36,6 +36,6 @@ main()
                 //cf_pause();
         }
 
-        silmsg( "Returning." );
+        silmsg( 0, "Returning to BASIC." );
         return 0;
 }
