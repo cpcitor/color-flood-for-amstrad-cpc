@@ -3,7 +3,6 @@
 
 #include "platform.h"
 
-enum { CF_STATECOUNT = 6 };
 enum { CF_MAXPLAYERCOUNT = 4 };
 enum { CF_MAXGRIDSIZE = 24 };
 
@@ -13,7 +12,18 @@ typedef struct cf_coordinates_t
         uint8_t col;
 } cf_coordinates_t;
 
-typedef int cf_cellState_t;
+typedef enum cf_cellState_t
+{
+        red = 0,
+        yellow = 1,
+        green = 2,
+        cyan = 3,
+        blue = 4,
+        magenta = 5,
+        CF_STATECOUNT,
+        to_process = CF_STATECOUNT,
+        processed
+} cf_cellState_t;
 
 typedef struct cf_grid_t
 {
