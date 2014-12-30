@@ -70,5 +70,12 @@ void cf_model_dump( const cf_model_t *const this_model )
 
 void cf_model_draw( cf_model_t *const this_model )
 {
-        cf_model_dump( this_model );
+        ( void ) this_model;
+        // SDCC platform draw the grid, native code only dumps text.
+        //cf_model_dump( this_model );
+}
+
+void cf_grid_draw( const cf_grid_t *const this_grid )
+{
+        cf_grid_dump( this_grid );
 }
