@@ -14,9 +14,12 @@ native: $(SRCS) $(SRCS_NATIVE)
 	$(CC) -g -o $@ $^ -Iplatform_native
 
 
-dsk2: platform_sdcc/cf.bas dsk $(CDTC_ENV_FOR_IDSK)
-	( source $(CDTC_ENV_FOR_IDSK) ; \
-	iDSK cf.dsk -f -i $< -t 0 ; \
+cf2.dsk: platform_sdcc/cf.bas dsk $(CDTC_ENV_FOR_CPCXFS)
+	( source $(CDTC_ENV_FOR_CPCXFS) ; \
+	set -eu ; \
+	cp cf.dsk $@.tmp ; \
+	cpcxfs $@.tmp -f -t -p $< ; \
+	mv -vf $@.tmp $@ ; \
 	)
 
 clean-native:
