@@ -1,4 +1,5 @@
 #include "platform.h"
+#include "log.h"
 #include "model.h"
 #include "model_test.h"
 #include "view.h"

@@ -1,5 +1,7 @@
 #include <stdbool.h>
 
+#include "log.h"
+
 #include "model.h"
 
 #include "platform.h"

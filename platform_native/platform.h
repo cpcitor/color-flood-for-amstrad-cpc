@@ -5,17 +5,8 @@
 
 #include <stdio.h>
 
-#define dbglog(msg) fprintf(stderr, "%s", msg)
-#define dbglogf(...) fprintf(stderr, __VA_ARGS__)
-#define dbgvar(VARNAME, FORMAT) dbglogf(#VARNAME "=" FORMAT " ", VARNAME);
-#define dbgvar_d(VARNAME) dbgvar(VARNAME, "%d");
-#define dbgvar_s(VARNAME) dbgvar(VARNAME, "%s");
-#define dbglog_nl() dbglog(NL);
-
-#define silmark() fprintf(stderr, NL "== in %s ==\t", __PRETTY_FUNCTION__)
-#define silmark_end() fprintf(stderr, NL "== quitting %s ==\t", __PRETTY_FUNCTION__)
-#define silmsg(...) fprintf(stderr, NL "%s: ", __PRETTY_FUNCTION__); fprintf(stderr, __VA_ARGS__); fprintf(stderr, NL);
-#define silvar(VARNAME, FORMAT) silmsg(#VARNAME "= " #FORMAT NL, VARNAME);
+#define platform_print_plain_string(msg) fprintf(stderr, "%s", msg)
+#define platform_print_formatted_string(...) fprintf(stderr, __VA_ARGS__)
 #define NL "\012"
 
 typedef unsigned char uint8_t;
