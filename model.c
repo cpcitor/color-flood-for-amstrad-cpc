@@ -3,6 +3,7 @@
 #include "model.h"
 
 #include "platform.h"
+#include "platform_view.h"
 
 #include "stdio.h"
 
@@ -80,35 +81,55 @@ void cf_model_init( cf_model_t *const this_model )
 
 void walkTillObstacle( cf_grid_t *this_grid, uint8_t row, uint8_t col, cf_cellState_t oldState, cf_cellState_t newState, sint8_t direction )
 {
+        silmark();
+        dbgvar_d( row );
+        dbgvar_d( col );
+        dbgvar_d( direction );
+        dbglog_nl();
+
+        cf_grid_draw( this_grid );
+
         do
         {
                 this_grid->cell[row][col] = processed;
 
+                silmsg( "marking %d,%d processed", row, col );
+                dbgvar_d( col );
+                dbglog_nl();
+
                 if ( row > 0 )
                 {
                         cf_cellState_t localStateNorth = this_grid->cell[row - 1][col];
+                        dbgvar_d( localStateNorth );
 
                         if ( !isObstacle( localStateNorth, oldState, newState ) )
                         {
                                 this_grid->cell[row - 1][col] = to_process;
+                                silmsg( "marking %d,%d to_process", row, col );
                         }
                 }
 
                 if ( row < this_grid->dimensions.row - 1 )
                 {
                         cf_cellState_t localStateSouth = this_grid->cell[row + 1][col];
+                        dbgvar_d( localStateSouth );
 
                         if ( !isObstacle( localStateSouth, oldState, newState ) )
                         {
                                 this_grid->cell[row + 1][col] = to_process;
+                                silmsg( "marking %d,%d to_process", row, col );
                         }
                 }
 
                 {
                         sint8_t newCol = col + direction;
 
+                        dbgvar_d( newCol );
+                        dbglog_nl();
+
                         if ( newCol < 0 )
                         {
+                                silmsg( "newCol < 0, exiting" );
                                 return;
                         }
 
@@ -117,13 +138,18 @@ void walkTillObstacle( cf_grid_t *this_grid, uint8_t row, uint8_t col, cf_cellSt
                                 return;
                         }
 
-                        {
-                                cf_cellState_t localState = this_grid->cell[row][newCol];
+                        col = newCol;
+                        dbgvar_d( col );
+                        dbglog_nl();
+                }
 
-                                if isObstacle( localState, oldState, newState )
-                                {
-                                        return;
-                                }
+                {
+                        cf_cellState_t localState = this_grid->cell[row][col];
+                        dbgvar_d( localState );
+
+                        if ( isObstacle( localState, oldState, newState ) )
+                        {
+                                return;
                         }
                 }
         }
@@ -136,31 +162,41 @@ uint16_t fillColor( cf_grid_t *this_grid,
                     cf_cellState_t oldState,
                     cf_cellState_t newState )
 {
+        silmark();
+        dbgvar_d( startRow );
+        dbgvar_d( startCol );
+        dbglog_nl();
+
+        cf_grid_draw( this_grid );
+
         this_grid->cell[startRow][startCol] = to_process;
 
         // First pass: mark to_process and processed.
         {
-                uint8_t foundPointsToProcess = 0;
+                uint8_t foundPointsToProcess;
 
                 do
                 {
-                        sint8_t row = this_grid->dimensions.row;
-
-                        while ( --row >= 0 )
+                        foundPointsToProcess = 0;
                         {
-                                sint8_t col = this_grid->dimensions.col;
+                                sint8_t row = this_grid->dimensions.row;
 
-                                while ( --col >= 0 )
+                                while ( --row >= 0 )
                                 {
-                                        cf_cellState_t localState = this_grid->cell[row][col];
+                                        sint8_t col = this_grid->dimensions.col;
 
-                                        if ( localState == to_process )
+                                        while ( --col >= 0 )
                                         {
-                                                foundPointsToProcess = true;
-                                                this_grid->cell[row][col] = processed;
+                                                cf_cellState_t localState = this_grid->cell[row][col];
 
-                                                walkTillObstacle( this_grid, row, col, oldState, newState, 1 );
-                                                walkTillObstacle( this_grid, row, col, oldState, newState, -1 );
+                                                if ( localState == to_process )
+                                                {
+                                                        foundPointsToProcess = true;
+                                                        this_grid->cell[row][col] = processed;
+
+                                                        walkTillObstacle( this_grid, row, col, oldState, newState, 1 );
+                                                        walkTillObstacle( this_grid, row, col, oldState, newState, -1 );
+                                                }
                                         }
                                 }
                         }
@@ -169,6 +205,8 @@ uint16_t fillColor( cf_grid_t *this_grid,
 
                 // Could be optimized for speed by not looping all grid each time.
         }
+
+        cf_grid_draw( this_grid );
 
         //Second pass: mark processed to newstate and count them.
 
@@ -193,12 +231,15 @@ uint16_t fillColor( cf_grid_t *this_grid,
                         }
                 }
 
+                cf_grid_draw( this_grid );
+                silmsg( "== return %d ==" NL, newArea );
+
                 return newArea;
         }
 }
 
 /** Return value: 0 if okay, 1+playerindex if color chosen was same as playerindex' current color. */
-uint8_t play( cf_model_t *const this_model, cf_cellState_t const newState )
+uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newState )
 {
         uint8_t iplayer = this_model->nextPlayer;
         // FIXME check if color is different from any player's current color.

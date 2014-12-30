@@ -49,6 +49,6 @@ void cf_grid_init( cf_grid_t *this_grid );
 /** Initialize fields first ! */
 void cf_model_init( cf_model_t *this_model );
 
-uint8_t play( cf_model_t *const thisModel, cf_cellState_t const newState );
+uint8_t cf_model_play( cf_model_t *const thisModel, cf_cellState_t const newState );
 
 #endif /* __MODEL_H__ */

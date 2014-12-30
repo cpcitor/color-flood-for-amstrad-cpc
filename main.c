@@ -1,6 +1,6 @@
 #include "platform.h"
 #include "model.h"
-//#include "model_test.h"
+#include "model_test.h"
 #include "view.h"
 #include "platform_ui.h"
 
@@ -35,6 +35,6 @@ main()
                 //cf_pause();
         }
 
-        dbglog( "Returning..." NL );
+        silmsg( "Returning." );
         return 0;
 }
