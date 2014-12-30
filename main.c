@@ -1,5 +1,6 @@
 #include "platform.h"
 #include "model.h"
+//#include "model_test.h"
 #include "view.h"
 #include "platform_ui.h"
 
@@ -11,6 +12,8 @@ main()
         cf_platform_init();
 
         model.playerCount = 2;
+
+        model_test_fill();
 
         {
                 uint8_t size;

@@ -1,4 +1,8 @@
+#include <stdbool.h>
+
 #include "model.h"
+
+#include "platform.h"
 
 #include "stdio.h"
 
@@ -32,8 +36,12 @@ void cf_grid_init( cf_grid_t *const this_grid )
 void cf_model_init( cf_model_t *const this_model )
 {
         assert( this_model->playerCount < CF_MAXPLAYERCOUNT );
+        //assert( processed >= CF_STATECOUNT );
+        //assert( to_process >= CF_STATECOUNT );
 
         cf_grid_init( &( this_model->grid ) );
+
+        // FIXME initialize domainAreas[iplayer]
 
         {
                 cf_coordinates_t *iph = &( this_model->playerHomes[0] );
@@ -65,8 +73,149 @@ void cf_model_init( cf_model_t *const this_model )
         this_model->nextPlayer = 0;
 }
 
-void play( cf_model_t *const thisModel, cf_cellState_t const chosenState )
+#define isObstacle(cellState, oldState, newState) ((cellState==oldState)?false:\
+                ((cellState==newState)?false:\
+                 ((cellState==to_process)?false:\
+                  true)))
+
+void walkTillObstacle( cf_grid_t *this_grid, uint8_t row, uint8_t col, cf_cellState_t oldState, cf_cellState_t newState, sint8_t direction )
 {
-        ( void )thisModel; // FIXME
-        ( void )chosenState; // FIXME
+        do
+        {
+                this_grid->cell[row][col] = processed;
+
+                if ( row > 0 )
+                {
+                        cf_cellState_t localStateNorth = this_grid->cell[row - 1][col];
+
+                        if ( !isObstacle( localStateNorth, oldState, newState ) )
+                        {
+                                this_grid->cell[row - 1][col] = to_process;
+                        }
+                }
+
+                if ( row < this_grid->dimensions.row - 1 )
+                {
+                        cf_cellState_t localStateSouth = this_grid->cell[row + 1][col];
+
+                        if ( !isObstacle( localStateSouth, oldState, newState ) )
+                        {
+                                this_grid->cell[row + 1][col] = to_process;
+                        }
+                }
+
+                {
+                        sint8_t newCol = col + direction;
+
+                        if ( newCol < 0 )
+                        {
+                                return;
+                        }
+
+                        if ( ( ( uint8_t )newCol ) >= this_grid->dimensions.col ) // here we know newCol is positive so we can cast it to allow comparison.
+                        {
+                                return;
+                        }
+
+                        {
+                                cf_cellState_t localState = this_grid->cell[row][newCol];
+
+                                if isObstacle( localState, oldState, newState )
+                                {
+                                        return;
+                                }
+                        }
+                }
+        }
+        while ( 1 );
+}
+
+uint16_t fillColor( cf_grid_t *this_grid,
+                    uint8_t startRow,
+                    uint8_t startCol,
+                    cf_cellState_t oldState,
+                    cf_cellState_t newState )
+{
+        this_grid->cell[startRow][startCol] = to_process;
+
+        // First pass: mark to_process and processed.
+        {
+                uint8_t foundPointsToProcess = 0;
+
+                do
+                {
+                        sint8_t row = this_grid->dimensions.row;
+
+                        while ( --row >= 0 )
+                        {
+                                sint8_t col = this_grid->dimensions.col;
+
+                                while ( --col >= 0 )
+                                {
+                                        cf_cellState_t localState = this_grid->cell[row][col];
+
+                                        if ( localState == to_process )
+                                        {
+                                                foundPointsToProcess = true;
+                                                this_grid->cell[row][col] = processed;
+
+                                                walkTillObstacle( this_grid, row, col, oldState, newState, 1 );
+                                                walkTillObstacle( this_grid, row, col, oldState, newState, -1 );
+                                        }
+                                }
+                        }
+                }
+                while ( foundPointsToProcess != 0 );
+
+                // Could be optimized for speed by not looping all grid each time.
+        }
+
+        //Second pass: mark processed to newstate and count them.
+
+        {
+                uint16_t newArea = 0;
+
+                sint8_t row = this_grid->dimensions.row;
+
+                while ( --row >= 0 )
+                {
+                        sint8_t col = this_grid->dimensions.col;
+
+                        while ( --col >= 0 )
+                        {
+                                cf_cellState_t localState = this_grid->cell[row][col];
+
+                                if ( localState == processed )
+                                {
+                                        this_grid->cell[row][col] = newState;
+                                        newArea++;
+                                }
+                        }
+                }
+
+                return newArea;
+        }
+}
+
+/** Return value: 0 if okay, 1+playerindex if color chosen was same as playerindex' current color. */
+uint8_t play( cf_model_t *const this_model, cf_cellState_t const newState )
+{
+        uint8_t iplayer = this_model->nextPlayer;
+        // FIXME check if color is different from any player's current color.
+
+        cf_coordinates_t *fillStartCoordinates = &( this_model->playerHomes[iplayer] );
+
+        cf_grid_t *grid = &this_model->grid;
+
+        cf_cellState_t oldState = grid->cell[fillStartCoordinates->row][fillStartCoordinates->col];
+
+        uint16_t newDomainArea = fillColor( grid,
+                                            fillStartCoordinates->row,
+                                            fillStartCoordinates->col,
+                                            oldState,
+                                            newState );
+
+        this_model->domainAreas[iplayer] = newDomainArea;
+
+        return 0;
 }

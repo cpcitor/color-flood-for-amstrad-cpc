@@ -22,4 +22,8 @@ typedef signed short sint16_t;
 
 void cf_platform_init();
 
+// for memcpy
+#include <string.h>
+#define ASSIGN(dst, src) memcpy( (&(dst)), (&(src)), sizeof(src) )
+
 #endif /* __PLATFORM_H__ */
