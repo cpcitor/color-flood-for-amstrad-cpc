@@ -20,9 +20,11 @@ typedef enum cf_cellState_t
         cyan = 3,
         blue = 4,
         magenta = 5,
-        CF_STATECOUNT,
-        to_process = CF_STATECOUNT,
-        processed
+        CF_COLORCOUNT,
+        to_process = CF_COLORCOUNT,
+        processed,
+        CF_STATECOUNT
+
 } cf_cellState_t;
 
 typedef struct cf_grid_t

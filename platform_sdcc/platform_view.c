@@ -111,7 +111,7 @@ void cf_grid_draw( const cf_grid_t *const grid )
 
                         if ( state >= CF_STATECOUNT )
                         {
-                                printf( "r=%d c=%d col=%d ", row, col, state );
+                                printf( "ERR r=%d c=%d s=%d\n", row, col, state );
                         }
 
                         cdf( row, col, state );
