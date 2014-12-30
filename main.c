@@ -11,7 +11,7 @@ main()
 
         cf_platform_init();
 
-        model.playerCount = 2;
+        global_model.playerCount = 2;
 
         model_test_fill();
 
@@ -23,12 +23,12 @@ main()
                         //dbglogf( "Next %d", size );
                         //cf_pause();
 
-                        model.grid.dimensions.row = size;
-                        model.grid.dimensions.col = model.grid.dimensions.row;
+                        global_model.grid.dimensions.row = size;
+                        global_model.grid.dimensions.col = global_model.grid.dimensions.row;
 
-                        cf_model_init( &model );
+                        cf_model_init( &global_model );
 
-                        cf_model_draw( &model );
+                        cf_model_draw( &global_model );
                 }
 
                 //dbglog( "drawn" NL );

@@ -6,7 +6,7 @@
 
 #include "stdio.h"
 
-cf_model_t model;
+cf_model_t global_model;
 
 void cf_grid_init( cf_grid_t *const this_grid )
 {

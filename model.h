@@ -42,7 +42,7 @@ typedef struct cf_model_t
         uint16_t domainAreas[CF_MAXPLAYERCOUNT];
 } cf_model_t;
 
-extern cf_model_t model;
+extern cf_model_t global_model;
 
 void cf_grid_init( cf_grid_t *this_grid );
 
