@@ -251,13 +251,22 @@ uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newSta
 
         cf_cellState_t oldState = grid->cell[fillStartCoordinates->row][fillStartCoordinates->col];
 
-        uint16_t newDomainArea = fillColor( grid,
-                                            fillStartCoordinates->row,
-                                            fillStartCoordinates->col,
-                                            oldState,
-                                            newState );
+        silmark( 2 );
+        dbgvar_d( 2, iplayer );
 
-        this_model->domainAreas[iplayer] = newDomainArea;
+        {
+                uint16_t newDomainArea = fillColor( grid,
+                                                    fillStartCoordinates->row,
+                                                    fillStartCoordinates->col,
+                                                    oldState,
+                                                    newState );
+
+                this_model->domainAreas[iplayer] = newDomainArea;
+        }
+
+        iplayer = ( iplayer + 1 ) % this_model->playerCount;
+
+        this_model->nextPlayer = iplayer;
 
         return 0;
 }
