@@ -95,6 +95,8 @@
 
 #define dbgvar(LOGLEVEL, VARNAME, FORMAT) dbglogf(LOGLEVEL, #VARNAME "=" FORMAT " ", VARNAME)
 #define dbgvar_d(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%d")
+#define dbgvar_u(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%u")
+#define dbgvar_lu(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%lu")
 #define dbgvar_s(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%s")
 #define dbglog_nl(LOGLEVEL) dbglog(LOGLEVEL, NL)
 
