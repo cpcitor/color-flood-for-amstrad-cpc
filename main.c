@@ -25,7 +25,7 @@ main()
                 cf_model_draw( &global_model );
 
                 {
-                        uint8_t count = 10 * CF_COLORCOUNT;
+                        uint8_t count = 6 * CF_COLORCOUNT;
 
                         while ( count-- > 0 )
                         {
