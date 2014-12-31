@@ -55,21 +55,22 @@ void cf_model_init( cf_model_t *const this_model )
                 iph++;
 
                 {
-                        uint8_t maxRowCol = CF_MAXGRIDSIZE - 1;
+                        uint8_t maxRow = this_model->grid.dimensions.row - 1;
+                        uint8_t maxCol = this_model->grid.dimensions.col - 1;
 
                         if ( this_model->playerCount >= 3 )
                         {
-                                iph->row = maxRowCol;
+                                iph->row = maxRow;
                                 iph->col = 0;
                                 iph++;
                         }
 
-                        iph->row = maxRowCol;
-                        iph->col = maxRowCol;
+                        iph->row = maxRow;
+                        iph->col = maxCol;
                         iph++;
 
                         iph->row = 0;
-                        iph->col = maxRowCol;
+                        iph->col = maxCol;
                         iph++;
                 }
         }
