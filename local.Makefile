@@ -1,5 +1,7 @@
 localproject: astyle cf2.dsk native
 
+full: clean clean-native localproject
+
 SRCS := $(wildcard *.c)
 SRCS_NATIVE := $(wildcard platform_native/*.c)
 HDRS := $(wildcard *.h)
