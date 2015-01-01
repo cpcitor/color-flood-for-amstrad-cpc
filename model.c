@@ -193,7 +193,7 @@ uint16_t fillColor( cf_grid_t *this_grid,
                                                 if ( localState == to_process )
                                                 {
                                                         foundPointsToProcess = true;
-                                                        this_grid->cell[row][col] = processed;
+                                                        //this_grid->cell[row][col] = processed; redundant
 
                                                         walkTillObstacle( this_grid, row, col, oldState, 1 );
                                                         walkTillObstacle( this_grid, row, col, oldState, -1 );
