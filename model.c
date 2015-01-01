@@ -157,11 +157,10 @@ void walkTillObstacle( cf_grid_t *this_grid, uint8_t row, uint8_t col, cf_cellSt
         while ( 1 );
 }
 
-uint16_t fillColor( cf_grid_t *this_grid,
-                    uint8_t startRow,
-                    uint8_t startCol,
-                    cf_cellState_t oldState,
-                    cf_cellState_t newState )
+void fillColorToProcessedState( cf_grid_t *this_grid,
+                                uint8_t startRow,
+                                uint8_t startCol,
+                                cf_cellState_t oldState )
 {
         silmark( 1 );
         dbgvar_d( 2, startRow );
@@ -208,35 +207,38 @@ uint16_t fillColor( cf_grid_t *this_grid,
         }
 
         CDTC_ON_DEBUGLEVEL_GREATER_THAN( 2, cf_grid_draw( this_grid ) );
+}
 
-        //Second pass: mark processed to newstate and count them.
+//Second pass: mark processed to newstate and count them.
 
+
+uint16_t finishFillAndcountArea( cf_grid_t *this_grid,
+                                 cf_cellState_t newState )
+{
+        uint16_t newArea = 0;
+
+        int8_t row = this_grid->dimensions.row;
+
+        while ( --row >= 0 )
         {
-                uint16_t newArea = 0;
+                int8_t col = this_grid->dimensions.col;
 
-                int8_t row = this_grid->dimensions.row;
-
-                while ( --row >= 0 )
+                while ( --col >= 0 )
                 {
-                        int8_t col = this_grid->dimensions.col;
+                        cf_cellState_t localState = this_grid->cell[row][col];
 
-                        while ( --col >= 0 )
+                        if ( localState == processed )
                         {
-                                cf_cellState_t localState = this_grid->cell[row][col];
-
-                                if ( localState == processed )
-                                {
-                                        this_grid->cell[row][col] = newState;
-                                        newArea++;
-                                }
+                                this_grid->cell[row][col] = newState;
+                                newArea++;
                         }
                 }
-
-                CDTC_ON_DEBUGLEVEL_GREATER_THAN( 2, cf_grid_draw( this_grid ) );
-                silmsg( 2, "== return %d ==" NL, newArea );
-
-                return newArea;
         }
+
+        CDTC_ON_DEBUGLEVEL_GREATER_THAN( 2, cf_grid_draw( this_grid ) );
+        silmsg( 2, "== return %d ==" NL, newArea );
+
+        return newArea;
 }
 
 /** Return value: 0 if okay, 1+playerindex if color chosen was same as playerindex' current color. */
@@ -268,13 +270,22 @@ uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newSta
         /* silmark( 2 ); */
         /* dbgvar_d( 2, iplayer ); */
 
-        {
-                uint16_t newDomainArea = fillColor( grid,
-                                                    fillStartCoordinates->row,
-                                                    fillStartCoordinates->col,
-                                                    oldState,
-                                                    newState );
+        fillColorToProcessedState( grid,
+                                   fillStartCoordinates->row,
+                                   fillStartCoordinates->col,
+                                   oldState );
 
+        finishFillAndcountArea( grid, newState );
+
+        fillColorToProcessedState( grid,
+                                   fillStartCoordinates->row,
+                                   fillStartCoordinates->col,
+                                   newState );
+
+        {
+                uint16_t newDomainArea = finishFillAndcountArea( grid,
+                                         newState );
+                dbglogf( 0, "New area for player %d: %d" NL, iplayer, newDomainArea );
                 this_model->domainAreas[iplayer] = newDomainArea;
         }
 
