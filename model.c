@@ -16,6 +16,8 @@ void cf_grid_init( cf_grid_t *const this_grid )
 {
         assert( this_grid->dimensions.row <= CF_MAXGRIDSIZE );
         assert( this_grid->dimensions.col <= CF_MAXGRIDSIZE );
+        assert( this_grid->dimensions.row > 0 );
+        assert( this_grid->dimensions.col > 0 );
 
         {
                 int8_t row = this_grid->dimensions.row;
