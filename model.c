@@ -242,17 +242,31 @@ uint16_t fillColor( cf_grid_t *this_grid,
 /** Return value: 0 if okay, 1+playerindex if color chosen was same as playerindex' current color. */
 uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newState )
 {
-        uint8_t iplayer = this_model->nextPlayer;
-        // FIXME check if color is different from any player's current color.
-
-        cf_coordinates_t *fillStartCoordinates = &( this_model->playerHomes[iplayer] );
-
+        uint8_t iplayer;
+        cf_cellState_t oldState;
+        cf_coordinates_t *fillStartCoordinates;
         cf_grid_t *grid = &this_model->grid;
 
-        cf_cellState_t oldState = grid->cell[fillStartCoordinates->row][fillStartCoordinates->col];
+        {
+                for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
+                {
+                        //cf_cellState_t cf_last_color_of_player( cf_model_t *this_model, uint8_t iplayer )
+                        fillStartCoordinates = &( this_model->playerHomes[iplayer] );
+                        oldState = grid->cell[fillStartCoordinates->row][fillStartCoordinates->col];
 
-        silmark( 2 );
-        dbgvar_d( 2, iplayer );
+                        if ( newState == oldState )
+                        {
+                                return 1 + newState;
+                        }
+                }
+        }
+
+        iplayer = this_model->nextPlayer;
+        fillStartCoordinates = &( this_model->playerHomes[iplayer] );
+        oldState = grid->cell[fillStartCoordinates->row][fillStartCoordinates->col];
+
+        /* silmark( 2 ); */
+        /* dbgvar_d( 2, iplayer ); */
 
         {
                 uint16_t newDomainArea = fillColor( grid,

@@ -3,7 +3,11 @@
 
 #include "platform.h"
 
-enum { CF_MAXPLAYERCOUNT = 4 };
+enum
+{
+        CF_MAXPLAYERCOUNT_EXPONENT = 2,
+        CF_MAXPLAYERCOUNT = ( 2 << CF_MAXPLAYERCOUNT_EXPONENT )
+};
 enum { CF_MAXGRIDSIZE = 24 };
 
 typedef struct cf_coordinates_t

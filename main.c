@@ -5,6 +5,8 @@
 #include "view.h"
 #include "platform_ui.h"
 
+#include "controller.h"
+
 int
 main()
 {
@@ -24,17 +26,7 @@ main()
 
                 cf_model_draw( &global_model );
 
-                {
-                        uint8_t count = 6 * CF_COLORCOUNT;
-
-                        while ( count-- > 0 )
-                        {
-                                cf_model_play( &global_model, count % CF_COLORCOUNT );
-                                cf_model_draw( &global_model );
-                                CDTC_ON_DEBUGLEVEL_GREATER_THAN( 1, cf_pause() );
-                        }
-                }
-
+                cf_rungame( &global_model );
         }
 
         silmsg( 0, "Returning to BASIC." );

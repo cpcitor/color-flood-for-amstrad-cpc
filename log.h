@@ -90,11 +90,15 @@
 #define dbglog_unconditional(msg) platform_print_plain_string(msg)
 #define dbglogf_unconditional(...) platform_print_formatted_string(__VA_ARGS__)
 
+/* #define dbglog_unconditional(msg) */
+/* #define dbglogf_unconditional(...) */
+
 #define dbglogf(LOGLEVEL, FORMAT, ...) CDTC_ON_DEBUGLEVEL_GREATER_THAN_ ## LOGLEVEL ( dbglogf_unconditional( FORMAT, ##__VA_ARGS__) )
 #define dbglog(LOGLEVEL, MSG) CDTC_ON_DEBUGLEVEL_GREATER_THAN_ ## LOGLEVEL ( dbglog_unconditional( MSG ) )
 
 #define dbgvar(LOGLEVEL, VARNAME, FORMAT) dbglogf(LOGLEVEL, #VARNAME "=" FORMAT " ", VARNAME)
 #define dbgvar_d(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%d")
+#define dbgvar_c(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%c")
 #define dbgvar_u(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%u")
 #define dbgvar_lu(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%lu")
 #define dbgvar_s(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%s")
