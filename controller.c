@@ -58,7 +58,7 @@ key_to_action_t key_to_action[key_to_action_count] =
 };
 */
 
-/** Return value: 0 if okay, 1+playerindex if color chosen was same as playerindex' current color. */
+/** TODO FIXME Return id of player that won. */
 uint8_t cf_rungame( cf_model_t *const this_model )
 {
         //cf_model_draw( &global_model );
@@ -97,7 +97,12 @@ uint8_t cf_rungame( cf_model_t *const this_model )
                         {
                                 uint8_t rv = cf_model_play( this_model, ktap->color );
 
-                                if ( rv != 0 )
+				if (rv==1) {
+					cf_model_draw( &global_model );
+					return 0;
+				}
+
+                                if ( rv >= 2 )
                                 {
                                         dbglogf( 1, "%d!", rv );
                                 }

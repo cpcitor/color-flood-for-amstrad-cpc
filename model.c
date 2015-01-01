@@ -243,7 +243,7 @@ uint16_t finishFillAndcountArea( cf_grid_t *this_grid,
         return newArea;
 }
 
-/** Return value: 0 if okay, 1+playerindex if color chosen was same as playerindex' current color. */
+/** Return value: 0 if played okay, 1 if game ended, 2+playerindex if color chosen was same as playerindex' current color. */
 uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newState )
 {
         uint8_t iplayer;
@@ -260,7 +260,7 @@ uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newSta
 
                         if ( newState == oldState )
                         {
-                                return 1 + newState;
+                                return 2 + newState;
                         }
                 }
         }
@@ -294,6 +294,22 @@ uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newSta
         iplayer = ( iplayer + 1 ) % this_model->playerCount;
 
         this_model->nextPlayer = iplayer;
+
+        {
+                uint16_t unclaimedArea = grid->dimensions.row * grid->dimensions.col;
+
+                for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
+                {
+                        unclaimedArea -= this_model->domainAreas[iplayer];
+                }
+
+                dbgvar_d( 0, unclaimedArea );
+
+                if ( unclaimedArea == 0 )
+                {
+                        return 1;
+                }
+        }
 
         return 0;
 }
