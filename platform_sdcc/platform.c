@@ -12,10 +12,8 @@ void cf_platform_init()
 
         {
                 long unsigned int cpctime = fw_kl_time_please();
-                long unsigned int seed = cpctime ^ ( cpctime >> 16 );
                 dbgvar_lu( 0, cpctime );
-                dbgvar_u( 0, seed );
-                srand( seed );
+                srand( cpctime );
         }
 
 }
