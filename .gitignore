@@ -16,3 +16,4 @@
 native
 *.binamsdos
 \#*#
+*.preprocessed
