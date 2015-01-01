@@ -82,7 +82,7 @@ void cf_model_init( cf_model_t *const this_model )
                 ((cellState==to_process)?false:\
                  true))
 
-void walkTillObstacle( cf_grid_t *this_grid, uint8_t row, uint8_t col, cf_cellState_t oldState, cf_cellState_t onewState, int8_t direction )
+void walkTillObstacle( cf_grid_t *this_grid, uint8_t row, uint8_t col, cf_cellState_t oldState, int8_t direction )
 {
         silmark( 2 );
         dbgvar_d( 3, row );
@@ -195,8 +195,8 @@ uint16_t fillColor( cf_grid_t *this_grid,
                                                         foundPointsToProcess = true;
                                                         this_grid->cell[row][col] = processed;
 
-                                                        walkTillObstacle( this_grid, row, col, oldState, newState, 1 );
-                                                        walkTillObstacle( this_grid, row, col, oldState, newState, -1 );
+                                                        walkTillObstacle( this_grid, row, col, oldState, 1 );
+                                                        walkTillObstacle( this_grid, row, col, oldState, -1 );
                                                 }
                                         }
                                 }
