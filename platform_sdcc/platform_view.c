@@ -80,19 +80,19 @@ void cf_cell_draw_24( uint8_t row, uint8_t col, cf_cellState_t const state )
         }
 }
 
-void cf_grid_draw( const cf_grid_t *const grid )
+void cf_grid_draw( const cf_grid_t *const this_gris )
 {
-        int8_t row = grid->dimensions.row;
+        int8_t row = this_gris->dimensions.row;
 
         cell_draw_function *cdf;
 
-        if ( ( grid->dimensions.row > 16 ) || ( grid->dimensions.col > 16 ) )
+        if ( ( this_gris->dimensions.row > 16 ) || ( this_gris->dimensions.col > 16 ) )
         {
                 cdf = cf_cell_draw_24;
         }
         else
         {
-                if ( ( grid->dimensions.row > 12 ) || ( grid->dimensions.col > 12 ) )
+                if ( ( this_gris->dimensions.row > 12 ) || ( this_gris->dimensions.col > 12 ) )
                 {
                         cdf = cf_cell_draw_16;
                 }
@@ -104,11 +104,11 @@ void cf_grid_draw( const cf_grid_t *const grid )
 
         while ( --row >= 0 )
         {
-                int8_t col = grid->dimensions.col;
+                int8_t col = this_gris->dimensions.col;
 
                 while ( --col >= 0 )
                 {
-                        cf_cellState_t state = grid->cell[row][col];
+                        cf_cellState_t state = this_gris->cell[row][col];
 
                         if ( state >= CF_STATECOUNT )
                         {
