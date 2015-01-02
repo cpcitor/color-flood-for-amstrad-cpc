@@ -24,6 +24,14 @@ const uint8_t state2byte[CF_STATECOUNT] =
         0xF0, /* 11000000 5 */
         0x3C, /* 00111100 6 */
         0xFC, /* 11111100 7 */
+        0x03,
+        0xC3,
+        0x0F,
+        0xCF,
+        0x33,
+        0xF3,
+        0x3F,
+        0xFF,
         0x80,
         0x08
 };
@@ -142,7 +150,7 @@ void cf_model_draw( const cf_model_t *const model )
         cf_grid_draw( &model->grid );
 }
 
-void show_key_color_association()
+void show_key_color_association( const cf_model_t *const this_model )
 {
         const uint8_t xmin = 0;
         const uint8_t xmax = 38;
