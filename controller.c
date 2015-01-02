@@ -4,26 +4,21 @@
 #endif /* SDCC */
 
 #include "controller.h"
-#include "platform_view.h"
+#include "view.h"
 #include "../log.h"
-
-typedef struct key_to_action_t
-{
-        char character;
-        uint8_t player;
-        cf_cellState_t color;
-} key_to_action_t;
-
-enum {key_to_action_count = CF_COLORCOUNT };
 
 const key_to_action_t const key_to_action[key_to_action_count] =
 {
-        { 's', 2, 0 },
-        { 'd', 2, 1 },
-        { 'f', 2, 2 },
-        { 'g', 2, 3 },
-        { 'h', 2, 4 },
-        { 'j', 2, 5 },
+        { 's', -1, 0 },
+        { 'd', -1, 1 },
+        { 'f', -1, 2 },
+        { 'g', -1, 3 },
+        { 'h', -1, 4 },
+        { 'j', -1, 5 },
+        { 'e', 0, -1 },
+        { 'c', 1, -1 },
+        { 'n', 2, -1 },
+        { 'p', 3, -1 },
 };
 
 /*
@@ -65,52 +60,55 @@ uint8_t cf_rungame( cf_model_t *const this_model )
         // wait for key
         while ( 1 )
         {
-#ifdef SDCC
-                char user_choice_char = fw_km_wait_key();
-#else
-                printf( "Enter you choice:\n" );
-                char user_choice_char = getchar();
-#endif /* SDCC */
-                const key_to_action_t *ktap = key_to_action + key_to_action_count;
-
-                dbgvar_d( 1, user_choice_char );
-                dbglog_nl( 1 );
-
-                do
+                show_key_color_association();
                 {
-                        ktap--;
-
-                        if ( ktap->character != user_choice_char )
-                        {
-                                dbglogf( 4, "!%03d ", ktap->character );
-                                continue;
-                        }
+#ifdef SDCC
+                        char user_choice_char = fw_km_wait_key();
+#else
+                        printf( "Enter you choice:\n" );
+                        char user_choice_char = getchar();
+#endif /* SDCC */
+                        const key_to_action_t *ktap = key_to_action + key_to_action_count;
 
                         dbgvar_d( 1, user_choice_char );
                         dbglog_nl( 1 );
 
-                        /* if ( ktap->player != this_model->nextPlayer ) */
-                        /* { */
-                        /*         continue; */
-                        /* } */
-
+                        do
                         {
-                                uint8_t rv = cf_model_play( this_model, ktap->color );
+                                ktap--;
 
-				if (rv==1) {
-					cf_model_draw( &global_model );
-					return 0;
-				}
-
-                                if ( rv >= 2 )
+                                if ( ktap->character != user_choice_char )
                                 {
-                                        dbglogf( 1, "%d!", rv );
+                                        dbglogf( 4, "!%03d ", ktap->character );
+                                        continue;
                                 }
-                        }
-                        //cf_model_play( this_model, ktap->color );
-                        cf_model_draw( &global_model );
-                }
-                while ( ktap != key_to_action );
-        }
 
+                                dbgvar_d( 1, user_choice_char );
+                                dbglog_nl( 1 );
+
+                                /* if ( ktap->player != this_model->nextPlayer ) */
+                                /* { */
+                                /*         continue; */
+                                /* } */
+
+                                {
+                                        uint8_t rv = cf_model_play( this_model, ktap->color );
+
+                                        if ( rv == 1 )
+                                        {
+                                                cf_model_draw( &global_model );
+                                                return 0;
+                                        }
+
+                                        if ( rv >= 2 )
+                                        {
+                                                dbglogf( 1, "%d!", rv );
+                                        }
+                                }
+                                //cf_model_play( this_model, ktap->color );
+                                cf_model_draw( &global_model );
+                        }
+                        while ( ktap != key_to_action );
+                }
+        }
 }

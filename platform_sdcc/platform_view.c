@@ -1,15 +1,32 @@
+#include "stdio.h"
+
+#include <cfwi/cfwi.h>
+
 #include "platform.h"
 #include "platform_ui.h"
 #include "../model.h"
+#include "../controller.h"
 
-#include "stdio.h"
+
+
+
 
 enum { cf_grid_byte_offset_from_screen_start = 16 };
 
 #define draw_one_byte() screen_write(pos_local, value); ++pos_local
 #define grid_origin(row, col, bytes_per_cell_width, chars_height_per_cell_height) ((screen + row * char_stride * chars_height_per_cell_height + col * bytes_per_cell_width + cf_grid_byte_offset_from_screen_start))
 
-const uint8_t state2byte[CF_STATECOUNT] = { 0x0C, 0xCC, 0x30, 0xF0, 0x3C, 0xFC, 0x80, 0x08 };
+const uint8_t state2byte[CF_STATECOUNT] =
+{
+        0x0C, /* 00001100 2 */
+        0xCC, /* 11001100 3 */
+        0x30, /* 00110000 4 */
+        0xF0, /* 11000000 5 */
+        0x3C, /* 00111100 6 */
+        0xFC, /* 11111100 7 */
+        0x80,
+        0x08
+};
 typedef void cell_draw_function( uint8_t row, uint8_t col, cf_cellState_t const state );
 
 void cf_cell_draw_12( uint8_t row, uint8_t col, cf_cellState_t const state )
@@ -123,4 +140,44 @@ void cf_grid_draw( const cf_grid_t *const this_gris )
 void cf_model_draw( const cf_model_t *const model )
 {
         cf_grid_draw( &model->grid );
+}
+
+void show_key_color_association()
+{
+        const uint8_t xmin = 0;
+        const uint8_t xmax = 38;
+        uint16_t ymin = 398;
+        const uint8_t yheight = 22;
+
+        fw_gra_win_width( xmin, xmax );
+        fw_gra_set_pen( 0 ); // FIXME hard-coded color number;
+
+        {
+                const key_to_action_t *ktap;
+
+                for ( ktap = key_to_action; ktap < ( key_to_action + key_to_action_count ); ktap++ )
+                {
+                        if ( ktap->color >= CF_COLORCOUNT )
+                        {
+                                break;
+                        }
+
+                        {
+                                uint8_t ink_color = ktap->color + 2;
+
+                                fw_gra_set_paper( ink_color );
+                        }
+
+                        fw_gra_win_height( ymin, ymin - yheight );
+                        fw_gra_clear_window();
+
+                        {
+                                char c = ktap->character;
+                                fw_gra_move_absolute( 4, ymin - 4 );
+                                fw_gra_wr_char( ktap->character );
+                        }
+
+                        ymin = ymin - yheight - 4;
+                }
+        }
 }

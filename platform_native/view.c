@@ -1,5 +1,6 @@
 #include "platform.h"
 #include "../model.h"
+#include "../controller.h"
 
 #include <stdio.h>
 
@@ -78,4 +79,15 @@ void cf_model_draw( cf_model_t *const this_model )
 void cf_grid_draw( const cf_grid_t *const this_grid )
 {
         cf_grid_dump( this_grid );
+}
+
+void show_key_color_association()
+{
+        int ik;
+
+        for ( ik = 0; ik < key_to_action_count; ik++ )
+        {
+                const key_to_action_t *const kta = &key_to_action[ik];
+                printf( "Key '%c', player %d, state/color %d\n", kta->character, kta->player, kta->color );
+        }
 }
