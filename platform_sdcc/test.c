@@ -3,6 +3,8 @@
 #include "platform.h"
 #include "screen.h"
 
+// FIXME should be put in a separate module to allow compile to prune it out when unneeded.
+
 void test()
 {
 

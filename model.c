@@ -33,9 +33,11 @@ void cf_grid_init( cf_grid_t *const this_grid )
                                 cf_cellState_t state = rand() % CF_COLORCOUNT; // not exactly uniform but anyway
                                 this_grid->cell[row][col] = state;
                                 //printf( " c=%d", col );
-
                         }
                 }
+
+                // FIXME should ensure any two players can't have same color.
+                // FIXME symmetry for fairness.
         }
 }
 
