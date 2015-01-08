@@ -24,6 +24,7 @@ typedef enum cf_cellState_t
         cyan = 3,
         blue = 4,
         magenta = 5,
+        CF_COLORCOUNT,
         orange = 6,
         grey = 7,
         dark_red = 8,
@@ -32,7 +33,6 @@ typedef enum cf_cellState_t
         dark_cyan = 11,
         dark_blue = 12,
         dark_magenta = 13,
-        CF_COLORCOUNT,
         to_process = CF_COLORCOUNT,
         processed,
         CF_STATECOUNT
