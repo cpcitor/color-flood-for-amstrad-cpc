@@ -17,3 +17,5 @@ native
 *.binamsdos
 \#*#
 *.preprocessed
+*.cdt
+*.voc
