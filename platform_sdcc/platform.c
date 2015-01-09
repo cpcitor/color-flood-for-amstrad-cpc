@@ -30,8 +30,6 @@ void cf_platform_init()
         {
                 uint8_t i;
 
-                fw_scr_set_ink( 0xa, 0xb, 0xc );
-
                 for ( i = 0; i < ink_count; i++ )
                 {
                         uint8_t color = inks[i];
