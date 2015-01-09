@@ -152,7 +152,7 @@ void cf_model_draw( const cf_model_t *const model )
         cf_grid_draw( &model->grid );
 }
 
-void show_key_color_association( const cf_model_t *const this_model )
+void show_key_color_association()
 {
         const uint8_t xmin = 0;
         const uint8_t xmax = 38;
@@ -190,4 +190,9 @@ void show_key_color_association( const cf_model_t *const this_model )
                         ymin = ymin - yheight - 4;
                 }
         }
+}
+
+void platform_prompt_next_move( cf_model_t *const this_model )
+{
+        printf( "%u", this_model->nextPlayer );
 }

@@ -70,7 +70,7 @@ uint8_t cf_rungame( cf_model_t *const this_model )
         // wait for key
         while ( 1 )
         {
-                show_key_color_association();
+                platform_prompt_next_move( this_model );
                 {
 #ifdef SDCC
                         char user_choice_char = fw_km_wait_key();

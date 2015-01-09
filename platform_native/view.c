@@ -91,3 +91,9 @@ void show_key_color_association()
                 printf( "Key '%c', player %d, state/color %d\n", kta->character, kta->player, kta->color );
         }
 }
+
+void platform_prompt_next_move( cf_model_t *const this_model )
+{
+        ( void )this_model;
+        show_key_color_association();
+}

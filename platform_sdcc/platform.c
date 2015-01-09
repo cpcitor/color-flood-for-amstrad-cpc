@@ -5,6 +5,8 @@
 
 #include <cfwi/cfwi.h>
 
+#include "platform_view.h"
+
 enum { ink_count = 16 };
 const uint8_t const inks[ink_count] =
 {
@@ -45,4 +47,5 @@ void cf_platform_init()
                 srand( cpctime );
         }
 
+        show_key_color_association();
 }
