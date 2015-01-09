@@ -4,10 +4,10 @@
 
 #include "platform.h"
 #include "platform_ui.h"
+#include "platform_view.h"
 #include "../model.h"
 #include "../controller.h"
-
-
+#include "../log.h"
 
 
 
@@ -38,6 +38,12 @@ const uint8_t state2byte[CF_STATECOUNT] =
         0x08
 };
 typedef void cell_draw_function( uint8_t row, uint8_t col, cf_cellState_t const state );
+
+static struct
+{
+        cell_draw_function *cdf;
+        uint8_t bytes_per_cell_width;
+} viewparameters;
 
 void cf_cell_draw_12( uint8_t row, uint8_t col, cf_cellState_t const state )
 {
@@ -107,42 +113,52 @@ void cf_cell_draw_24( uint8_t row, uint8_t col, cf_cellState_t const state )
         }
 }
 
-void cf_grid_draw( const cf_grid_t *const this_gris )
+void cf_view_init( cf_model_t *model )
+// setup_viewparameters(const cf_grid_t *const this_grid)
 {
-        int8_t row = this_gris->dimensions.row;
+        cf_grid_t *this_grid = &model->grid;
 
-        cell_draw_function *cdf;
-
-        if ( ( this_gris->dimensions.row > 16 ) || ( this_gris->dimensions.col > 16 ) )
+        if ( ( this_grid->dimensions.row > 16 ) || ( this_grid->dimensions.col > 16 ) )
         {
-                cdf = cf_cell_draw_24;
+                viewparameters.cdf = cf_cell_draw_24;
+                viewparameters.bytes_per_cell_width = 2;
         }
         else
         {
-                if ( ( this_gris->dimensions.row > 12 ) || ( this_gris->dimensions.col > 12 ) )
+                if ( ( this_grid->dimensions.row > 12 ) || ( this_grid->dimensions.col > 12 ) )
                 {
-                        cdf = cf_cell_draw_16;
+                        viewparameters.cdf = cf_cell_draw_16;
+                        viewparameters.bytes_per_cell_width = 3;
                 }
                 else
                 {
-                        cdf = cf_cell_draw_12;
+                        viewparameters.cdf = cf_cell_draw_12;
+                        viewparameters.bytes_per_cell_width = 4;
                 }
         }
 
+        show_key_color_association();
+}
+
+void cf_grid_draw( const cf_grid_t *const this_grid )
+{
+        int8_t row = this_grid->dimensions.row;
+
+
         while ( --row >= 0 )
         {
-                int8_t col = this_gris->dimensions.col;
+                int8_t col = this_grid->dimensions.col;
 
                 while ( --col >= 0 )
                 {
-                        cf_cellState_t state = this_gris->cell[row][col];
+                        cf_cellState_t state = this_grid->cell[row][col];
 
                         if ( state >= CF_STATECOUNT )
                         {
                                 printf( "ERR r=%d c=%d s=%d\n", row, col, state );
                         }
 
-                        cdf( row, col, state );
+                        viewparameters.cdf( row, col, state );
                 }
         }
 }
@@ -190,9 +206,32 @@ void show_key_color_association()
                         ymin = ymin - yheight - 4;
                 }
         }
+        fw_gra_initialise();
 }
 
 void platform_prompt_next_move( cf_model_t *const this_model )
 {
-        printf( "%u", this_model->nextPlayer );
+        const uint8_t ip = this_model->nextPlayer;
+        const cf_coordinates_t *const ph = &( this_model->playerHomes[ip] );
+
+        const uint8_t cellsize_fw = viewparameters.bytes_per_cell_width * 8;
+
+        //printf( "%u", this_model->nextPlayer );
+
+        uint16_t fwx = cf_grid_byte_offset_from_screen_start * 8 + ph->col * cellsize_fw
+                       /*+ 4 * factor*/
+                       ;
+        uint16_t fwy = 398 - ph->row * cellsize_fw
+                       /*- 4 * factor;*/
+                       ;
+
+        const uint8_t incellsize_fw_x = cellsize_fw - 4;
+        const uint8_t incellsize_fw_y = cellsize_fw - 2;
+
+        fw_gra_set_pen( 0 );
+
+        fw_gra_move_absolute( fwx, fwy );
+        fw_gra_line_relative( incellsize_fw_x, -incellsize_fw_y );
+        fw_gra_move_relative( -incellsize_fw_x, 0 );
+        fw_gra_line_relative( incellsize_fw_x, incellsize_fw_y );
 }

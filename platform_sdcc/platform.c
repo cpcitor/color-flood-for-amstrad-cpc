@@ -23,6 +23,7 @@ const uint8_t const inks[ink_count] =
 void cf_platform_init()
 {
         fw_scr_initialise();
+        fw_gra_initialise();
         fw_scr_set_mode( 0 );
 
         cf_screen_line_to_ptr_init();
@@ -44,6 +45,4 @@ void cf_platform_init()
                 dbgvar_lu( 0, cpctime );
                 srand( cpctime );
         }
-
-        show_key_color_association();
 }
