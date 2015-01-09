@@ -15,6 +15,7 @@ const key_to_action_t const key_to_action[key_to_action_count] =
         { 'g', -1, 3 },
         { 'h', -1, 4 },
         { 'j', -1, 5 },
+#if CF_COLORCOUNT > 6
         { 'k', -1, 6 },
         { 'l', -1, 7 },
         { '0', -1, 8 },
@@ -27,6 +28,7 @@ const key_to_action_t const key_to_action[key_to_action_count] =
         { 'c', 1, -1 },
         { 'n', 2, -1 },
         { 'p', 3, -1 },
+#endif
 };
 
 /*

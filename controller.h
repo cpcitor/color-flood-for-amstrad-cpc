@@ -10,7 +10,7 @@ typedef struct key_to_action_t
         cf_cellState_t color;
 } key_to_action_t;
 
-enum {key_to_action_count = CF_COLORCOUNT + CF_MAXPLAYERCOUNT };
+enum {key_to_action_count = CF_COLORCOUNT };
 
 extern const key_to_action_t const key_to_action[key_to_action_count];
 
