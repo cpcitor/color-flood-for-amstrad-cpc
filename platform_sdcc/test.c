@@ -5,6 +5,8 @@
 
 // FIXME should be put in a separate module to allow compile to prune it out when unneeded.
 
+#ifndef NDEBUG
+
 void test()
 {
 
@@ -15,3 +17,5 @@ void test()
                 screen_write( offscreen, 0xff );
         }
 }
+
+#endif /* NDEBUG */
