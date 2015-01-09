@@ -3,6 +3,10 @@
 
 #include "../model.h"
 
+void cf_view_init( cf_model_t *model );
+
+void platform_prompt_next_move( cf_model_t *const model );
+
 void cf_model_draw( const cf_model_t *const this_model );
 void cf_model_dump( const cf_model_t *const this_model );
 void cf_grid_draw( const cf_grid_t *const this_grid );
