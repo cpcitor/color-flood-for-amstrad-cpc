@@ -15,5 +15,6 @@
 #include <assert.h>
 
 #define cf_platform_init(...) (void)0
+#define cf_platform_prepare_for_game_board(...) (void)0
 
 #endif /* __PLATFORM_H__ */

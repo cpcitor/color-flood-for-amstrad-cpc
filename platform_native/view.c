@@ -7,7 +7,7 @@
 void cf_view_init( cf_model_t *model )
 {
         ( void ) model;
-        puts( "Welcome to Color flood\n" );
+        puts( "Welcome to Color flood portable interface.\n" );
 }
 
 void cf_coordinates_dump( const cf_coordinates_t *const this_coordinates )

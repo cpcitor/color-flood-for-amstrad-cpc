@@ -5,7 +5,8 @@
 
 #include <stdio.h>
 
-#define platform_print_plain_string(msg) puts(msg)
+#include <cfwi/cfwi.h> // for cfwi_txt_str0_output
+#define platform_print_plain_string(msg) cfwi_txt_str0_output(msg)
 #define platform_print_formatted_string(...) printf(__VA_ARGS__)
 #define NL "\015\012"
 
@@ -18,6 +19,7 @@
 #include "screen.h"
 
 void cf_platform_init();
+void cf_platform_prepare_for_game_board();
 
 // for memcpy
 #include <string.h>

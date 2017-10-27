@@ -1,4 +1,5 @@
 #include "platform.h"
+#include "welcome.h"
 #include "log.h"
 #include "model.h"
 #include "model_test.h"
@@ -13,6 +14,10 @@ main()
         dbglog( 0, "In C" NL );
 
         cf_platform_init();
+
+        welcome();
+
+        cf_platform_prepare_for_game_board();
 
         global_model.playerCount = 2;
 

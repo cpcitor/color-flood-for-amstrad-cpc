@@ -24,6 +24,17 @@ void cf_platform_init()
 {
         fw_scr_initialise();
         fw_gra_initialise();
+        fw_scr_set_mode( 1 );
+
+        {
+                long unsigned int cpctime = fw_kl_time_please();
+                dbgvar_lu( 0, cpctime );
+                srand( cpctime );
+        }
+}
+
+void cf_platform_prepare_for_game_board()
+{
         fw_scr_set_mode( 0 );
 
         cf_screen_line_to_ptr_init();
@@ -40,9 +51,4 @@ void cf_platform_init()
                 fw_scr_set_border( 0, 0 );
         }
 
-        {
-                long unsigned int cpctime = fw_kl_time_please();
-                dbgvar_lu( 0, cpctime );
-                srand( cpctime );
-        }
 }
