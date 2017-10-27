@@ -5,7 +5,7 @@
 
 // FIXME should be put in a separate module to allow compile to prune it out when unneeded.
 
-#ifndef NDEBUG
+#ifdef DEBUG
 
 void test()
 {
