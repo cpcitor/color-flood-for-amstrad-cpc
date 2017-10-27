@@ -49,7 +49,16 @@ void cf_model_init( cf_model_t *const this_model )
 
         cf_grid_init( &( this_model->grid ) );
 
-        // FIXME initialize domainAreas[iplayer]
+        {
+                uint8_t iplayer;
+
+                for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
+                {
+                        this_model->domainAreas[iplayer] = 0;
+                }
+        }
+
+        // FIXME really initialize domainAreas[iplayer] from areas at startup (not always 1).
 
         {
                 cf_coordinates_t *iph = &( this_model->playerHomes[0] );
