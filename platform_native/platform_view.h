@@ -5,7 +5,7 @@
 
 void cf_view_init( cf_model_t *model );
 
-void platform_prompt_next_move( cf_model_t *const model );
+char platform_prompt_next_move( cf_model_t *const model );
 
 void cf_model_draw( const cf_model_t *const this_model );
 void cf_model_dump( const cf_model_t *const this_model );

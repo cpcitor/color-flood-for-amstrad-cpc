@@ -213,7 +213,7 @@ void show_key_color_association()
         fw_gra_initialise();
 }
 
-void platform_prompt_next_move( cf_model_t *const this_model )
+char platform_prompt_next_move( cf_model_t *const this_model )
 {
         const uint8_t ip = this_model->nextPlayer;
         const cf_coordinates_t *const ph = &( this_model->playerHomes[ip] );
@@ -238,4 +238,6 @@ void platform_prompt_next_move( cf_model_t *const this_model )
         fw_gra_line_relative( incellsize_fw_x, -incellsize_fw_y );
         fw_gra_move_relative( -incellsize_fw_x, 0 );
         fw_gra_line_relative( incellsize_fw_x, incellsize_fw_y );
+
+        return fw_km_wait_key();
 }

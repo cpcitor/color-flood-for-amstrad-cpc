@@ -70,14 +70,8 @@ uint8_t cf_rungame( cf_model_t *const this_model )
         // wait for key
         while ( 1 )
         {
-                platform_prompt_next_move( this_model );
                 {
-#ifdef SDCC
-                        char user_choice_char = fw_km_wait_key();
-#else
-                        printf( "Enter you choice:\n" );
-                        char user_choice_char = getchar();
-#endif /* SDCC */
+                        char user_choice_char = platform_prompt_next_move( this_model );
                         const key_to_action_t *ktap = key_to_action + key_to_action_count;
 
                         dbgvar_d( 1, user_choice_char );
