@@ -6,7 +6,7 @@
 typedef struct key_to_action_t
 {
         char character;
-        uint8_t player;
+        uint8_t player; // Not yet used,
         cf_cellState_t color;
 } key_to_action_t;
 
