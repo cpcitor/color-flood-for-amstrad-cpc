@@ -60,6 +60,20 @@ void cf_model_dump( const cf_model_t *const this_model )
 
         {
                 cf_player_i iplayer;
+                const uint16_t *const areas = &( this_model->domainAreas[0] );
+                fprintf( stderr, "[domainAreas: " );
+
+                for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
+                {
+                        uint16_t area = areas[iplayer];
+                        fprintf( stderr, "%d " );
+                }
+
+                fprintf( stderr, "]\n" );
+        }
+
+        {
+                cf_player_i iplayer;
                 const cf_coordinates_t *const iph = &( this_model->playerHomes[0] );
                 fprintf( stderr, "[PlayerHomes: " );
 
