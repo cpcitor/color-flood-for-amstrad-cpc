@@ -66,7 +66,7 @@ void cf_model_dump( const cf_model_t *const this_model )
                 for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
                 {
                         uint16_t area = areas[iplayer];
-                        fprintf( stderr, "%d " );
+                        fprintf( stderr, "%d ", area );
                 }
 
                 fprintf( stderr, "]\n" );
