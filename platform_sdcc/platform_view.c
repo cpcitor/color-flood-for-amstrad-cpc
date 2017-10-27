@@ -153,10 +153,14 @@ void cf_grid_draw( const cf_grid_t *const this_grid )
                 {
                         cf_cellState_t state = this_grid->cell[row][col];
 
+#ifdef DEBUG
+
                         if ( state >= CF_STATECOUNT )
                         {
                                 printf( "ERR r=%d c=%d s=%d\n", row, col, state );
                         }
+
+#endif /* DEBUG */
 
                         viewparameters.cdf( row, col, state );
                 }
