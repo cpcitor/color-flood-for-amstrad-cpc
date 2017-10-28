@@ -65,4 +65,6 @@ void cf_model_init( cf_model_t *this_model );
 
 uint8_t cf_model_play( cf_model_t *const thisModel, cf_cellState_t const newState );
 
+cf_cellState_t cf_model_get_current_player_state( const cf_model_t *const this_model, uint8_t const iplayer );
+
 #endif /* __MODEL_H__ */
