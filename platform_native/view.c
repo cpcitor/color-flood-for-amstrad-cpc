@@ -1,5 +1,6 @@
 #include "platform.h"
 #include "../model.h"
+#include "../model_podium.h"
 #include "../controller.h"
 
 #include <stdio.h>
@@ -134,4 +135,60 @@ char platform_prompt_next_move( cf_model_t *const this_model )
         printf( "Enter your choice:\n" );
         char user_choice_char = getchar();
         return user_choice_char;
+}
+
+void cf_view_dump_podium( cf_podium_t *podium )
+{
+        fprintf( stderr, "[Podium: \n" );
+        int irow;
+
+        for ( irow = 0; irow < CF_PODIUM_ROW_COUNT; irow++ )
+        {
+                cf_podium_row_t *row = &( podium->row[irow] );
+
+                uint8_t iseat = 0;
+
+                fprintf( stderr, "Area %03u ", row->area );
+
+                for ( iseat = 0; iseat < CF_PODIUM_SEATS_PER_ROW; iseat++ )
+                {
+                        cf_player_i *seat = &( row->seat[iseat] );
+
+                        if ( ( *seat ) == CF_PODIUM_EMPTY_SEATS_VALUE )
+                        {
+                                fprintf( stderr, "_ " );
+                        }
+                        else
+                        {
+                                fprintf( stderr, "%d ", *seat );
+                        }
+                }
+
+                fprintf( stderr, "\n" );
+        }
+
+        fprintf( stderr, "podium]\n" );
+}
+
+void cf_view_display_endgame( cf_model_t *this_model, cf_podium_t *podium )
+{
+        printf( stderr, "********** Game over **********" );
+        cf_model_dump( this_model );
+
+        {
+                cf_player_i iplayer;
+                const uint16_t *const areas = &( this_model->domainAreas[0] );
+                fprintf( stderr, "Player scores: \n" );
+
+                for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
+                {
+                        uint16_t area = areas[iplayer];
+                        fprintf( stderr, "Player %u scored %u\n", iplayer, area );
+                }
+
+                cf_view_dump_podium( podium );
+                fprintf( stderr, "\n" );
+        }
+
+        printf( stderr, "********** Game over **********" );
 }

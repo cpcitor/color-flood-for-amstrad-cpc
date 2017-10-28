@@ -100,7 +100,7 @@ uint8_t cf_rungame( cf_model_t *const this_model )
 
                                         if ( rv == 1 )
                                         {
-                                                cf_model_draw( &global_model );
+                                                //cf_model_draw( &global_model );
                                                 return 0;
                                         }
 

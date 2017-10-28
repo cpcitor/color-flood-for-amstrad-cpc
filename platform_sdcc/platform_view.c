@@ -268,3 +268,7 @@ char platform_prompt_next_move( cf_model_t *const this_model )
 
         return fw_km_wait_key();
 }
+
+void cf_view_display_endgame( cf_model_t *this_model, cf_podium_t *podium )
+{
+}
