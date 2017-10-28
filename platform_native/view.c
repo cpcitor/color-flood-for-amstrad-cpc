@@ -86,6 +86,21 @@ void cf_model_dump( const cf_model_t *const this_model )
                 fprintf( stderr, "]\n" );
         }
 
+
+        {
+                cf_player_i iplayer;
+                fprintf( stderr, "[PlayerStates: " );
+
+                for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
+                {
+                        const cf_cellState_t state = cf_model_get_current_player_state( this_model, iplayer );
+                        fprintf( stderr, "%d ", state );
+                }
+
+                fprintf( stderr, "]\n" );
+        }
+
+
         fprintf( stderr, "]\n" );
 }
 
