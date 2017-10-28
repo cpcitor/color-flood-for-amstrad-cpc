@@ -21,7 +21,7 @@ const uint8_t state2byte[CF_STATECOUNT] =
         0x0C, /* 00001100 2 */
         0xCC, /* 11001100 3 */
         0x30, /* 00110000 4 */
-        0xF0, /* 11000000 5 */
+        0xF0, /* 11110000 5 */
         0x3C, /* 00111100 6 */
         0xFC, /* 11111100 7 */
 #if CF_COLORCOUNT > 6
