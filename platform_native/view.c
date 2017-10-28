@@ -116,7 +116,7 @@ char platform_prompt_next_move( cf_model_t *const this_model )
 {
         ( void )this_model;
         show_key_color_association();
-        printf( "Enter you choice:\n" );
+        printf( "Enter your choice:\n" );
         char user_choice_char = getchar();
         return user_choice_char;
 }
