@@ -13,6 +13,7 @@ char platform_prompt_next_move( cf_model_t *const model );
 void cf_model_draw( cf_model_t *model );
 void cf_grid_draw( const cf_grid_t *const grid );
 void cf_player_area_bars( const cf_model_t *const model );
+uint8_t state_to_color( cf_cellState_t state );
 
 void show_key_color_association();
 
