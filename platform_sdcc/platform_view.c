@@ -167,13 +167,16 @@ void cf_grid_draw( const cf_grid_t *const this_grid )
         }
 }
 
+#define total_height_exponent 3
+#define total_height (1 << total_height_exponent)
+
 void cf_player_area_bars( const cf_model_t *const this_model )
 {
-        static const int total_height_exponent = 3;
-        //static const int total_height = 1 << total_height_exponent;
-        uint8_t y;
+        // static const int total_height_exponent = 3;
+        // static const int total_height = 1 << total_height_exponent; // SDCC claims "Initializer element is not constant"
+        int8_t y = 1 << total_height_exponent;
 
-        for ( y = 0; y < ( 1 << total_height_exponent ); y++ )
+        while ( y-- != 0 ) // small hack, not really necessary, for shorter ASM
         {
                 uint8_t iplayer = ( y * this_model->playerCount ) >> total_height_exponent;
                 uint16_t area = this_model->domainAreas[iplayer];
