@@ -167,9 +167,23 @@ void cf_grid_draw( const cf_grid_t *const this_grid )
         }
 }
 
+void cf_player_area_bars( const cf_model_t *const this_model )
+{
+        uint8_t iplayer;
+
+        for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
+        {
+                uint16_t area = this_model->domainAreas[iplayer];
+                fw_gra_set_pen( iplayer + 1 );
+                fw_gra_move_absolute( 0, iplayer << 1 );
+                fw_gra_line_relative( area << 1, 0 );
+        }
+}
+
 void cf_model_draw( const cf_model_t *const model )
 {
         cf_grid_draw( &model->grid );
+        cf_player_area_bars( model );
 }
 
 void show_key_color_association()
