@@ -169,13 +169,16 @@ void cf_grid_draw( const cf_grid_t *const this_grid )
 
 void cf_player_area_bars( const cf_model_t *const this_model )
 {
-        uint8_t iplayer;
+        static const int total_height_exponent = 3;
+        //static const int total_height = 1 << total_height_exponent;
+        uint8_t y;
 
-        for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
+        for ( y = 0; y < ( 1 << total_height_exponent ); y++ )
         {
+                uint8_t iplayer = ( y * this_model->playerCount ) >> total_height_exponent;
                 uint16_t area = this_model->domainAreas[iplayer];
                 fw_gra_set_pen( iplayer + 1 );
-                fw_gra_move_absolute( 0, iplayer << 1 );
+                fw_gra_move_absolute( 0, y << 1 );
                 fw_gra_line_relative( area << 1, 0 );
         }
 }
