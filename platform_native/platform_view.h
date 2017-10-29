@@ -3,6 +3,7 @@
 
 #include "../model.h"
 #include "../model_podium.h"
+#include <stdbool.h>
 
 void cf_view_init( cf_model_t *model );
 
@@ -13,6 +14,6 @@ void cf_model_dump( const cf_model_t *const this_model );
 void cf_grid_draw( const cf_grid_t *const this_grid );
 void cf_grid_dump( const cf_grid_t *const this_grid );
 
-void cf_view_display_endgame( cf_model_t *model, cf_podium_t *podium );
+bool cf_view_display_endgame_should_we_play_again( cf_model_t *model, cf_podium_t *podium );
 
 #endif /* __PLATFORM_VIEW_H__ */

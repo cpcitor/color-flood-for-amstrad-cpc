@@ -18,6 +18,6 @@ uint8_t state_to_color( cf_cellState_t state );
 
 void show_key_color_association();
 
-void cf_view_display_endgame( cf_model_t *model, cf_podium_t *podium );
+bool cf_view_display_endgame_should_we_play_again( cf_model_t *model, cf_podium_t *podium );
 
 #endif /* __PLATFORM_VIEW_H__ */

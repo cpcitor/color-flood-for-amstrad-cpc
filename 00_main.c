@@ -18,11 +18,11 @@ main()
 
         welcome();
 
-        cf_platform_prepare_for_game_board();
-
         global_model.playerCount = 2;
 
+        do
         {
+                cf_platform_prepare_for_game_board();
 
                 {
                         const uint8_t size = 12;
@@ -41,12 +41,16 @@ main()
 
                 {
                         cf_podium_t podium;
-                        cf_view_display_endgame( &global_model, &podium );
                         cf_model_podium_init( &podium );
                         cf_model_podium_compute( &podium, &global_model );
-                        cf_view_display_endgame( &global_model, &podium );
+
+                        if ( !cf_view_display_endgame_should_we_play_again( &global_model, &podium ) )
+                        {
+                                break ;
+                        }
                 }
         }
+        while ( true );
 
         silmsg( 0, "Returning to BASIC." );
         return 0;

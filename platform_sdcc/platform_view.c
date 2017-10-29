@@ -5,13 +5,14 @@
 #include "platform.h"
 #include "platform_ui.h"
 #include "platform_view.h"
+#include "../print.h"
 #include "../model.h"
 #include "../controller.h"
 #include "../log.h"
 
 
 
-enum { cf_grid_byte_offset_from_screen_start = 16 };
+static uint8_t cf_grid_byte_offset_from_screen_start;
 
 #define draw_one_byte() screen_write(pos_local, value); ++pos_local
 #define grid_origin(row, col, bytes_per_cell_width, chars_height_per_cell_height) ((screen + row * char_stride * chars_height_per_cell_height + col * bytes_per_cell_width + cf_grid_byte_offset_from_screen_start))
@@ -138,6 +139,7 @@ void cf_view_init( cf_model_t *model )
         }
 
         show_key_color_association();
+        cf_grid_byte_offset_from_screen_start = 16;
 }
 
 void cf_grid_draw( const cf_grid_t *const this_grid )
@@ -269,6 +271,78 @@ char platform_prompt_next_move( cf_model_t *const this_model )
         return fw_km_wait_key();
 }
 
-void cf_view_display_endgame( cf_model_t *this_model, cf_podium_t *podium )
+
+void cf_view_print_podium( cf_podium_t *podium )
 {
+        int irow;
+
+        for ( irow = 0; irow < CF_PODIUM_ROW_COUNT; irow++ )
+        {
+                cf_podium_row_t *row = &( podium->row[irow] );
+
+                uint8_t iseat = 0;
+
+                uint16_t area = row->area;
+
+                if ( area == 0 )
+                {
+                        break;
+                }
+
+                cfwi_txt_str0_output( "Rank " );
+                fw_txt_output( '1' + irow ); // Assumes CF_PODIUM_ROW_COUNT <=9
+                cfwi_txt_str0_output( NL );
+
+                cfwi_txt_str0_output( "Area " );
+                pr_uint( area );
+                cfwi_txt_str0_output( NL );
+
+                for ( iseat = 0; iseat < CF_PODIUM_SEATS_PER_ROW; iseat++ )
+                {
+                        cf_player_i *seat = &( row->seat[iseat] );
+                        uint8_t iplayer = *seat;
+
+                        if ( iplayer != CF_PODIUM_EMPTY_SEATS_VALUE )
+                        {
+                                cfwi_txt_str0_output( "Player " );
+                                fw_txt_output( '1' + irow ); // Assumes CF_MAXPLAYERCOUNT <=9
+                                cfwi_txt_str0_output( NL );
+                        }
+                }
+
+                // cfwi_txt_str0_output( NL ); No because "Player N" already overflows.
+        }
+}
+
+bool cf_view_display_endgame_should_we_play_again( cf_model_t *this_model, cf_podium_t *podium )
+{
+
+        fw_scr_clear();
+        cf_grid_byte_offset_from_screen_start = 0;
+        cf_model_draw( this_model );
+        fw_txt_win_enable( 12, 19, 0, 24 );
+        cfwi_txt_str0_output( "Game" NL "Over" NL NL );
+        cf_view_print_podium( podium );
+
+        cfwi_txt_str0_output( "Play " NL "again?" NL "Y/N" );
+
+        {
+                char answer;
+
+                do
+                {
+                        answer = fw_km_wait_key();
+
+                        if ( answer == 'y' )
+                        {
+                                return true;
+                        }
+
+                        if ( answer == 'n' )
+                        {
+                                return false;
+                        }
+                }
+                while ( true );
+        }
 }
