@@ -23,10 +23,13 @@ main()
         global_model.playerCount = 2;
 
         {
-                const uint8_t size = 12;
 
-                global_model.grid.dimensions.row = size;
-                global_model.grid.dimensions.col = global_model.grid.dimensions.row;
+                {
+                        const uint8_t size = 12;
+
+                        global_model.grid.dimensions.row = size;
+                        global_model.grid.dimensions.col = global_model.grid.dimensions.row;
+                }
 
                 cf_model_init( &global_model );
 
