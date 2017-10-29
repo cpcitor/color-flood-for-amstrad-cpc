@@ -35,8 +35,6 @@ main()
 
                 cf_view_init( &global_model );
 
-                cf_model_draw( &global_model );
-
                 cf_rungame( &global_model );
 
                 {

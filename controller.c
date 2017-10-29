@@ -70,6 +70,7 @@ uint8_t cf_rungame( cf_model_t *const this_model )
         // wait for key
         while ( 1 )
         {
+                cf_model_draw( this_model );
                 {
                         char user_choice_char = platform_prompt_next_move( this_model );
                         const key_to_action_t *ktap = key_to_action + key_to_action_count;
@@ -110,7 +111,6 @@ uint8_t cf_rungame( cf_model_t *const this_model )
                                         }
                                 }
                                 //cf_model_play( this_model, ktap->color );
-                                cf_model_draw( this_model );
                         }
                         while ( ktap != key_to_action );
                 }
