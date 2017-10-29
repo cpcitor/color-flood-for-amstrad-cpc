@@ -186,7 +186,7 @@ void cf_player_area_bars( const cf_model_t *const this_model )
                 const uint8_t color = state_to_color( player_state );
                 fw_gra_set_pen( color );
                 fw_gra_move_absolute( 0, y << 1 );
-                fw_gra_line_relative( area << 1, 0 );
+                fw_gra_line_relative( area << 2, 0 ); // A grid 18x18 has area 240, (area<<2) will reach limit when one player area >= 160, not a big deal.
         }
 }
 
