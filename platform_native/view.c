@@ -102,7 +102,7 @@ void cf_model_dump( const cf_model_t *const this_model )
         }
 
 
-        fprintf( stderr, "]\n" );
+        fprintf( stderr, "Model]\n" );
 }
 
 void cf_model_draw( cf_model_t *const this_model )
