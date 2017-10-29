@@ -172,7 +172,7 @@ void cf_view_dump_podium( cf_podium_t *podium )
 
 void cf_view_display_endgame_should_we_play_again( cf_model_t *this_model, cf_podium_t *podium )
 {
-        printf( stderr, "********** Game over **********" );
+        fprintf( stderr, "********** Game over **********" );
         cf_model_dump( this_model );
 
         {
@@ -190,5 +190,5 @@ void cf_view_display_endgame_should_we_play_again( cf_model_t *this_model, cf_po
                 fprintf( stderr, "\n" );
         }
 
-        printf( stderr, "********** Game over **********" );
+        fprintf( stderr, "********** Game over **********" );
 }
