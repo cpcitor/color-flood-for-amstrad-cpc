@@ -3,7 +3,8 @@
 
 void generic_draw( char *decorator, ui_element_t *element )
 {
-        fprintf( stderr, "DOT: elem_%p [label=\"%s%s\"];\n", element, decorator, element->text );
+        fprintf( stderr, "DOT: elem_%p [label=\"%s%s\", pos=\"%d,%d!\"];\n",
+                 element, decorator, element->text, element->x, element->y );
         fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbour_up );
         fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbour_down );
         fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbour_left );
