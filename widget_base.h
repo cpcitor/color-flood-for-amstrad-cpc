@@ -1,5 +1,5 @@
-#ifndef  __UI_ELEMENT_H__
-#define __UI_ELEMENT_H__
+#ifndef  __WIDGET_BASE_H__
+#define __WIDGET_BASE_H__
 
 //#include "platform.h"
 
@@ -21,11 +21,11 @@ typedef struct ui_element_t
         const unsigned char /*uint8_t*/ x;
         const ui_class_t *const class;
         const char *const text;
-        const void *const data;
+        void *data;
         struct ui_element_t *neighbour_up;
         struct ui_element_t *neighbour_down;
         struct ui_element_t *neighbour_left;
         struct ui_element_t *neighbour_right;
 } ui_element_t;
 
-#endif /* __UI_ELEMENT_H__ */
+#endif /* __WIDGET_BASE_H__ */

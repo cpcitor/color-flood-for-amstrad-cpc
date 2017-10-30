@@ -1,44 +1,19 @@
 #include "platform.h"
-#include "../model.h"
-#include "ui_element.h"
+#include "model.h"
+#include "widget_classes.h"
 
 // #define CF_MAXPLAYERNAMELENGTH_INCLUDINGTRAILINGZERO 9
 
 //uint8_t playerEnableArray[CF_MAXPLAYERCOUNT];
 //char playerNamesArray[CF_MAXPLAYERCOUNT][CF_MAXPLAYERNAMELENGTH_INCLUDINGTRAILINGZERO];
 
-void labelDraw( ui_element_t *element )
-{
-        fw_txt_set_cursor( element->x, element->y );
-        cfwi_txt_str0_output( element->text );
-}
-
-void radioButtonDraw( ui_element_t *element )
-{
-        fw_txt_set_cursor( element->x, element->y );
-        cfwi_txt_str0_output( "* " );
-        cfwi_txt_str0_output( element->text );
-}
-
-void checkBoxDraw( ui_element_t *element )
-{
-        fw_txt_set_cursor( element->x, element->y );
-        cfwi_txt_str0_output( "* " );
-        cfwi_txt_str0_output( element->text );
-}
-
-ui_class_t labelClass = {labelDraw, 0};
-ui_class_t radioButtonClass = {radioButtonDraw, 0};
-ui_class_t checkBoxClass = {checkBoxDraw, 0};
-ui_class_t textInputClass = {labelDraw, 0};
-
 void setup( ui_element_t *element, ui_element_t *up, ui_element_t *down, ui_element_t *left, ui_element_t *right )
 {
-        ( element->class->draw_func )( element );
         element->neighbour_up = up;
         element->neighbour_down = down;
         element->neighbour_left = left;
         element->neighbour_right = right;
+        ( element->class->draw_func )( element );
 }
 
 void gui_init( void )
