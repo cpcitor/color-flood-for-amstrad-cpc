@@ -1,7 +1,7 @@
 #ifndef  __WIDGET_BASE_H__
 #define __WIDGET_BASE_H__
 
-//#include "platform.h"
+#include "platform.h"
 
 struct ui_element_t;
 
@@ -17,8 +17,8 @@ typedef struct ui_class_t
 
 typedef struct ui_element_t
 {
-        const unsigned char /*uint8_t*/ y;
-        const unsigned char /*uint8_t*/ x;
+        const uint8_t y;
+        const uint8_t x;
         const ui_class_t *const class;
         const char *const text;
         void *data;
