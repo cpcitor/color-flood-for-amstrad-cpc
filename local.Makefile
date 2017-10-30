@@ -10,10 +10,10 @@ HDRS_NATIVE := $(wildcard platform_native/*.h)
 astyle: $(wildcard *.c */*.c *.h */*.h)
 	astyle --mode=c --lineend=linux --indent=spaces=8 --style=ansi --add-brackets --indent-switches --indent-classes --indent-preprocessor --convert-tabs --break-blocks --pad-oper --pad-paren-in --pad-header --unpad-paren --align-pointer=name $^ platform_*/*.c platform_*/*.h #HACK
 
-CC = gcc -W -Wall -Wno-missing-field-initializers
+CC = gcc -W -Wall
 
 native: $(SRCS) $(SRCS_NATIVE)
-	$(CC) $(CFLAGS) -g -o $@ $^ -Iplatform_native
+	$(CC) $(CFLAGS) -Wno-missing-field-initializers -g -o $@ $^ -Iplatform_native
 
 
 cf2.dsk: platform_sdcc/cf.bas dsk $(CDTC_ENV_FOR_CPCXFS)
