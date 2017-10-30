@@ -45,7 +45,4 @@ void config_gui_init( void )
         setup( &pdre, &purn, 0, &pdle, 0 );
         setup( &pdln, &pdle, 0, 0, &pdrn );
         setup( &pdrn, &pdre, 0, &pdln, 0 );
-
 }
-
-
