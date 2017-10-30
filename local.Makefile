@@ -51,11 +51,18 @@ clean2:
 	-rm -f */src/*.lk */src/*.noi */src/*.rel */src/*.asm */src/*.ihx */src/*.lst */src/*.map */src/*.sym */src/*.rst */src/*.bin.log
 	-rm -f *.orig */*.orig
 
-clean-full: clean clean2 clean-native 
+clean-full: clean clean2 clean-native
 
-test-sdcc: clean-full dsk2	
-	arnold -drivea cf.dsk 
+test-sdcc: clean-full dsk2
+	arnold -drivea cf.dsk
 
 test-native: clean-full native
 	./native
 
+doc: config_gui_dump.png
+
+config_gui_dump.png: config_gui_dump.dot
+	dot -Kfdp -n -Tpng -o "$@".tmp "$<" && mv -vf "$@".tmp "$@"
+
+config_gui_dump.dot: native local.Makefile
+	{ echo "digraph gui {" ; ./$< </dev/urandom 2>&1 | sed -n 's/^DOT: \(.*\)/\1/p' | grep -v nil ; echo "}"  ;} > "$@".tmp && mv -vf "$@".tmp "$@"
