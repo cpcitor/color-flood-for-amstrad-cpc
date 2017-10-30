@@ -16,7 +16,7 @@ void setup( ui_element_t *element, ui_element_t *up, ui_element_t *down, ui_elem
         ( element->class->draw_func )( element );
 }
 
-void gui_init( void )
+void config_gui_init( void )
 {
 //        ui_element_t titleLabel = { 20, 5, &labelClass, "Color Flood", ( void * )1 };
         ui_element_t rbGrid12 = { 5, 05, &radioButtonClass, "Small (12)" };
