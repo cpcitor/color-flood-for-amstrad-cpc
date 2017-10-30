@@ -9,16 +9,16 @@ void pr_uint( unsigned int n )
                 pr_uint( n / 10 );
         }
 
-        platform_print_char( ( n % 10 ) + '0' );
+        platform_print_char_safe( ( n % 10 ) + '0' );
 }
 
 void pr_int( int n )
 {
         if ( n < 0 )
         {
-                platform_print_char( '-' );
+                platform_print_char_safe( '-' );
                 n = -n;
         }
 
-        platform_print_char( ( unsigned int ) n );
+        platform_print_char_safe( ( unsigned int ) n );
 }

@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 #define platform_print_char(c) putchar(c)
+#define platform_print_char_safe(c) putchar(c)
 #define platform_print_plain_string(msg) fprintf(stderr, "%s", msg)
 #define platform_print_formatted_string(...) fprintf(stderr, __VA_ARGS__)
 #define NL "\012"
