@@ -7,8 +7,6 @@
 //uint8_t playerEnableArray[CF_MAXPLAYERCOUNT];
 //char playerNamesArray[CF_MAXPLAYERCOUNT][CF_MAXPLAYERNAMELENGTH_INCLUDINGTRAILINGZERO];
 
-char toto;
-
 void labelDraw( ui_element_t *element )
 {
         fw_txt_set_cursor( element->x, element->y );
