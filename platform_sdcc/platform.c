@@ -33,6 +33,8 @@ void cf_platform_init()
         }
 }
 
+#define fw_scr_set_ink_one(ink, color1) fw_scr_set_ink((ink), (color1), (color1))
+
 void cf_platform_prepare_for_game_board()
 {
         fw_scr_set_mode( 0 );
@@ -45,7 +47,7 @@ void cf_platform_prepare_for_game_board()
                 for ( i = 0; i < ink_count; i++ )
                 {
                         uint8_t color = inks[i];
-                        fw_scr_set_ink( i, color, color );
+                        fw_scr_set_ink_one( i, color );
                 }
 
                 fw_scr_set_border( 0, 0 );
