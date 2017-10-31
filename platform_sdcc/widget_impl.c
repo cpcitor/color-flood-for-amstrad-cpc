@@ -2,9 +2,16 @@
 #include "platform.h"
 #include "../print.h"
 
+const int text_pen = 1;
+const int window_pen = 2;
+const int input_pen = 3;
+
 void draw_window( const char *title, const uint8_t top, const uint8_t bottom, const uint8_t left, const uint8_t right )
 {
+        fw_scr_set_border( 2, 2 );
+
         fw_txt_set_cursor( top, left );
+        fw_txt_set_pen( window_pen );
         fw_txt_wr_char( 0x96 );
 
         {
@@ -60,6 +67,7 @@ void draw_window( const char *title, const uint8_t top, const uint8_t bottom, co
 
                 fw_txt_wr_char( 0x99 );
         }
+        fw_txt_set_pen( text_pen );
 }
 
 void labelDraw( ui_element_t *element )
