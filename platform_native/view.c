@@ -148,7 +148,7 @@ char platform_prompt_next_move( cf_model_t *const this_model )
         return user_choice_char;
 }
 
-void cf_view_dump_podium( cf_podium_t *podium )
+void cf_view_print_podium( const cf_podium_t *const podium )
 {
         fprintf( stderr, "[Podium: \n" );
         int irow;
@@ -200,7 +200,7 @@ void cf_view_display_endgame_pause( cf_model_t *this_model, cf_podium_t *podium 
                         }
                 }
 
-                cf_view_dump_podium( podium );
+                cf_view_print_podium( podium );
                 fprintf( stderr, "\n" );
         }
 

@@ -35,5 +35,6 @@ typedef struct
 
 void cf_model_podium_init( cf_podium_t *this_podium );
 void cf_model_podium_compute( cf_podium_t *const this_podium, const cf_model_t *const this_model );
+void cf_view_print_podium( const cf_podium_t *const this_podium );
 
 #endif /* __MODEL_PODIUM_H__ */

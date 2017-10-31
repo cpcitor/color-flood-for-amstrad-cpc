@@ -276,13 +276,13 @@ char platform_prompt_next_move( cf_model_t *const this_model )
 }
 
 
-void cf_view_print_podium( cf_podium_t *podium )
+void cf_view_print_podium( const cf_podium_t *const podium )
 {
         int irow;
 
         for ( irow = 0; irow < CF_PODIUM_ROW_COUNT; irow++ )
         {
-                cf_podium_row_t *row = &( podium->row[irow] );
+                const cf_podium_row_t *const row = &( podium->row[irow] );
 
                 uint8_t iseat = 0;
 
@@ -303,8 +303,8 @@ void cf_view_print_podium( cf_podium_t *podium )
 
                 for ( iseat = 0; iseat < CF_PODIUM_SEATS_PER_ROW; iseat++ )
                 {
-                        cf_player_i *seat = &( row->seat[iseat] );
-                        uint8_t iplayer = *seat;
+                        const cf_player_i *const seat = &( row->seat[iseat] );
+                        const uint8_t iplayer = *seat;
 
                         if ( iplayer != CF_PODIUM_EMPTY_SEATS_VALUE )
                         {
