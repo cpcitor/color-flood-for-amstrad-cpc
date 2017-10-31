@@ -10,10 +10,10 @@ void checkBoxDraw( ui_element_t *element );
 //void textInputDraw( ui_element_t *element );
 void buttonDraw( ui_element_t *element );
 
-extern ui_class_t radioButtonClass;
-extern ui_class_t checkBoxClass;
+extern const ui_class_t radioButtonClass;
+extern const ui_class_t checkBoxClass;
 //extern ui_class_t textInputClass;
-extern ui_class_t buttonClass;
+extern const ui_class_t buttonClass;
 
 void config_gui_mark_selected_element( ui_element_t *element, char c );
 

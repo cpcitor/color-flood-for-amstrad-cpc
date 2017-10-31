@@ -4,10 +4,10 @@
 #include "config_gui.h"
 #include "gui_loop.h"
 
-ui_class_t radioButtonClass = {radioButtonDraw, radioButtonAction};
-ui_class_t checkBoxClass = {checkBoxDraw, checkBoxAction};
+const ui_class_t radioButtonClass = {radioButtonDraw, radioButtonAction};
+const ui_class_t checkBoxClass = {checkBoxDraw, checkBoxAction};
 //ui_class_t textInputClass={textInputDraw, 0};
-ui_class_t buttonClass = {buttonDraw, buttonAction};
+const ui_class_t buttonClass = {buttonDraw, buttonAction};
 
 void setup( ui_element_t *element, ui_element_t *up, ui_element_t *down, ui_element_t *left, ui_element_t *right )
 {
