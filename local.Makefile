@@ -65,4 +65,4 @@ config_gui_dump.png: config_gui_dump.dot
 	dot -Kfdp -n -Tpng -o "$@".tmp "$<" && mv -vf "$@".tmp "$@"
 
 config_gui_dump.dot: native local.Makefile
-	{ echo "digraph gui {" ; ./$< </dev/urandom 2>&1 | sed -n 's/^DOT: \(.*\)/\1/p' | grep -v nil ; echo "}"  ;} > "$@".tmp && mv -vf "$@".tmp "$@"
+	{ echo "digraph gui {" ; ./$< </dev/urandom 2>&1 | sed -n 's/^DOT: \(.*\)/\1/p' | fgrep -v '(nil)' ; echo "}"  ;} > "$@".tmp && mv -vf "$@".tmp "$@"

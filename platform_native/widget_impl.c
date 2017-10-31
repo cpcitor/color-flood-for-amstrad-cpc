@@ -11,7 +11,7 @@ void draw_window( char *title, uint8_t top, uint8_t height, uint8_t left, uint8_
 
 void generic_draw( char *decorator, ui_element_t *element )
 {
-        fprintf( stderr, "DOT: elem_%p [label=\"%s%s\", pos=\"%d,%d!\"];\n",
+        fprintf( stderr, "\nDOT: elem_%p [label=\"%s%s\", pos=\"%d,%d!\"];\n",
                  element, decorator, element->text, element->x, element->y );
         fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbour_up );
         fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbour_down );
@@ -37,4 +37,8 @@ void textInputDraw( ui_element_t *element )
 void buttonDraw( ui_element_t *element )
 {
         generic_draw( "BUTTON ", element );
+}
+
+void gui_loop( ui_element_t *first_selected_element )
+{
 }
