@@ -53,16 +53,15 @@ void config_gui_init( void )
         setup( &rbGrid12, 0, &pule, 0, &rbGrid16 );
         setup( &rbGrid16, 0, &pule, &rbGrid12, &rbGrid24 );
         setup( &rbGrid24, 0, &pure, &rbGrid16, 0 );
-        setup( &rbGrid24, 0, &pure, &rbGrid16, 0 );
 
-        setup( &pule, 0, &puln, 0, &pure );
-        setup( &pure, 0, &purn, &pule, 0 );
+        setup( &pule, &rbGrid12, &puln, 0, &pure );
+        setup( &pure, &rbGrid24, &purn, &pule, 0 );
         setup( &puln, &pule, &pdle, 0, &purn );
         setup( &purn, &pure, &pdre, &puln, 0 );
 
         setup( &pdle, &puln, &pdln, 0, &pdre );
-        setup( &pdre, &purn, 0, &pdle, 0 );
-        setup( &pdln, &pdle, 0, 0, &pdrn );
+        setup( &pdre, &purn, &pdrn, &pdle, 0 );
+        setup( &pdln, &pdle, &buttonGo, 0, &pdrn );
         setup( &pdrn, &pdre, &buttonGo, &pdln, 0 );
 
         setup( &buttonGo, &pdln, 0, 0, 0 );
