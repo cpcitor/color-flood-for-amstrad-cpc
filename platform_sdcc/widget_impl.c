@@ -2,16 +2,27 @@
 #include "platform.h"
 #include "../print.h"
 
+const int background_pen = 0;
 const int text_pen = 1;
-const int window_pen = 2;
-const int input_pen = 3;
+const int window_bright_pen = 2;
+const int window_dark_pen = 3;
+//const int input_pen = 3;
+
+void cf_platform_prepare_for_config_screen()
+{
+        fw_scr_set_ink_one( background_pen, rgb_to_cpc_color( 1, 2, 1 ) );
+        fw_scr_set_ink_one( text_pen, rgb_to_cpc_color( 0, 0, 0 ) );
+        fw_scr_set_ink_one( window_bright_pen, rgb_to_cpc_color( 2, 2, 2 ) );
+        fw_scr_set_ink_one( window_dark_pen, rgb_to_cpc_color( 0, 1, 0 ) );
+        fw_scr_set_border_one( rgb_to_cpc_color( 1, 1, 2 ) );
+}
 
 void draw_window( const char *title, const uint8_t top, const uint8_t bottom, const uint8_t left, const uint8_t right )
 {
         fw_scr_set_border( 2, 2 );
 
         fw_txt_set_cursor( top, left );
-        fw_txt_set_pen( window_pen );
+        fw_txt_set_pen( window_bright_pen );
         fw_txt_wr_char( 0x96 );
 
         {
@@ -51,8 +62,10 @@ void draw_window( const char *title, const uint8_t top, const uint8_t bottom, co
                         pr_uint( right );
                         cf_pause(); */
                         fw_txt_set_cursor( y, left );
+                        fw_txt_set_pen( window_bright_pen );
                         fw_txt_wr_char( 0x95 );
                         fw_txt_set_cursor( y, right );
+                        fw_txt_set_pen( window_dark_pen );
                         fw_txt_wr_char( 0x95 );
 
                 }

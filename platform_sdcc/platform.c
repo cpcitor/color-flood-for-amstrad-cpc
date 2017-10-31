@@ -33,8 +33,6 @@ void cf_platform_init()
         }
 }
 
-#define fw_scr_set_ink_one(ink, color1) fw_scr_set_ink((ink), (color1), (color1))
-
 void cf_platform_prepare_for_game_board()
 {
         fw_scr_set_mode( 0 );

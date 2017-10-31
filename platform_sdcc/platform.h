@@ -27,4 +27,8 @@ void cf_platform_prepare_for_game_board();
 #include <string.h>
 #define ASSIGN(dst, src) memcpy( (&(dst)), (&(src)), sizeof(src) )
 
+#define fw_scr_set_ink_one(ink, color1) fw_scr_set_ink((ink), (color1), (color1))
+#define fw_scr_set_border_one(color1) fw_scr_set_border( (color1), (color1))
+#define rgb_to_cpc_color(r, g, b) (9*(g) + 3*(r)+(b))
+
 #endif /* __PLATFORM_H__ */

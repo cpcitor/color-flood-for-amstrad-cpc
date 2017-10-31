@@ -1,6 +1,7 @@
 #include "platform.h"
 #include "platform_ui.h"
 #include "config_gui.h"
+#include "widget_style.h"
 #include <stdio.h>
 
 #define print_literal_line_centered(str) print_literal_line_centered_with_size(str NL, sizeof(str));
@@ -17,6 +18,7 @@
 
 void welcome()
 {
+        cf_platform_prepare_for_config_screen();
         /* nt_literal_line_centered( "0123456789012345678901234567890123456789") */
         /* print_literal_line_centered( "Welcome to" ); */
         el();

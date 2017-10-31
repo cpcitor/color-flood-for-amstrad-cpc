@@ -1,6 +1,10 @@
 #include "../widget_base.h"
 #include "platform.h"
 
+void cf_platform_prepare_for_config_screen()
+{
+}
+
 void draw_window( char *title, uint8_t top, uint8_t height, uint8_t left, uint8_t width )
 {
 }
