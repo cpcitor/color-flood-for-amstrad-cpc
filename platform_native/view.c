@@ -155,7 +155,7 @@ void cf_view_print_podium( const cf_podium_t *const podium )
 
         for ( irow = 0; irow < CF_PODIUM_ROW_COUNT; irow++ )
         {
-                cf_podium_row_t *row = &( podium->row[irow] );
+                const cf_podium_row_t *const row = &( podium->row[irow] );
 
                 uint8_t iseat = 0;
 
@@ -163,7 +163,7 @@ void cf_view_print_podium( const cf_podium_t *const podium )
 
                 for ( iseat = 0; iseat < CF_PODIUM_SEATS_PER_ROW; iseat++ )
                 {
-                        cf_player_i *seat = &( row->seat[iseat] );
+                        const cf_player_i *const seat = &( row->seat[iseat] );
 
                         if ( ( *seat ) == CF_PODIUM_EMPTY_SEATS_VALUE )
                         {

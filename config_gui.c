@@ -3,55 +3,10 @@
 #include "widget_classes.h"
 #include "config_gui.h"
 #include "gui_loop.h"
-
-const ui_class_t radioButtonClass = {radioButtonDraw, radioButtonAction};
-const ui_class_t checkBoxClass = {checkBoxDraw, checkBoxAction};
-//ui_class_t textInputClass={textInputDraw, 0};
-const ui_class_t buttonClass = {buttonDraw, buttonAction};
-
-void setup( ui_element_t *element, ui_element_t *up, ui_element_t *down, ui_element_t *left, ui_element_t *right )
-{
-        element->neighbours[neighbour_up] = up;
-        element->neighbours[neighbour_down] = down;
-        element->neighbours[neighbour_left] = left;
-        element->neighbours[neighbour_right] = right;
-        ( element->class->draw_func )( element );
-}
-
-#define gui_top (12)
-
-#define win_radio_height (3)
-#define win_player_height (5)
-
-#define win_radio_top (gui_top)
-#define win_player_row1_top (win_radio_top+win_radio_height)
-#define win_player_row2_top (win_player_row1_top + win_player_height)
-#define go_button_top (win_player_row2_top + win_player_height)
-
-ui_element_t *radioButtonSetGridSize[radioButtonSetGridSizeCount];
+#include "widget_configscreen.h"
 
 void config_gui_init( void )
 {
-        // Data parameter is grid size.
-        const ui_element_t rbGrid12 = {win_radio_top + 1, 02, &radioButtonClass, "Small (12)", 12};
-        const ui_element_t rbGrid16 = {win_radio_top + 1, 15, &radioButtonClass, "Medium (16)", 16};
-        const ui_element_t rbGrid24 = {win_radio_top + 1, 29, &radioButtonClass, "Big (24)", 24};
-
-        // Data parameter is to be correlated with playerHomes.
-        const ui_element_t pule = {win_player_row1_top + 2, 3, &checkBoxClass, "Enable", 1};
-        const ui_element_t pure = {win_player_row1_top + 2, 23, &checkBoxClass, "Enable", 2};
-        const ui_element_t pdle = {win_player_row2_top + 2, 3, &checkBoxClass, "Enable", 8};
-        const ui_element_t pdre = {win_player_row2_top + 2, 23, &checkBoxClass, "Enable", 4};
-        /*        const ui_element_t puln={win_player_row1_top + 3, 3, &textInputClass, "Name"};
-                const ui_element_t purn={win_player_row1_top + 3, 23, &textInputClass, "Name"};
-                const ui_element_t pdln={win_player_row2_top + 3, 3, &textInputClass, "Name"};
-                const ui_element_t pdrn={win_player_row2_top + 3, 23, &textInputClass, "Name"}; */
-        const ui_element_t buttonGo = {go_button_top, 15, &buttonClass, "START GAME"};
-
-        radioButtonSetGridSize[0] = &rbGrid12;
-        radioButtonSetGridSize[1] = &rbGrid16;
-        radioButtonSetGridSize[2] = &rbGrid24;
-
         draw_window( ( char * )0, 1, 4, 1, 40 );
         draw_window( "Rules", 5, 10, 1, 40 );
         draw_window( "Grid size", win_radio_top, win_radio_top + win_radio_height - 1, 1, 40 );
@@ -60,31 +15,17 @@ void config_gui_init( void )
         draw_window( "Player down left", win_player_row2_top, win_player_row2_top + win_player_height - 1, 1, 20 );
         draw_window( "Player down right", win_player_row2_top, win_player_row2_top + win_player_height - 1, 21, 40 );
 
-        setup( &rbGrid12, 0, &pule, 0, &rbGrid16 );
-        setup( &rbGrid16, 0, &pule, &rbGrid12, &rbGrid24 );
-        setup( &rbGrid24, 0, &pure, &rbGrid16, 0 );
+        {
+                //uint8_t i;
+                //const uint8_t widgetCount = sizeof( ui_configscreen_t ) / sizeof( ui_element_t );
+                const ui_element_t *element_p = ui_configscreen.as_array + ui_configscreen_element_count;
 
-        /*
-        setup( &pule, &rbGrid12, &puln, 0, &pure );
-        setup( &pure, &rbGrid24, &purn, &pule, 0 );
-        setup( &puln, &pule, &pdle, 0, &purn );
-        setup( &purn, &pure, &pdre, &puln, 0 );
+                do
+                {
+                        ui_element_draw( --element_p );
+                }
+                while ( element_p != ui_configscreen.as_array );
+        }
 
-        setup( &pdle, &puln, &pdln, 0, &pdre );
-        setup( &pdre, &purn, &pdrn, &pdle, 0 );
-        setup( &pdln, &pdle, &buttonGo, 0, &pdrn );
-        setup( &pdrn, &pdre, &buttonGo, &pdln, 0 );
-        */
-
-        setup( &pule, &rbGrid12, &pdle, 0, &pure );
-        setup( &pure, &rbGrid24, &pdre, &pule, 0 );
-
-        setup( &pdle, &pule, &buttonGo, 0, &pdre );
-        setup( &pdre, &pure, &buttonGo, &pdle, 0 );
-
-
-        //setup( &buttonGo, &pdln, 0, 0, 0 );
-        setup( &buttonGo, &pdle, 0, 0, 0 );
-
-        gui_loop( &rbGrid12 );
+        gui_loop( &ui_configscreen.as_struct.rbGrid12 );
 }

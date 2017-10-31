@@ -3,6 +3,7 @@
 #include "../print.h"
 #include "../config_gui.h"
 #include "widget_style.h"
+#include "../widget_configscreen.h"
 #include "count_bits_in_nibble.h"
 #include <cfwi/cfwi.h>
 
@@ -20,7 +21,7 @@ enum
 
 static bool continue_gui_loop;
 
-void radioButtonAction( ui_element_t *source )
+void radioButtonAction( const ui_element_t *const source )
 {
         uint8_t new_size = source->data;
         global_model.grid.dimensions.row = new_size;
@@ -31,13 +32,17 @@ void radioButtonAction( ui_element_t *source )
 
                 for ( i = 0; i < radioButtonSetGridSizeCount; i++ )
                 {
-                        ui_element_t *element = radioButtonSetGridSize[i];
+                        // HACK: we rely on the fact that
+                        // the radioButtonSetGridSizeCount first ui_element_t
+                        // in ui_configscreen
+                        // are our radio button group.
+                        const ui_element_t *const element = &( ui_configscreen.as_array[i] );
                         radioButtonDraw( element );
                 }
         }
 }
 
-void checkBoxAction( ui_element_t *source )
+void checkBoxAction( const ui_element_t *const source )
 {
         uint8_t bitmask = source->data;
 
@@ -46,7 +51,7 @@ void checkBoxAction( ui_element_t *source )
         checkBoxDraw( source );
 }
 
-void buttonAction( ui_element_t *source )
+void buttonAction( const ui_element_t *const source )
 {
         uint8_t playerCount = count_bits_in_nibble( global_model.playerEnableBits );
         ( void ) source;
@@ -68,7 +73,7 @@ void buttonAction( ui_element_t *source )
 
 void gui_loop( ui_element_t *first_selected_element )
 {
-        ui_element_t *selected_element = first_selected_element;
+        const ui_element_t *selected_element = first_selected_element;
         unsigned char marker = 0x80;
         //config_gui_mark_selected_element( first_selected_element, mark_here );
 
@@ -107,7 +112,7 @@ void gui_loop( ui_element_t *first_selected_element )
                 {
                         uint8_t delta = userKey - cpc_up;
 
-                        ui_element_t *new_element =
+                        const ui_element_t *const new_element =
                                 ( delta < neighbour_count ) ?
                                 selected_element->neighbours[userKey - cpc_up] // uses the fact that cpc keys are un same order as our neighbourhood define order.
                                 : NULL;

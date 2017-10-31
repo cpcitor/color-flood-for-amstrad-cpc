@@ -5,9 +5,9 @@
 
 struct ui_element_t;
 
-typedef void ui_draw_function_t( struct ui_element_t *element ); //, uiState_t *uiState, bool isActive );
+typedef void ui_draw_function_t( const struct ui_element_t *const element ); //, uiState_t *uiState, bool isActive );
 
-typedef void ui_user_action_function_t( struct ui_element_t *element ); //, uiState_t *uiState );
+typedef void ui_user_action_function_t( const struct ui_element_t *const element ); //, uiState_t *uiState );
 
 typedef struct ui_class_t
 {
@@ -31,8 +31,8 @@ typedef struct ui_element_t
         const uint8_t x;
         const ui_class_t *const class;
         const char *const text;
-        uint8_t data;
-        struct ui_element_t *neighbours[neighbour_count];
+        const uint8_t data;
+        const struct ui_element_t *const neighbours[neighbour_count];  // declare neighbours as array neighbour_count of pointer to const ui_element_t
 } ui_element_t;
 
 #endif /* __WIDGET_BASE_H__ */

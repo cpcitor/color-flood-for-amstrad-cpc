@@ -80,9 +80,9 @@ void draw_window( const char *title, const uint8_t top, const uint8_t bottom, co
         fw_txt_set_pen( text_pen );
 }
 
-void radioButtonDraw( ui_element_t *element )
+void radioButtonDraw( const ui_element_t *const element )
 {
-        bool selected = ( element->data == global_model.grid.dimensions.row );
+        const bool selected = ( element->data == global_model.grid.dimensions.row );
         fw_txt_set_pen( selected ? window_bright_pen : text_pen );
         fw_txt_set_cursor( element->y, element->x );
         fw_txt_wr_char( ' ' );
@@ -91,9 +91,9 @@ void radioButtonDraw( ui_element_t *element )
         cfwi_txt_str0_output( element->text );
 }
 
-void checkBoxDraw( ui_element_t *element )
+void checkBoxDraw( const ui_element_t *const element )
 {
-        bool selected = ( global_model.playerEnableBits & element->data );
+        const bool selected = ( global_model.playerEnableBits & element->data );
         fw_txt_set_cursor( element->y, element->x );
         fw_txt_wr_char( ' ' );
         fw_txt_set_pen( selected ? window_bright_pen : text_pen );
@@ -103,14 +103,14 @@ void checkBoxDraw( ui_element_t *element )
         cfwi_txt_str0_output( element->text );
 }
 
-/*void textInputDraw( ui_element_t *element )
+/*void textInputDraw( const ui_element_t *const element )
 {
         fw_txt_set_cursor( element->y, element->x );
         cfwi_txt_str0_output( " " );
         cfwi_txt_str0_output( element->text );
         }*/
 
-void buttonDraw( ui_element_t *element )
+void buttonDraw( const ui_element_t *const element )
 {
         fw_txt_set_cursor( element->y, element->x );
         cfwi_txt_str0_output( " " );
@@ -118,11 +118,9 @@ void buttonDraw( ui_element_t *element )
 }
 
 
-void config_gui_mark_selected_element( ui_element_t *element, char c )
+void config_gui_mark_selected_element( const ui_element_t *const element, const char c )
 {
         fw_txt_set_cursor( element->y, element->x );
         fw_txt_set_pen( window_bright_pen );
         fw_txt_wr_char( c );
 }
-
-void radioButtonAction( struct ui_element_t *element );

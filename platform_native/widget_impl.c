@@ -9,7 +9,7 @@ void draw_window( char *title, uint8_t top, uint8_t height, uint8_t left, uint8_
 {
 }
 
-void generic_draw( char *decorator, ui_element_t *element )
+void generic_draw( const char *const decorator, const ui_element_t *const element )
 {
         fprintf( stderr, "\nDOT: elem_%p [label=\"%s%s\", pos=\"%d,%d!\"];\n",
                  element, decorator, element->text, element->x, element->y );
@@ -19,22 +19,22 @@ void generic_draw( char *decorator, ui_element_t *element )
         fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbours[neighbour_right] );
 }
 
-void radioButtonDraw( ui_element_t *element )
+void radioButtonDraw( const ui_element_t *const element )
 {
         generic_draw( "(*) ", element );
 }
 
-void checkBoxDraw( ui_element_t *element )
+void checkBoxDraw( const ui_element_t *const element )
 {
         generic_draw( "[x] ", element );
 }
 
-/*void textInputDraw( ui_element_t *element )
+/*void textInputDraw( const ui_element_t *const element )
 {
         generic_draw( "INPUT ", element );
         }*/
 
-void buttonDraw( ui_element_t *element )
+void buttonDraw( const ui_element_t *const element )
 {
         generic_draw( "BUTTON ", element );
 }
