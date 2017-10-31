@@ -285,6 +285,7 @@ uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newSta
         }
 
         iplayer = this_model->nextPlayer;
+
         fillStartCoordinates = &( this_model->playerHomes[iplayer] );
         oldState = grid->cell[fillStartCoordinates->row][fillStartCoordinates->col];
 

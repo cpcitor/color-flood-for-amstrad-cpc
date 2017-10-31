@@ -121,6 +121,7 @@ uint8_t cf_rungame( cf_model_t *const this_model )
                                                 dbglogf( 1, "%d!", rv );
                                         }
                                 }
+
                                 //cf_model_play( this_model, ktap->color );
                         }
                         while ( ktap != key_to_action );
