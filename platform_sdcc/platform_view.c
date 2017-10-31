@@ -336,6 +336,7 @@ void cf_view_display_endgame_pause( cf_model_t *this_model, cf_podium_t *podium 
         cfwi_txt_str0_output( "Game" NL "Over" NL NL );
         cf_view_print_podium( podium );
 
+        fw_txt_set_pen( text_pen );
         cfwi_txt_str0_output( "Press " NL "space" NL "to" NL "continue" );
 
         {
