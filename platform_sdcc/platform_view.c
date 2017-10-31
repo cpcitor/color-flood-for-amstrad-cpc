@@ -320,9 +320,8 @@ void cf_view_print_podium( cf_podium_t *podium )
         }
 }
 
-bool cf_view_display_endgame_should_we_play_again( cf_model_t *this_model, cf_podium_t *podium )
+void cf_view_display_endgame_pause( cf_model_t *this_model, cf_podium_t *podium )
 {
-
         fw_scr_clear();
         cf_grid_byte_offset_from_screen_start = 0;
         cf_model_draw( this_model );
@@ -330,7 +329,7 @@ bool cf_view_display_endgame_should_we_play_again( cf_model_t *this_model, cf_po
         cfwi_txt_str0_output( "Game" NL "Over" NL NL );
         cf_view_print_podium( podium );
 
-        cfwi_txt_str0_output( "Play " NL "again?" NL "Y/N" );
+        cfwi_txt_str0_output( "Press " NL "space" NL "to" NL "continue" );
 
         {
                 char answer;
@@ -338,17 +337,7 @@ bool cf_view_display_endgame_should_we_play_again( cf_model_t *this_model, cf_po
                 do
                 {
                         answer = fw_km_wait_key();
-
-                        if ( answer == 'y' )
-                        {
-                                return true;
-                        }
-
-                        if ( answer == 'n' )
-                        {
-                                return false;
-                        }
                 }
-                while ( true );
+                while ( answer != ' ' );
         }
 }

@@ -43,10 +43,7 @@ main()
                         cf_model_podium_init( &podium );
                         cf_model_podium_compute( &podium, &global_model );
 
-                        if ( !cf_view_display_endgame_should_we_play_again( &global_model, &podium ) )
-                        {
-                                break ;
-                        }
+                        cf_view_display_endgame_pause( &global_model, &podium );
                 }
         }
         while ( true );
