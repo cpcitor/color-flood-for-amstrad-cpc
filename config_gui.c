@@ -16,7 +16,7 @@ void setup( ui_element_t *element, ui_element_t *up, ui_element_t *down, ui_elem
         ( element->class->draw_func )( element );
 }
 
-#define gui_top (12)
+#define gui_top (13)
 
 #define win_radio_height (3)
 #define win_player_height (5)
@@ -40,6 +40,8 @@ void config_gui_init( void )
         ui_element_t pdln = { win_player_row2_top + 3, 3, &textInputClass, "Name" };
         ui_element_t pdrn = { win_player_row2_top + 3, 23, &textInputClass, "Name" };
 
+        draw_window( ( char * )0, 1, 4, 1, 40 );
+        draw_window( "Rules", 6, 11, 1, 40 );
         draw_window( "Grid size", win_radio_top, win_radio_top + win_radio_height - 1, 1, 40 );
         draw_window( "Player up left", win_player_row1_top, win_player_row1_top + win_player_height - 1, 1, 20 );
         draw_window( "Player up right", win_player_row1_top, win_player_row1_top + win_player_height - 1, 21, 40 );
