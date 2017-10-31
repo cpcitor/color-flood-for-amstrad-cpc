@@ -16,13 +16,10 @@ main()
 
         cf_platform_init();
 
-        welcome();
-
-        global_model.playerEnableBits = 0b0101;
-
         do
         {
-                cf_platform_prepare_for_game_board();
+
+                global_model.playerEnableBits = 0b0101;
 
                 {
                         const uint8_t size = 12;
@@ -30,6 +27,10 @@ main()
                         global_model.grid.dimensions.row = size;
                         global_model.grid.dimensions.col = global_model.grid.dimensions.row;
                 }
+
+                welcome();
+
+                cf_platform_prepare_for_game_board();
 
                 cf_model_init( &global_model );
 

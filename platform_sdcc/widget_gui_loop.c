@@ -1,5 +1,8 @@
+#include "../model.h"
 #include "../widget_classes.h"
 #include "../print.h"
+#include "count_bits_in_nibble.h"
+#include <cfwi/cfwi.h>
 
 const char mark_away = ' ';
 const char mark_here = '\xF6' ;
@@ -17,8 +20,14 @@ static bool continue_gui_loop;
 
 void buttonAction( ui_element_t *source )
 {
+        uint8_t playerCount = count_bits_in_nibble( global_model.playerEnableBits );
         ( void ) source;
-        continue_gui_loop = false;
+        /*fw_txt_set_cursor( 1, 1 );
+        pr_uint( global_model.playerEnableBits );
+        cfwi_txt_str0_output( " bits " );
+        pr_uint( playerCount );
+        cf_pause();*/
+        continue_gui_loop = ( playerCount < 2 );
 }
 
 void gui_loop( ui_element_t *first_selected_element )
