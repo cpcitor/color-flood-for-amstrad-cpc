@@ -1,6 +1,10 @@
 #include "../widget_base.h"
 #include "platform.h"
 
+void draw_window( char *title, uint8_t top, uint8_t height, uint8_t left, uint8_t width )
+{
+}
+
 void generic_draw( char *decorator, ui_element_t *element )
 {
         fprintf( stderr, "DOT: elem_%p [label=\"%s%s\", pos=\"%d,%d!\"];\n",
