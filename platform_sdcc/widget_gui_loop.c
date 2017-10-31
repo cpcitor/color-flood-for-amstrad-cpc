@@ -23,7 +23,12 @@ void gui_loop( ui_element_t *first_selected_element )
                 //fw_txt_wr_char( ' ' );
                 //pr_uint( userKey );
 
-                ui_element_t *new_element = selected_element->neighbours[userKey - cpc_up]; // uses the fact that cpc keys are un same order as our neighbourhood define order.
+                uint8_t delta = userKey - cpc_up;
+
+                ui_element_t *new_element =
+                        ( delta < neighbour_count ) ?
+                        selected_element->neighbours[userKey - cpc_up] // uses the fact that cpc keys are un same order as our neighbourhood define order.
+                        : NULL;
 
                 config_gui_mark_selected_element( selected_element, mark_away );
 
