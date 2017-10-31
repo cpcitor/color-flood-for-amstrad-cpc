@@ -309,7 +309,8 @@ void cf_view_print_podium( cf_podium_t *podium )
                         if ( iplayer != CF_PODIUM_EMPTY_SEATS_VALUE )
                         {
 
-                                cfwi_txt_str0_output( playerNamesArray[iplayer] );
+                                cfwi_txt_str0_output( "Player " );
+                                fw_txt_output( 0xD4 + iplayer );
                                 //fw_txt_output( '1' + irow ); // Assumes CF_MAXPLAYERCOUNT <=9
                                 cfwi_txt_str0_output( NL );
                         }

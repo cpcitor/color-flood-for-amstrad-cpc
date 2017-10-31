@@ -3,10 +3,6 @@
 #include "widget_classes.h"
 #include "gui_loop.h"
 
-// #define CF_MAXPLAYERNAMELENGTH_INCLUDINGTRAILINGZERO 9
-
-//char playerNamesArray[CF_MAXPLAYERCOUNT][CF_MAXPLAYERNAMELENGTH_INCLUDINGTRAILINGZERO];
-
 ui_class_t radioButtonClass = {radioButtonDraw, radioButtonAction};
 ui_class_t checkBoxClass = {checkBoxDraw, checkBoxAction};
 //ui_class_t textInputClass={textInputDraw, 0};

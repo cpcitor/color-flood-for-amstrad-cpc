@@ -59,9 +59,6 @@ typedef struct cf_model_t
 #define is_player_enabled(model, iplayer) ((model->playerEnableBits & (1<<iplayer)) !=0)
 #define is_player_disabled(model, iplayer) ((model->playerEnableBits & (1<<iplayer)) ==0)
 
-enum { CF_MAXPLAYERNAMELENGTH_INCLUDINGTRAILINGZERO = 9 };
-extern const char playerNamesArray[CF_MAXPLAYERCOUNT][CF_MAXPLAYERNAMELENGTH_INCLUDINGTRAILINGZERO];
-
 extern cf_model_t global_model;
 
 void cf_grid_init( cf_grid_t *this_grid );
