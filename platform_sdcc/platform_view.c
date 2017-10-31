@@ -9,6 +9,7 @@
 #include "../model.h"
 #include "../controller.h"
 #include "../log.h"
+#include "widget_style.h"
 
 
 
@@ -293,6 +294,7 @@ void cf_view_print_podium( const cf_podium_t *const podium )
                         break;
                 }
 
+                fw_txt_set_pen( text_pen );
                 cfwi_txt_str0_output( "Rank " );
                 fw_txt_output( '1' + irow ); // Assumes CF_PODIUM_ROW_COUNT <=9
                 cfwi_txt_str0_output( NL );
@@ -306,8 +308,12 @@ void cf_view_print_podium( const cf_podium_t *const podium )
                         const cf_player_i *const seat = &( row->seat[iseat] );
                         const uint8_t iplayer = *seat;
 
+
                         if ( iplayer != CF_PODIUM_EMPTY_SEATS_VALUE )
                         {
+                                const cf_cellState_t player_state = cf_model_get_current_player_state( &global_model, iplayer );
+                                const uint8_t color = state_to_color( player_state );
+                                fw_txt_set_pen( color );
 
                                 cfwi_txt_str0_output( "Player " );
                                 fw_txt_output( 0xD4 + iplayer );
@@ -326,6 +332,7 @@ void cf_view_display_endgame_pause( cf_model_t *this_model, cf_podium_t *podium 
         cf_grid_byte_offset_from_screen_start = 0;
         cf_model_draw( this_model );
         fw_txt_win_enable( 12, 19, 0, 24 );
+        fw_txt_set_pen( text_pen );
         cfwi_txt_str0_output( "Game" NL "Over" NL NL );
         cf_view_print_podium( podium );
 
