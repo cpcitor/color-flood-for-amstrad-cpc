@@ -10,6 +10,7 @@ const int window_dark_pen = 3;
 
 void cf_platform_prepare_for_config_screen()
 {
+        fw_scr_set_mode( 1 );
         fw_scr_set_ink_one( background_pen, rgb_to_cpc_color( 1, 2, 1 ) );
         fw_scr_set_ink_one( text_pen, rgb_to_cpc_color( 0, 0, 0 ) );
         fw_scr_set_ink_one( window_bright_pen, rgb_to_cpc_color( 2, 2, 2 ) );

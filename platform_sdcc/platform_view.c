@@ -340,4 +340,5 @@ void cf_view_display_endgame_pause( cf_model_t *this_model, cf_podium_t *podium 
                 }
                 while ( answer != ' ' );
         }
+        fw_txt_clear_window();
 }
