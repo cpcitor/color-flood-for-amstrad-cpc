@@ -44,6 +44,16 @@ void gui_loop( ui_element_t *first_selected_element )
 }
 
 
+void radioButtonAction( ui_element_t *source )
+{
+        ( void ) source;
+}
+
+void checkBoxAction( ui_element_t *source )
+{
+        ( void ) source;
+}
+
 void buttonAction( ui_element_t *source )
 {
         ( void ) source;

@@ -3,6 +3,8 @@
 
 #include "widget_base.h"
 
+void radioButtonAction( ui_element_t *source );
+void checkBoxAction( ui_element_t *source );
 void buttonAction( ui_element_t *source );
 
 void gui_loop( ui_element_t *first_selected_element );

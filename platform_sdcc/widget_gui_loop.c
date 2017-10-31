@@ -18,6 +18,16 @@ enum
 
 static bool continue_gui_loop;
 
+void radioButtonAction( ui_element_t *source )
+{
+        global_model.grid.dimensions.row = global_model.grid.dimensions.col = source->data.value_uint8;
+}
+
+void checkBoxAction( ui_element_t *source )
+{
+        ( void ) source;
+}
+
 void buttonAction( ui_element_t *source )
 {
         uint8_t playerCount = count_bits_in_nibble( global_model.playerEnableBits );
