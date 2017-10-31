@@ -2,6 +2,7 @@
 #include "../widget_classes.h"
 #include "../print.h"
 #include "../config_gui.h"
+#include "widget_style.h"
 #include "count_bits_in_nibble.h"
 #include <cfwi/cfwi.h>
 
@@ -19,12 +20,6 @@ enum
 
 static bool continue_gui_loop;
 
-enum
-{
-        cpc_circle_open = 0xE6,
-        cpc_circle_full = 0xE7
-};
-
 void radioButtonAction( ui_element_t *source )
 {
         uint8_t new_size = source->data;
@@ -37,10 +32,7 @@ void radioButtonAction( ui_element_t *source )
                 for ( i = 0; i < radioButtonSetGridSizeCount; i++ )
                 {
                         ui_element_t *element = radioButtonSetGridSize[i];
-                        fw_txt_set_cursor( element->y, element->x + 1 );
-                        fw_txt_wr_char(
-                                ( element->data == new_size ) ? cpc_circle_full : cpc_circle_open
-                        );
+                        radioButtonDraw( element );
                 }
         }
 }

@@ -1,12 +1,8 @@
 #include "../widget_base.h"
 #include "platform.h"
+#include "../model.h"
 #include "../print.h"
-
-const int background_pen = 0;
-const int text_pen = 1;
-const int window_bright_pen = 2;
-const int window_dark_pen = 3;
-//const int input_pen = 3;
+#include "widget_style.h"
 
 void cf_platform_prepare_for_config_screen()
 {
@@ -86,8 +82,12 @@ void draw_window( const char *title, const uint8_t top, const uint8_t bottom, co
 
 void radioButtonDraw( ui_element_t *element )
 {
+        bool selected = ( element->data == global_model.grid.dimensions.row );
+        fw_txt_set_pen( selected ? window_bright_pen : text_pen );
         fw_txt_set_cursor( element->y, element->x );
-        cfwi_txt_str0_output( " \xE6 " );
+        fw_txt_wr_char( ' ' );
+        fw_txt_wr_char( selected ? cpc_circle_full : cpc_circle_open );
+        fw_txt_wr_char( ' ' );
         cfwi_txt_str0_output( element->text );
 }
 
