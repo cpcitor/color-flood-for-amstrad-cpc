@@ -97,12 +97,12 @@ void checkBoxDraw( ui_element_t *element )
         cfwi_txt_str0_output( element->text );
 }
 
-void textInputDraw( ui_element_t *element )
+/*void textInputDraw( ui_element_t *element )
 {
         fw_txt_set_cursor( element->y, element->x );
         cfwi_txt_str0_output( " " );
         cfwi_txt_str0_output( element->text );
-}
+        }*/
 
 void buttonDraw( ui_element_t *element )
 {

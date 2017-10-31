@@ -10,7 +10,7 @@
 
 ui_class_t radioButtonClass = {radioButtonDraw, 0};
 ui_class_t checkBoxClass = {checkBoxDraw, 0};
-ui_class_t textInputClass = {textInputDraw, 0};
+//ui_class_t textInputClass = {textInputDraw, 0};
 ui_class_t buttonClass = {buttonDraw, 0};
 
 void setup( ui_element_t *element, ui_element_t *up, ui_element_t *down, ui_element_t *left, ui_element_t *right )
@@ -42,10 +42,10 @@ void config_gui_init( void )
         ui_element_t pure = { win_player_row1_top + 2, 23, &checkBoxClass, "Enable" };
         ui_element_t pdle = { win_player_row2_top + 2, 3, &checkBoxClass, "Enable" };
         ui_element_t pdre = { win_player_row2_top + 2, 23, &checkBoxClass, "Enable" };
-        ui_element_t puln = { win_player_row1_top + 3, 3, &textInputClass, "Name" };
-        ui_element_t purn = { win_player_row1_top + 3, 23, &textInputClass, "Name" };
-        ui_element_t pdln = { win_player_row2_top + 3, 3, &textInputClass, "Name" };
-        ui_element_t pdrn = { win_player_row2_top + 3, 23, &textInputClass, "Name" };
+        /*        ui_element_t puln = { win_player_row1_top + 3, 3, &textInputClass, "Name" };
+                ui_element_t purn = { win_player_row1_top + 3, 23, &textInputClass, "Name" };
+                ui_element_t pdln = { win_player_row2_top + 3, 3, &textInputClass, "Name" };
+                ui_element_t pdrn = { win_player_row2_top + 3, 23, &textInputClass, "Name" }; */
         ui_element_t buttonGo = { go_button_top, 15, &buttonClass, "START GAME" };
 
         draw_window( ( char * )0, 1, 4, 1, 40 );
@@ -60,6 +60,7 @@ void config_gui_init( void )
         setup( &rbGrid16, 0, &pule, &rbGrid12, &rbGrid24 );
         setup( &rbGrid24, 0, &pure, &rbGrid16, 0 );
 
+        /*
         setup( &pule, &rbGrid12, &puln, 0, &pure );
         setup( &pure, &rbGrid24, &purn, &pule, 0 );
         setup( &puln, &pule, &pdle, 0, &purn );
@@ -69,8 +70,17 @@ void config_gui_init( void )
         setup( &pdre, &purn, &pdrn, &pdle, 0 );
         setup( &pdln, &pdle, &buttonGo, 0, &pdrn );
         setup( &pdrn, &pdre, &buttonGo, &pdln, 0 );
+        */
 
-        setup( &buttonGo, &pdln, 0, 0, 0 );
+        setup( &pule, &rbGrid12, &pdle, 0, &pure );
+        setup( &pure, &rbGrid24, &pdre, &pule, 0 );
+
+        setup( &pdle, &pule, &buttonGo, 0, &pdre );
+        setup( &pdre, &pure, &buttonGo, &pdle, 0 );
+
+
+        //setup( &buttonGo, &pdln, 0, 0, 0 );
+        setup( &buttonGo, &pdle, 0, 0, 0 );
 
         gui_loop( &rbGrid12 );
 }

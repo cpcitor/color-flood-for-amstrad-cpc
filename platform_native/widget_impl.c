@@ -29,10 +29,10 @@ void checkBoxDraw( ui_element_t *element )
         generic_draw( "[x] ", element );
 }
 
-void textInputDraw( ui_element_t *element )
+/*void textInputDraw( ui_element_t *element )
 {
         generic_draw( "INPUT ", element );
-}
+        }*/
 
 void buttonDraw( ui_element_t *element )
 {
