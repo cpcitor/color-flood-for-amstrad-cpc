@@ -118,3 +118,5 @@ void config_gui_mark_selected_element( ui_element_t *element, char c )
         fw_txt_set_pen( window_bright_pen );
         fw_txt_wr_char( c );
 }
+
+void radioButtonAction( struct ui_element_t *element );

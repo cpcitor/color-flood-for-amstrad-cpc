@@ -10,7 +10,7 @@
 ui_class_t radioButtonClass = {radioButtonDraw, 0};
 ui_class_t checkBoxClass = {checkBoxDraw, 0};
 //ui_class_t textInputClass = {textInputDraw, 0};
-ui_class_t buttonClass = {buttonDraw, 0};
+ui_class_t buttonClass = {buttonDraw, buttonAction};
 
 void setup( ui_element_t *element, ui_element_t *up, ui_element_t *down, ui_element_t *left, ui_element_t *right )
 {

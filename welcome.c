@@ -34,5 +34,4 @@ void welcome()
         el();
         platform_print_plain_string( "\x0E\x02\x0F\x01  Use \xF0 \xF1 \xF2 \xF3 SPACE to choose options.  \x0E@" );
         config_gui_init();
-        cf_pause();
 }

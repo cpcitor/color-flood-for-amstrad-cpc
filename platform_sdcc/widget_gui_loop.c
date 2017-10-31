@@ -9,8 +9,17 @@ enum
         cpc_up = 240,
         cpc_down = 241,
         cpc_left = 242,
-        cpc_right = 243
+        cpc_right = 243,
+        cpc_space = ' '
 };
+
+static bool continue_gui_loop;
+
+void buttonAction( ui_element_t *source )
+{
+        ( void ) source;
+        continue_gui_loop = false;
+}
 
 void gui_loop( ui_element_t *first_selected_element )
 {
@@ -18,11 +27,23 @@ void gui_loop( ui_element_t *first_selected_element )
         unsigned char marker = 0x80;
         //config_gui_mark_selected_element( first_selected_element, mark_here );
 
-        while ( true )
+        continue_gui_loop = true;
+
+        while ( continue_gui_loop )
         {
                 char userKey = fw_km_read_key();
                 //fw_txt_wr_char( ' ' );
                 //pr_uint( userKey );
+
+                if ( userKey == cpc_space )
+                {
+                        ui_user_action_function_t *acfunc = selected_element->class->action_func;
+
+                        if ( acfunc != NULL )
+                        {
+                                acfunc( selected_element );
+                        }
+                }
 
                 {
                         uint8_t delta = userKey - cpc_up;
@@ -47,4 +68,3 @@ void gui_loop( ui_element_t *first_selected_element )
                 marker = ( ++marker ) | 0x80;
         }
 }
-

@@ -42,3 +42,9 @@ void buttonDraw( ui_element_t *element )
 void gui_loop( ui_element_t *first_selected_element )
 {
 }
+
+
+void buttonAction( ui_element_t *source )
+{
+        ( void ) source;
+}
