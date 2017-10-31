@@ -23,10 +23,9 @@ void welcome()
         print_literal_line_centered( "Welcome to Color Flood for Amstrad CPC" );
         print_literal_line_centered( "(c)2014-2017 by cpcitor" );
         el();
-        platform_print_plain_string( "This is the two-player game variant." NL );
-        platform_print_plain_string( "First top left, second bottom right." NL );
-        platform_print_plain_string( "Choose a color to turn into and annex" NL );
-        platform_print_plain_string( "by pressing the corresponding letter." NL );
+        platform_print_plain_string( "Each player owns a colored domain." NL );
+        platform_print_plain_string( "Each move changes one's domain color and" NL );
+        platform_print_plain_string( "annexes neighbours of the target color." NL );
         platform_print_plain_string( "Try to finish with biggest area." NL );
         config_gui_init();
         cf_pause();
