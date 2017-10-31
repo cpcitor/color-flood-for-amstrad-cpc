@@ -31,12 +31,7 @@ typedef struct ui_element_t
         const uint8_t x;
         const ui_class_t *const class;
         const char *const text;
-        union
-        {
-                void *pointer;
-                uint16_t value_uint16;
-                uint8_t value_uint8;
-        } data;
+        uint8_t data;
         struct ui_element_t *neighbours[neighbour_count];
 } ui_element_t;
 

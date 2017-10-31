@@ -20,7 +20,7 @@ static bool continue_gui_loop;
 
 void radioButtonAction( ui_element_t *source )
 {
-        global_model.grid.dimensions.row = global_model.grid.dimensions.col = source->data.value_uint8;
+        global_model.grid.dimensions.row = global_model.grid.dimensions.col = source->data;
 }
 
 void checkBoxAction( ui_element_t *source )
