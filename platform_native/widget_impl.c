@@ -13,10 +13,10 @@ void generic_draw( char *decorator, ui_element_t *element )
 {
         fprintf( stderr, "\nDOT: elem_%p [label=\"%s%s\", pos=\"%d,%d!\"];\n",
                  element, decorator, element->text, element->x, element->y );
-        fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbour_up );
-        fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbour_down );
-        fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbour_left );
-        fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbour_right );
+        fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbours[neighbour_up] );
+        fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbours[neighbour_down] );
+        fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbours[neighbour_left] );
+        fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbours[neighbour_right] );
 }
 
 void radioButtonDraw( ui_element_t *element )

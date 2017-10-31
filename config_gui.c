@@ -9,10 +9,10 @@
 
 void setup( ui_element_t *element, ui_element_t *up, ui_element_t *down, ui_element_t *left, ui_element_t *right )
 {
-        element->neighbour_up = up;
-        element->neighbour_down = down;
-        element->neighbour_left = left;
-        element->neighbour_right = right;
+        element->neighbours[neighbour_up] = up;
+        element->neighbours[neighbour_down] = down;
+        element->neighbours[neighbour_left] = left;
+        element->neighbours[neighbour_right] = right;
         ( element->class->draw_func )( element );
 }
 
