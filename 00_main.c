@@ -54,6 +54,6 @@ main()
         while ( true );
 
         //silmsg( 0, "Returning to BASIC." );
-        platform_print_plain_string( "Exiting C, back to BASIC." );
+        platform_print_plain_string( "Exiting C." NL );
         return 0;
 }

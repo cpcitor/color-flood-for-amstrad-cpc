@@ -118,4 +118,6 @@ void gui_loop( ui_element_t *first_selected_element )
 
                 marker = ( ++marker ) | 0x80;
         }
+
+        fw_txt_set_cursor( 5, 1 );
 }
