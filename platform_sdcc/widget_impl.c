@@ -58,13 +58,6 @@ void draw_window( const char *title, const uint8_t top, const uint8_t bottom, co
 
                 while ( ++y < bottom )
                 {
-                        /* fw_txt_set_cursor( 1, 1 );
-                        pr_uint( y );
-                        fw_txt_wr_char( ',' );
-                        pr_uint( left );
-                        fw_txt_wr_char( ',' );
-                        pr_uint( right );
-                        cf_pause(); */
                         fw_txt_set_cursor( y, left );
                         fw_txt_set_pen( window_bright_pen );
                         fw_txt_wr_char( 0x95 );
@@ -93,9 +86,6 @@ void draw_window( const char *title, const uint8_t top, const uint8_t bottom, co
 void radioButtonDraw( ui_element_t *element )
 {
         fw_txt_set_cursor( element->y, element->x );
-//pr_int( element->y );
-//pr_int( element->x );
-
         cfwi_txt_str0_output( " * " );
         cfwi_txt_str0_output( element->text );
 }
@@ -103,10 +93,6 @@ void radioButtonDraw( ui_element_t *element )
 void checkBoxDraw( ui_element_t *element )
 {
         fw_txt_set_cursor( element->y, element->x );
-        /* cfwi_txt_str0_output( "row " ); */
-        /* pr_int( element->y ); */
-        /* cfwi_txt_str0_output( "column " ); */
-        /* pr_int( element->x ); */
         cfwi_txt_str0_output( " [ ] " );
         cfwi_txt_str0_output( element->text );
 }
@@ -114,8 +100,6 @@ void checkBoxDraw( ui_element_t *element )
 void textInputDraw( ui_element_t *element )
 {
         fw_txt_set_cursor( element->y, element->x );
-        // pr_int( element->y );
-        // pr_int( element->x );
         cfwi_txt_str0_output( " " );
         cfwi_txt_str0_output( element->text );
 }
@@ -123,8 +107,6 @@ void textInputDraw( ui_element_t *element )
 void buttonDraw( ui_element_t *element )
 {
         fw_txt_set_cursor( element->y, element->x );
-        // pr_int( element->y );
-        // pr_int( element->x );
         cfwi_txt_str0_output( " " );
         cfwi_txt_str0_output( element->text );
 }
