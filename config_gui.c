@@ -33,20 +33,20 @@ ui_element_t *radioButtonSetGridSize[radioButtonSetGridSizeCount];
 void config_gui_init( void )
 {
         // Data parameter is grid size.
-        ui_element_t rbGrid12 = {win_radio_top + 1, 02, &radioButtonClass, "Small (12)", 12};
-        ui_element_t rbGrid16 = {win_radio_top + 1, 15, &radioButtonClass, "Medium (16)", 16};
-        ui_element_t rbGrid24 = {win_radio_top + 1, 29, &radioButtonClass, "Big (24)", 24};
+        const ui_element_t rbGrid12 = {win_radio_top + 1, 02, &radioButtonClass, "Small (12)", 12};
+        const ui_element_t rbGrid16 = {win_radio_top + 1, 15, &radioButtonClass, "Medium (16)", 16};
+        const ui_element_t rbGrid24 = {win_radio_top + 1, 29, &radioButtonClass, "Big (24)", 24};
 
         // Data parameter is to be correlated with playerHomes.
-        ui_element_t pule = {win_player_row1_top + 2, 3, &checkBoxClass, "Enable", 1};
-        ui_element_t pure = {win_player_row1_top + 2, 23, &checkBoxClass, "Enable", 2};
-        ui_element_t pdle = {win_player_row2_top + 2, 3, &checkBoxClass, "Enable", 8};
-        ui_element_t pdre = {win_player_row2_top + 2, 23, &checkBoxClass, "Enable", 4};
-        /*        ui_element_t puln={win_player_row1_top + 3, 3, &textInputClass, "Name"};
-                ui_element_t purn={win_player_row1_top + 3, 23, &textInputClass, "Name"};
-                ui_element_t pdln={win_player_row2_top + 3, 3, &textInputClass, "Name"};
-                ui_element_t pdrn={win_player_row2_top + 3, 23, &textInputClass, "Name"}; */
-        ui_element_t buttonGo = {go_button_top, 15, &buttonClass, "START GAME"};
+        const ui_element_t pule = {win_player_row1_top + 2, 3, &checkBoxClass, "Enable", 1};
+        const ui_element_t pure = {win_player_row1_top + 2, 23, &checkBoxClass, "Enable", 2};
+        const ui_element_t pdle = {win_player_row2_top + 2, 3, &checkBoxClass, "Enable", 8};
+        const ui_element_t pdre = {win_player_row2_top + 2, 23, &checkBoxClass, "Enable", 4};
+        /*        const ui_element_t puln={win_player_row1_top + 3, 3, &textInputClass, "Name"};
+                const ui_element_t purn={win_player_row1_top + 3, 23, &textInputClass, "Name"};
+                const ui_element_t pdln={win_player_row2_top + 3, 3, &textInputClass, "Name"};
+                const ui_element_t pdrn={win_player_row2_top + 3, 23, &textInputClass, "Name"}; */
+        const ui_element_t buttonGo = {go_button_top, 15, &buttonClass, "START GAME"};
 
         radioButtonSetGridSize[0] = &rbGrid12;
         radioButtonSetGridSize[1] = &rbGrid16;
