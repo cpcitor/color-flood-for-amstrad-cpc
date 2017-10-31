@@ -23,7 +23,7 @@ cf_podium_row_t *cf_model_podium_insert_row( cf_podium_t *const this_podium, uin
         if ( number_of_rows_to_copy > 0 )
         {
                 cf_podium_row_t *const where_shifted_row_goes = where_new_row_will_be + 1;
-                memcpy( where_shifted_row_goes, where_new_row_will_be, sizeof( cf_podium_row_t ) );
+                memcpy( where_shifted_row_goes, where_new_row_will_be, number_of_rows_to_copy * sizeof( cf_podium_row_t ) );
         }
 
         {
