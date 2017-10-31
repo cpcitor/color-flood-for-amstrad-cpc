@@ -20,11 +20,18 @@ cf_podium_row_t *cf_model_podium_insert_row( cf_podium_t *const this_podium, uin
         const uint8_t const number_of_rows_to_copy = CF_PODIUM_ROW_COUNT - irow - 1;
         cf_podium_row_t *const where_new_row_will_be = &( this_podium->row[irow] );
 
+        // dbglogf_unconditional( "Copying %d rows from %d to %d\n", number_of_rows_to_copy, irow, irow + 1 );
+
+        // cf_view_print_podium( this_podium );
+
         if ( number_of_rows_to_copy > 0 )
         {
                 cf_podium_row_t *const where_shifted_row_goes = where_new_row_will_be + 1;
                 memcpy( where_shifted_row_goes, where_new_row_will_be, number_of_rows_to_copy * sizeof( cf_podium_row_t ) );
         }
+
+        // dbglog_unconditional( "After memcopy" );
+        // cf_view_print_podium( this_podium );
 
         {
                 cf_podium_row_t *const new_row = where_new_row_will_be;
@@ -42,11 +49,14 @@ void cf_model_podium_add_player_at_row( cf_podium_row_t *const this_row, const c
 
         uint8_t iseat = 0;
 
+        // dbglogf_unconditional( "Inserting player %d in row with score %d\n", iplayer, this_row->area );
+
         for ( iseat = 0; iseat < CF_PODIUM_SEATS_PER_ROW; iseat++ )
         {
                 if ( ( *seat ) == CF_PODIUM_EMPTY_SEATS_VALUE )
                 {
                         ( *seat ) = iplayer;
+                        // dbglogf_unconditional( "Inserted at position %d\n", iseat );
                         return;
                 }
 
@@ -79,11 +89,15 @@ void cf_model_podium_compute( cf_podium_t *const this_podium, const cf_model_t *
 
                                 if ( this_player_area < this_row_area )
                                 {
+                                        // dbglogf_unconditional( "player %d score %d does not fit in row %d of score %d\n",
+                                        //              iplayer, this_player_area, irow, this_row_area );
                                         continue;
                                 }
 
                                 if ( this_player_area > this_row_area )
                                 {
+                                        // dbglogf_unconditional( "player %d score %d needs insertion before row %d of score %d\n",
+                                        //                     iplayer, this_player_area, irow, this_row_area );
                                         cf_model_podium_insert_row( this_podium, this_player_area, irow );
                                         // Actually, local variable row already holds the return value of cf_model_podium_insert_row.
                                 }
