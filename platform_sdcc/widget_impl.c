@@ -15,6 +15,10 @@ void cf_platform_prepare_for_config_screen()
         fw_scr_set_ink_one( window_bright_pen, rgb_to_cpc_color( 2, 2, 2 ) );
         fw_scr_set_ink_one( window_dark_pen, rgb_to_cpc_color( 0, 1, 0 ) );
         fw_scr_set_border_one( rgb_to_cpc_color( 1, 1, 2 ) );
+        fw_txt_set_cursor( 25, 1 );
+        cfwi_txt_str0_output( "\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x18-----"
+                              "-----\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x18" );
+        fw_txt_set_cursor( 1, 1 );
 }
 
 void draw_window( const char *title, const uint8_t top, const uint8_t bottom, const uint8_t left, const uint8_t right )

@@ -25,14 +25,14 @@ void welcome()
         platform_print_plain_string( " Welcome to Color Flood for Amstrad CPC" NL );
         platform_print_plain_string( " \xa4" "2014-2017  https://github.com/cpcitor" NL );
         el();
-        platform_print_plain_string( " Coded in C + SDCC + cpc-dev-tool-chain" NL );
+        // platform_print_plain_string( " Coded in C + SDCC + cpc-dev-tool-chain" NL );
         el();
         platform_print_plain_string( " Each player owns a colored domain." NL );
         platform_print_plain_string( " At each move change your domain color" NL );
         platform_print_plain_string( " and annex neighbours of target color." NL );
         platform_print_plain_string( " *** Player with biggest area wins. ***" NL );
         el();
-        platform_print_plain_string( "========== Choose your options =========" );
+        platform_print_plain_string( "\x0E\x02\x0F\x01  Use \xF0 \xF1 \xF2 \xF3 SPACE to choose options.  \x0E@" );
         config_gui_init();
         cf_pause();
 }

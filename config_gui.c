@@ -16,7 +16,7 @@ void setup( ui_element_t *element, ui_element_t *up, ui_element_t *down, ui_elem
         ( element->class->draw_func )( element );
 }
 
-#define gui_top (13)
+#define gui_top (12)
 
 #define win_radio_height (3)
 #define win_player_height (5)
@@ -24,6 +24,7 @@ void setup( ui_element_t *element, ui_element_t *up, ui_element_t *down, ui_elem
 #define win_radio_top (gui_top)
 #define win_player_row1_top (win_radio_top+win_radio_height)
 #define win_player_row2_top (win_player_row1_top + win_player_height)
+#define go_button_top (win_player_row2_top + win_player_height)
 
 void config_gui_init( void )
 {
@@ -39,9 +40,10 @@ void config_gui_init( void )
         ui_element_t purn = { win_player_row1_top + 3, 23, &textInputClass, "Name" };
         ui_element_t pdln = { win_player_row2_top + 3, 3, &textInputClass, "Name" };
         ui_element_t pdrn = { win_player_row2_top + 3, 23, &textInputClass, "Name" };
+        ui_element_t buttonGo = { go_button_top, 15, &buttonClass, "START GAME" };
 
         draw_window( ( char * )0, 1, 4, 1, 40 );
-        draw_window( "Rules", 6, 11, 1, 40 );
+        draw_window( "Rules", 5, 10, 1, 40 );
         draw_window( "Grid size", win_radio_top, win_radio_top + win_radio_height - 1, 1, 40 );
         draw_window( "Player up left", win_player_row1_top, win_player_row1_top + win_player_height - 1, 1, 20 );
         draw_window( "Player up right", win_player_row1_top, win_player_row1_top + win_player_height - 1, 21, 40 );
@@ -61,5 +63,7 @@ void config_gui_init( void )
         setup( &pdle, &puln, &pdln, 0, &pdre );
         setup( &pdre, &purn, 0, &pdle, 0 );
         setup( &pdln, &pdle, 0, 0, &pdrn );
-        setup( &pdrn, &pdre, 0, &pdln, 0 );
+        setup( &pdrn, &pdre, &buttonGo, &pdln, 0 );
+
+        setup( &buttonGo, &pdln, 0, 0, 0 );
 }
