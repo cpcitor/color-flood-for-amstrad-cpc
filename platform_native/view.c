@@ -62,15 +62,23 @@ void cf_model_dump( const cf_model_t *const this_model )
         {
                 cf_player_i iplayer;
                 const uint16_t *const areas = &( this_model->domainAreas[0] );
+                uint16_t unclaimedArea = this_model->grid.dimensions.row * this_model->grid.dimensions.col;
+
                 fprintf( stderr, "[domainAreas: " );
 
                 for ( iplayer = 0; iplayer < CF_MAXPLAYERCOUNT; iplayer++ )
                 {
                         uint16_t area = areas[iplayer];
+
+                        if ( is_player_enabled( this_model, iplayer ) )
+                        {
+                                unclaimedArea -= area;
+                        }
+
                         fprintf( stderr, "%d ", area );
                 }
 
-                fprintf( stderr, "]\n" );
+                fprintf( stderr, "] UNCLAIMED=%d\n", unclaimedArea );
         }
 
         {
