@@ -17,13 +17,16 @@ void draw_window( const char *title, const uint8_t top, const uint8_t bottom, co
         {
                 int x = left;
 
-                while ( ++x < right )
+                if ( title != 0 )
                 {
-                        fw_txt_wr_char( *title );
-
-                        if ( *( ++title ) == 0 )
+                        while ( ++x < right )
                         {
-                                break;
+                                fw_txt_wr_char( *title );
+
+                                if ( *( ++title ) == 0 )
+                                {
+                                        break;
+                                }
                         }
                 }
 
