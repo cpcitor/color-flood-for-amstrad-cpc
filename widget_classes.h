@@ -15,4 +15,6 @@ ui_class_t checkBoxClass = {checkBoxDraw, 0};
 ui_class_t textInputClass = {textInputDraw, 0};
 ui_class_t buttonClass = {buttonDraw, 0};
 
+void config_gui_mark_selected_element( ui_element_t *element, char c );
+
 #endif /* __WIDGET_CLASSES_H__ */

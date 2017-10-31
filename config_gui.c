@@ -1,6 +1,7 @@
 #include "platform.h"
 #include "model.h"
 #include "widget_classes.h"
+#include "gui_loop.h"
 
 // #define CF_MAXPLAYERNAMELENGTH_INCLUDINGTRAILINGZERO 9
 
@@ -65,4 +66,6 @@ void config_gui_init( void )
         setup( &pdrn, &pdre, &buttonGo, &pdln, 0 );
 
         setup( &buttonGo, &pdln, 0, 0, 0 );
+
+        gui_loop( &rbGrid12 );
 }
