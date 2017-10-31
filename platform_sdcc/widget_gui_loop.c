@@ -56,6 +56,14 @@ void buttonAction( ui_element_t *source )
         pr_uint( playerCount );
         cf_pause();*/
         continue_gui_loop = ( playerCount < 2 );
+
+        if ( continue_gui_loop )
+        {
+                fw_txt_set_cursor( 11, 1 );
+                platform_print_plain_string( "\x0E\x02\x0F\x01"
+//                                           " Select at least two players positions.  \x0E@" );
+                                             " Two to four players needed. Call bros! \x0E@" );
+        }
 }
 
 void gui_loop( ui_element_t *first_selected_element )
