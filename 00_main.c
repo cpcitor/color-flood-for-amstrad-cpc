@@ -6,6 +6,7 @@
 #include "model_test.h"
 #include "view.h"
 #include "platform_ui.h"
+#include "platform_view.h"
 
 #include "controller.h"
 
@@ -30,6 +31,11 @@ main()
 
                 welcome();
 
+                if ( global_model.playerEnableBits == 0 )
+                {
+                        break;
+                }
+
                 cf_platform_prepare_for_game_board();
 
                 cf_model_init( &global_model );
@@ -48,6 +54,7 @@ main()
         }
         while ( true );
 
-        silmsg( 0, "Returning to BASIC." );
+        //silmsg( 0, "Returning to BASIC." );
+        platform_print_plain_string( "Exiting C, back to BASIC." );
         return 0;
 }

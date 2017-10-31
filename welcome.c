@@ -32,6 +32,7 @@ void welcome()
         platform_print_plain_string( " and annex neighbours of target color." NL );
         platform_print_plain_string( " *** Player with biggest area wins. ***" NL );
         el();
-        platform_print_plain_string( "\x0E\x02\x0F\x01  Use \xF0 \xF1 \xF2 \xF3 SPACE to choose options.  \x0E@" );
+        //atform_print_plain_string( "\x0E\x02\x0F\x01  Use \xF0 \xF1 \xF2 \xF3 SPACE to choose options.  \x0E@" );
+        platform_print_plain_string( "\x0E\x02\x0F\x01Use \xF0 \xF1 \xF2 \xF3 SPACE for options, q quits. \x0E@" );
         config_gui_init();
 }

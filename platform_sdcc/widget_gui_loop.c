@@ -54,14 +54,23 @@ void gui_loop( ui_element_t *first_selected_element )
                 //fw_txt_wr_char( ' ' );
                 //pr_uint( userKey );
 
-                if ( userKey == cpc_space )
+                switch ( userKey )
                 {
-                        ui_user_action_function_t *acfunc = selected_element->class->action_func;
-
-                        if ( acfunc != NULL )
+                        case cpc_space :
                         {
-                                acfunc( selected_element );
+                                ui_user_action_function_t *acfunc = selected_element->class->action_func;
+
+                                if ( acfunc != NULL )
+                                {
+                                        acfunc( selected_element );
+                                }
                         }
+                        break;
+
+                        case 'q':
+                                global_model.playerEnableBits = 0;
+                                continue_gui_loop = false;
+                                break;
                 }
 
                 {
