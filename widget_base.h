@@ -15,14 +15,6 @@ typedef struct ui_class_t
         ui_user_action_function_t *action_func;
 } ui_class_t;
 
-/*typedef struct ui_element_neighbourhood_t
-{
-        struct ui_element_t *up;
-        struct ui_element_t *down;
-        struct ui_element_t *left;
-        struct ui_element_t *right;
-        } ui_element_neighbourhood_t;*/
-
 enum { neighbour_count = 4 };
 
 enum neighbour_order
