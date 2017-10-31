@@ -8,6 +8,11 @@
 //uint8_t playerEnableArray[CF_MAXPLAYERCOUNT];
 //char playerNamesArray[CF_MAXPLAYERCOUNT][CF_MAXPLAYERNAMELENGTH_INCLUDINGTRAILINGZERO];
 
+ui_class_t radioButtonClass = {radioButtonDraw, 0};
+ui_class_t checkBoxClass = {checkBoxDraw, 0};
+ui_class_t textInputClass = {textInputDraw, 0};
+ui_class_t buttonClass = {buttonDraw, 0};
+
 void setup( ui_element_t *element, ui_element_t *up, ui_element_t *down, ui_element_t *left, ui_element_t *right )
 {
         element->neighbours[neighbour_up] = up;
