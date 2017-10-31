@@ -77,16 +77,16 @@ void cf_model_init( cf_model_t *const this_model )
                         uint8_t maxRow = this_model->grid.dimensions.row - 1;
                         uint8_t maxCol = this_model->grid.dimensions.col - 1;
 
-                        iph->row = maxRow;
-                        iph->col = 0;
-                        iph++;
-
-                        iph->row = maxRow;
-                        iph->col = maxCol;
-                        iph++;
-
                         iph->row = 0;
                         iph->col = maxCol;
+                        iph++;
+
+                        iph->row = maxRow;
+                        iph->col = maxCol;
+                        iph++;
+
+                        iph->row = maxRow;
+                        iph->col = 0;
                         iph++;
                 }
         }

@@ -40,8 +40,8 @@ void config_gui_init( void )
         // Data parameter is to be correlated with playerHomes.
         ui_element_t pule = {win_player_row1_top + 2, 3, &checkBoxClass, "Enable", 1};
         ui_element_t pure = {win_player_row1_top + 2, 23, &checkBoxClass, "Enable", 2};
-        ui_element_t pdle = {win_player_row2_top + 2, 3, &checkBoxClass, "Enable", 4};
-        ui_element_t pdre = {win_player_row2_top + 2, 23, &checkBoxClass, "Enable", 8};
+        ui_element_t pdle = {win_player_row2_top + 2, 3, &checkBoxClass, "Enable", 8};
+        ui_element_t pdre = {win_player_row2_top + 2, 23, &checkBoxClass, "Enable", 4};
         /*        ui_element_t puln={win_player_row1_top + 3, 3, &textInputClass, "Name"};
                 ui_element_t purn={win_player_row1_top + 3, 23, &textInputClass, "Name"};
                 ui_element_t pdln={win_player_row2_top + 3, 3, &textInputClass, "Name"};
