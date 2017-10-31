@@ -14,12 +14,13 @@ enum
 
 void gui_loop( ui_element_t *first_selected_element )
 {
-        ui_element_t *selected_element = first_selected_element;;
-        config_gui_mark_selected_element( first_selected_element, mark_here );
+        ui_element_t *selected_element = first_selected_element;
+        unsigned char marker = 0x80;
+        //config_gui_mark_selected_element( first_selected_element, mark_here );
 
         while ( true )
         {
-                char userKey = fw_km_wait_key();
+                char userKey = fw_km_read_key();
                 //fw_txt_wr_char( ' ' );
                 //pr_uint( userKey );
 
@@ -37,7 +38,11 @@ void gui_loop( ui_element_t *first_selected_element )
                         selected_element = new_element;
                 }
 
-                config_gui_mark_selected_element( selected_element, mark_here );
+                config_gui_mark_selected_element( selected_element, marker );
+
+                fw_mc_wait_flyback();
+
+                marker = ( ++marker ) | 0x80;
         }
 }
 
