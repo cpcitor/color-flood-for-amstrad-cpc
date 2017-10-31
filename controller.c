@@ -71,6 +71,17 @@ uint8_t cf_rungame( cf_model_t *const this_model )
         while ( 1 )
         {
                 cf_model_draw( this_model );
+
+                {
+                        cf_player_i iplayer = this_model->nextPlayer;
+
+                        while ( is_player_disabled( this_model, iplayer ) )
+                        {
+                                iplayer = ( iplayer + 1 ) % CF_MAXPLAYERCOUNT;
+                        }
+
+                        this_model->nextPlayer = iplayer;
+                }
                 {
                         char user_choice_char = platform_prompt_next_move( this_model );
                         const key_to_action_t *ktap = key_to_action + key_to_action_count;
