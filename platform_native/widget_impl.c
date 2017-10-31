@@ -15,11 +15,6 @@ void generic_draw( char *decorator, ui_element_t *element )
         fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbour_right );
 }
 
-void labelDraw( ui_element_t *element )
-{
-        generic_draw( "", element );
-}
-
 void radioButtonDraw( ui_element_t *element )
 {
         generic_draw( "(*) ", element );
@@ -28,4 +23,14 @@ void radioButtonDraw( ui_element_t *element )
 void checkBoxDraw( ui_element_t *element )
 {
         generic_draw( "[x] ", element );
+}
+
+void textInputDraw( ui_element_t *element )
+{
+        generic_draw( "INPUT ", element );
+}
+
+void buttonDraw( ui_element_t *element )
+{
+        generic_draw( "BUTTON ", element );
 }

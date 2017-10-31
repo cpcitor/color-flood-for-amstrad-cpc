@@ -73,14 +73,6 @@ void draw_window( const char *title, const uint8_t top, const uint8_t bottom, co
         fw_txt_set_pen( text_pen );
 }
 
-void labelDraw( ui_element_t *element )
-{
-        fw_txt_set_cursor( element->y, element->x );
-        // pr_int( element->y );
-        // pr_int( element->x );
-        cfwi_txt_str0_output( element->text );
-}
-
 void radioButtonDraw( ui_element_t *element )
 {
         fw_txt_set_cursor( element->y, element->x );
@@ -101,3 +93,20 @@ void checkBoxDraw( ui_element_t *element )
         cfwi_txt_str0_output( "* " );
         cfwi_txt_str0_output( element->text );
 }
+
+void textInputDraw( ui_element_t *element )
+{
+        fw_txt_set_cursor( element->y, element->x );
+        // pr_int( element->y );
+        // pr_int( element->x );
+        cfwi_txt_str0_output( element->text );
+}
+
+void buttonDraw( ui_element_t *element )
+{
+        fw_txt_set_cursor( element->y, element->x );
+        // pr_int( element->y );
+        // pr_int( element->x );
+        cfwi_txt_str0_output( element->text );
+}
+
