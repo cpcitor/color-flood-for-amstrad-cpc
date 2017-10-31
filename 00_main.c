@@ -17,18 +17,17 @@ main()
 
         cf_platform_init();
 
+        global_model.playerEnableBits = 0b1111;
+
+        {
+                const uint8_t size = 12;
+
+                global_model.grid.dimensions.row = size;
+                global_model.grid.dimensions.col = global_model.grid.dimensions.row;
+        }
+
         do
         {
-
-                global_model.playerEnableBits = 0b0101;
-
-                {
-                        const uint8_t size = 12;
-
-                        global_model.grid.dimensions.row = size;
-                        global_model.grid.dimensions.col = global_model.grid.dimensions.row;
-                }
-
                 welcome();
 
                 if ( global_model.playerEnableBits == 0 )
