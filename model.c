@@ -346,3 +346,12 @@ cf_cellState_t cf_model_get_current_player_state( const cf_model_t *const this_m
         const cf_cellState_t state = this_model->grid.cell[player_home->row][player_home->col];
         return state;
 }
+
+
+const char playerNamesArray[CF_MAXPLAYERCOUNT][CF_MAXPLAYERNAMELENGTH_INCLUDINGTRAILINGZERO] =
+{
+        "Up Left",
+        "Up Rite",
+        "Tom Left",
+        "Tom Rite"
+};
