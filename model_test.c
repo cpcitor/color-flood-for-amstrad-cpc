@@ -9,7 +9,7 @@ void model_test_fill_22()
         silmsg( 1, "Test begin" );
         CDTC_ON_DEBUGLEVEL_GREATER_THAN( 1, cf_pause() );
 
-        global_model.playerCount = 1;
+        global_model.playerEnableBits = 1;
         global_model.grid.dimensions.row = 2;
         global_model.grid.dimensions.col = 2;
 
@@ -34,7 +34,7 @@ void model_test_fill_fork()
         silmsg( 1, "Test begin" );
         CDTC_ON_DEBUGLEVEL_GREATER_THAN( 1, cf_pause() );
 
-        global_model.playerCount = 1;
+        global_model.playerEnableBits = 1;
         global_model.grid.dimensions.row = 7;
         global_model.grid.dimensions.col = 7;
 

@@ -180,13 +180,17 @@ void cf_player_area_bars( const cf_model_t *const this_model )
 
         while ( y-- != 0 ) // small hack, not really necessary, for shorter ASM
         {
-                const uint8_t iplayer = ( y * this_model->playerCount ) >> total_height_exponent;
-                const uint16_t area = this_model->domainAreas[iplayer];
-                const cf_cellState_t player_state = cf_model_get_current_player_state( this_model, iplayer );
-                const uint8_t color = state_to_color( player_state );
-                fw_gra_set_pen( color );
-                fw_gra_move_absolute( 0, y << 1 );
-                fw_gra_line_relative( area << 2, 0 ); // A grid 18x18 has area 240, (area<<2) will reach limit when one player area >= 160, not a big deal.
+                const uint8_t iplayer = ( y * CF_MAXPLAYERCOUNT ) >> total_height_exponent;
+
+                if ( is_player_enabled( this_model, iplayer ) )
+                {
+                        const uint16_t area = this_model->domainAreas[iplayer];
+                        const cf_cellState_t player_state = cf_model_get_current_player_state( this_model, iplayer );
+                        const uint8_t color = state_to_color( player_state );
+                        fw_gra_set_pen( color );
+                        fw_gra_move_absolute( 0, y << 1 );
+                        fw_gra_line_relative( area << 2, 0 ); // A grid 18x18 has area 240, (area<<2) will reach limit when one player area >= 160, not a big deal.
+                }
         }
 }
 

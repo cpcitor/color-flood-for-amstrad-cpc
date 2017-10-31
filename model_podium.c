@@ -62,33 +62,36 @@ void cf_model_podium_compute( cf_podium_t *const this_podium, const cf_model_t *
 
         cf_player_i iplayer;
 
-        for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
+        for ( iplayer = 0; iplayer < CF_MAXPLAYERCOUNT; iplayer++ )
         {
                 uint16_t this_player_area = this_model->domainAreas[iplayer];
 
-                /** First row we're strictly above -> insert new row. */
-                /** First row we're equal -> add to row. */
-                int irow;
-
-                for ( irow = 0; irow < CF_PODIUM_ROW_COUNT; irow++ )
+                if ( is_player_enabled( this_model, iplayer ) )
                 {
-                        cf_podium_row_t *row = &this_podium->row[irow];
-                        uint16_t this_row_area = row->area;
+                        /** First row we're strictly above -> insert new row. */
+                        /** First row we're equal -> add to row. */
+                        int irow;
 
-                        if ( this_player_area < this_row_area )
+                        for ( irow = 0; irow < CF_PODIUM_ROW_COUNT; irow++ )
                         {
-                                continue;
-                        }
+                                cf_podium_row_t *row = &this_podium->row[irow];
+                                uint16_t this_row_area = row->area;
 
-                        if ( this_player_area > this_row_area )
-                        {
-                                cf_model_podium_insert_row( this_podium, this_player_area, irow );
-                                // Actually, local variable row already holds the return value of cf_model_podium_insert_row.
-                        }
+                                if ( this_player_area < this_row_area )
+                                {
+                                        continue;
+                                }
 
-                        // Whether we reach an existing row, or inserted one, we add our player here.
-                        cf_model_podium_add_player_at_row( row, iplayer );
-                        break; // next player
+                                if ( this_player_area > this_row_area )
+                                {
+                                        cf_model_podium_insert_row( this_podium, this_player_area, irow );
+                                        // Actually, local variable row already holds the return value of cf_model_podium_insert_row.
+                                }
+
+                                // Whether we reach an existing row, or inserted one, we add our player here.
+                                cf_model_podium_add_player_at_row( row, iplayer );
+                                break; // next player
+                        }
                 }
         }
 }

@@ -43,7 +43,13 @@ void cf_grid_init( cf_grid_t *const this_grid )
 
 void cf_model_init( cf_model_t *const this_model )
 {
-        assert( this_model->playerCount <= CF_MAXPLAYERCOUNT );
+        assert(
+                (
+                        ( this_model->playerEnableBits )
+                        &
+                        ( ( ~( ( unsigned int )1 ) ) << CF_MAXPLAYERCOUNT )
+                )
+                == 0 );
         //assert( processed >= CF_STATECOUNT );
         //assert( to_process >= CF_STATECOUNT );
 
@@ -52,7 +58,7 @@ void cf_model_init( cf_model_t *const this_model )
         {
                 uint8_t iplayer;
 
-                for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
+                for ( iplayer = 0; iplayer < CF_MAXPLAYERCOUNT; iplayer++ )
                 {
                         this_model->domainAreas[iplayer] = 0;
                 }
@@ -71,12 +77,9 @@ void cf_model_init( cf_model_t *const this_model )
                         uint8_t maxRow = this_model->grid.dimensions.row - 1;
                         uint8_t maxCol = this_model->grid.dimensions.col - 1;
 
-                        if ( this_model->playerCount >= 3 )
-                        {
-                                iph->row = maxRow;
-                                iph->col = 0;
-                                iph++;
-                        }
+                        iph->row = maxRow;
+                        iph->col = 0;
+                        iph++;
 
                         iph->row = maxRow;
                         iph->col = maxCol;
@@ -263,8 +266,13 @@ uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newSta
         cf_grid_t *grid = &this_model->grid;
 
         {
-                for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
+                for ( iplayer = 0; iplayer < CF_MAXPLAYERCOUNT; iplayer++ )
                 {
+                        if ( is_player_disabled( this_model, iplayer ) )
+                        {
+                                continue;
+                        }
+
                         //cf_cellState_t cf_last_color_of_player( cf_model_t *this_model, uint8_t iplayer )
                         fillStartCoordinates = &( this_model->playerHomes[iplayer] );
                         oldState = grid->cell[fillStartCoordinates->row][fillStartCoordinates->col];
@@ -302,16 +310,23 @@ uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newSta
                 this_model->domainAreas[iplayer] = newDomainArea;
         }
 
-        iplayer = ( iplayer + 1 ) % this_model->playerCount;
+        do
+        {
+                iplayer = ( iplayer + 1 ) % CF_MAXPLAYERCOUNT;
+        }
+        while ( is_player_disabled( this_model, iplayer ) );
 
         this_model->nextPlayer = iplayer;
 
         {
                 uint16_t unclaimedArea = grid->dimensions.row * grid->dimensions.col;
 
-                for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
+                for ( iplayer = 0; iplayer < CF_MAXPLAYERCOUNT; iplayer++ )
                 {
-                        unclaimedArea -= this_model->domainAreas[iplayer];
+                        if ( is_player_enabled( this_model, iplayer ) )
+                        {
+                                unclaimedArea -= this_model->domainAreas[iplayer];
+                        }
                 }
 
                 dbgvar_d( 0, unclaimedArea );

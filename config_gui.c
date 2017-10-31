@@ -5,7 +5,6 @@
 
 // #define CF_MAXPLAYERNAMELENGTH_INCLUDINGTRAILINGZERO 9
 
-//uint8_t playerEnableArray[CF_MAXPLAYERCOUNT];
 //char playerNamesArray[CF_MAXPLAYERCOUNT][CF_MAXPLAYERNAMELENGTH_INCLUDINGTRAILINGZERO];
 
 ui_class_t radioButtonClass = {radioButtonDraw, 0};

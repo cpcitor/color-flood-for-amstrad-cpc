@@ -51,10 +51,10 @@ void cf_model_dump( const cf_model_t *const this_model )
 {
         fprintf( stderr,
                  "[Model @%p\n"
-                 "playerCount=%d\n"
+                 "playerEnableBits=0x%x\n"
                  "nextPlayer=%d\n",
                  this_model,
-                 this_model->playerCount,
+                 this_model->playerEnableBits,
                  this_model->nextPlayer
                );
         cf_grid_dump( &this_model->grid );
@@ -64,7 +64,7 @@ void cf_model_dump( const cf_model_t *const this_model )
                 const uint16_t *const areas = &( this_model->domainAreas[0] );
                 fprintf( stderr, "[domainAreas: " );
 
-                for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
+                for ( iplayer = 0; iplayer < CF_MAXPLAYERCOUNT; iplayer++ )
                 {
                         uint16_t area = areas[iplayer];
                         fprintf( stderr, "%d ", area );
@@ -78,7 +78,7 @@ void cf_model_dump( const cf_model_t *const this_model )
                 const cf_coordinates_t *const iph = &( this_model->playerHomes[0] );
                 fprintf( stderr, "[PlayerHomes: " );
 
-                for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
+                for ( iplayer = 0; iplayer < CF_MAXPLAYERCOUNT; iplayer++ )
                 {
                         cf_coordinates_dump( &iph[iplayer] );
                         fprintf( stderr, "\t" );
@@ -92,10 +92,13 @@ void cf_model_dump( const cf_model_t *const this_model )
                 cf_player_i iplayer;
                 fprintf( stderr, "[PlayerStates: " );
 
-                for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
+                for ( iplayer = 0; iplayer < CF_MAXPLAYERCOUNT; iplayer++ )
                 {
-                        const cf_cellState_t state = cf_model_get_current_player_state( this_model, iplayer );
-                        fprintf( stderr, "%d ", state );
+                        if ( is_player_enabled( this_model, iplayer ) )
+                        {
+                                const cf_cellState_t state = cf_model_get_current_player_state( this_model, iplayer );
+                                fprintf( stderr, "%d ", state );
+                        }
                 }
 
                 fprintf( stderr, "]\n" );
@@ -180,10 +183,13 @@ void cf_view_display_endgame_should_we_play_again( cf_model_t *this_model, cf_po
                 const uint16_t *const areas = &( this_model->domainAreas[0] );
                 fprintf( stderr, "Player scores: \n" );
 
-                for ( iplayer = 0; iplayer < this_model->playerCount; iplayer++ )
+                for ( iplayer = 0; iplayer < CF_MAXPLAYERCOUNT; iplayer++ )
                 {
-                        uint16_t area = areas[iplayer];
-                        fprintf( stderr, "Player %u scored %u\n", iplayer, area );
+                        if ( is_player_enabled( this_model, iplayer ) )
+                        {
+                                uint16_t area = areas[iplayer];
+                                fprintf( stderr, "Player %u scored %u\n", iplayer, area );
+                        }
                 }
 
                 cf_view_dump_podium( podium );

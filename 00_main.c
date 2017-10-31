@@ -18,7 +18,7 @@ main()
 
         welcome();
 
-        global_model.playerCount = 2;
+        global_model.playerEnableBits = 0b0101;
 
         do
         {
