@@ -4,7 +4,9 @@
 enum
 {
         cpc_circle_open = 0xE6,
-        cpc_circle_full = 0xE7
+        cpc_circle_full = 0xE7,
+        cpc_square_open = 0xE8,
+        cpc_square_full = 0xE9
 };
 
 enum

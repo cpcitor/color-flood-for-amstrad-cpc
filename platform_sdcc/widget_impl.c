@@ -93,8 +93,13 @@ void radioButtonDraw( ui_element_t *element )
 
 void checkBoxDraw( ui_element_t *element )
 {
+        bool selected = ( global_model.playerEnableBits & element->data );
         fw_txt_set_cursor( element->y, element->x );
-        cfwi_txt_str0_output( " [ ] " );
+        fw_txt_wr_char( ' ' );
+        fw_txt_set_pen( selected ? window_bright_pen : text_pen );
+        fw_txt_wr_char( selected ? cpc_square_full : cpc_square_open );
+        fw_txt_wr_char( ' ' );
+        fw_txt_set_pen( text_pen );
         cfwi_txt_str0_output( element->text );
 }
 

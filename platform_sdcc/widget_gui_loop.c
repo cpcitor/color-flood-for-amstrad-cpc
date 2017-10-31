@@ -39,7 +39,11 @@ void radioButtonAction( ui_element_t *source )
 
 void checkBoxAction( ui_element_t *source )
 {
-        ( void ) source;
+        uint8_t bitmask = source->data;
+
+        global_model.playerEnableBits ^= bitmask;
+
+        checkBoxDraw( source );
 }
 
 void buttonAction( ui_element_t *source )
