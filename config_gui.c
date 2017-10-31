@@ -1,6 +1,7 @@
 #include "platform.h"
 #include "model.h"
 #include "widget_classes.h"
+#include "config_gui.h"
 #include "gui_loop.h"
 
 ui_class_t radioButtonClass = {radioButtonDraw, radioButtonAction};
@@ -27,6 +28,8 @@ void setup( ui_element_t *element, ui_element_t *up, ui_element_t *down, ui_elem
 #define win_player_row2_top (win_player_row1_top + win_player_height)
 #define go_button_top (win_player_row2_top + win_player_height)
 
+ui_element_t *radioButtonSetGridSize[radioButtonSetGridSizeCount];
+
 void config_gui_init( void )
 {
         // Data parameter is grid size.
@@ -44,6 +47,10 @@ void config_gui_init( void )
                 ui_element_t pdln={win_player_row2_top + 3, 3, &textInputClass, "Name"};
                 ui_element_t pdrn={win_player_row2_top + 3, 23, &textInputClass, "Name"}; */
         ui_element_t buttonGo = {go_button_top, 15, &buttonClass, "START GAME"};
+
+        radioButtonSetGridSize[0] = &rbGrid12;
+        radioButtonSetGridSize[1] = &rbGrid16;
+        radioButtonSetGridSize[2] = &rbGrid24;
 
         draw_window( ( char * )0, 1, 4, 1, 40 );
         draw_window( "Rules", 5, 10, 1, 40 );

@@ -87,7 +87,7 @@ void draw_window( const char *title, const uint8_t top, const uint8_t bottom, co
 void radioButtonDraw( ui_element_t *element )
 {
         fw_txt_set_cursor( element->y, element->x );
-        cfwi_txt_str0_output( " * " );
+        cfwi_txt_str0_output( " \xE6 " );
         cfwi_txt_str0_output( element->text );
 }
 

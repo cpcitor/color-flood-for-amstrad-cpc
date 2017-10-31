@@ -1,6 +1,7 @@
 #include "../model.h"
 #include "../widget_classes.h"
 #include "../print.h"
+#include "../config_gui.h"
 #include "count_bits_in_nibble.h"
 #include <cfwi/cfwi.h>
 
@@ -18,9 +19,30 @@ enum
 
 static bool continue_gui_loop;
 
+enum
+{
+        cpc_circle_open = 0xE6,
+        cpc_circle_full = 0xE7
+};
+
 void radioButtonAction( ui_element_t *source )
 {
-        global_model.grid.dimensions.row = global_model.grid.dimensions.col = source->data;
+        uint8_t new_size = source->data;
+        global_model.grid.dimensions.row = new_size;
+        global_model.grid.dimensions.col = new_size;
+
+        {
+                int i;
+
+                for ( i = 0; i < radioButtonSetGridSizeCount; i++ )
+                {
+                        ui_element_t *element = radioButtonSetGridSize[i];
+                        fw_txt_set_cursor( element->y, element->x + 1 );
+                        fw_txt_wr_char(
+                                ( element->data == new_size ) ? cpc_circle_full : cpc_circle_open
+                        );
+                }
+        }
 }
 
 void checkBoxAction( ui_element_t *source )
