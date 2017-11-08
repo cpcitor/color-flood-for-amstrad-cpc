@@ -3,7 +3,6 @@
 #include "log.h"
 #include "model.h"
 #include "model_podium.h"
-#include "model_test.h"
 #include "view.h"
 #include "platform_ui.h"
 #include "platform_view.h"
