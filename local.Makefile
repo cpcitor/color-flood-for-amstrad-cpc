@@ -24,25 +24,6 @@ cf2.dsk: platform_sdcc/cf.bas dsk $(CDTC_ENV_FOR_CPCXFS)
 	mv -vf $@.tmp $@ ; \
 	)
 
-cf2.binamsdos: cf2.dsk $(CDTC_ENV_FOR_CPCXFS)
-	( source $(CDTC_ENV_FOR_CPCXFS) ; \
-	set -eu ; \
-	mkdir -p tmp ; cd tmp ; \
-	cpcxfs ../$< -g cf.bin ; \
-	cd .. ; \
-	mv -vf tmp/cf.bin $@ ; \
-	diff -sq cf.binamsdos $@ || true ; \
-	)
-
-cf2.bin: cf2.binamsdos $(CDTC_ENV_FOR_ADDHEAD)
-	( source $(CDTC_ENV_FOR_ADDHEAD) ; \
-	set -eu ; \
-	addhead -r $< $@.tmp ; \
-	mv -vf $@.tmp $@ ; \
-	diff -sq cf.bin $@ ; \
-	)
-
-
 clean-native:
 	-rm -f native
 
