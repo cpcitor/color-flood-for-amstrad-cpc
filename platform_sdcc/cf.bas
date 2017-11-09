@@ -6,4 +6,3 @@
 40 load "cf.bin"
 60 call &1000
 70 print "Back to BASIC. You can 'run' again."
-
