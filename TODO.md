@@ -1,5 +1,3 @@
-* BUG: rank calculations sometimes repeat rank 2 to 3 and 4
-
 * show only allowed colors.
 * variable number of colors ? -> difficulty adjust
 * change keys to up-down-space, and q to quit.
