@@ -7,6 +7,11 @@ void cf_platform_prepare_for_config_screen()
 
 void draw_window( char *title, uint8_t top, uint8_t height, uint8_t left, uint8_t width )
 {
+        ( void ) title;
+        ( void ) top;
+        ( void ) height;
+        ( void ) left;
+        ( void ) width;
 }
 
 void generic_draw( const char *const decorator, const ui_element_t *const element )
@@ -41,6 +46,7 @@ void buttonDraw( const ui_element_t *const element )
 
 void gui_loop( ui_element_t *first_selected_element )
 {
+        ( void ) first_selected_element;
 }
 
 
