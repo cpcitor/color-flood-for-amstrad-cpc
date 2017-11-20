@@ -16,12 +16,14 @@ void draw_window( char *title, uint8_t top, uint8_t height, uint8_t left, uint8_
 
 void generic_draw( const char *const decorator, const ui_element_t *const element )
 {
+#ifdef GENERIC_DRAW_ENABLE
         fprintf( stderr, "\nDOT: elem_%p [label=\"%s%s\", pos=\"%d,%d!\"];\n",
                  element, decorator, element->text, element->x, element->y );
         fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbours[neighbour_up] );
         fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbours[neighbour_down] );
         fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbours[neighbour_left] );
         fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbours[neighbour_right] );
+#endif GENERIC_DRAW_ENABLE
 }
 
 void radioButtonDraw( const ui_element_t *const element )
