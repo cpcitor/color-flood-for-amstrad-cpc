@@ -5,6 +5,47 @@
 
 #include <platform.h> // defines NL platform_print_formatted_string and platform_print_plain_string
 
+#define dbglog_unconditional(msg) platform_print_plain_string(msg)
+#define dbglogf_unconditional(...) platform_print_formatted_string(__VA_ARGS__)
+
+/* #define dbglog_unconditional(msg) */
+/* #define dbglogf_unconditional(...) */
+
+#define dbglogf(LOGLEVEL, FORMAT, ...) CDTC_ON_DEBUGLEVEL_GREATER_THAN_ ## LOGLEVEL ( dbglogf_unconditional( FORMAT, ##__VA_ARGS__) )
+#define dbglog(LOGLEVEL, MSG) CDTC_ON_DEBUGLEVEL_GREATER_THAN_ ## LOGLEVEL ( dbglog_unconditional( MSG ) )
+
+#define dbgvar(LOGLEVEL, VARNAME, FORMAT) dbglogf(LOGLEVEL, #VARNAME "=" FORMAT " ", VARNAME)
+#define dbgvar_d(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%d")
+#define dbgvar_c(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%c")
+#define dbgvar_u(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%u")
+#define dbgvar_lu(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%lu")
+#define dbgvar_s(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%s")
+#define dbglog_nl(LOGLEVEL) dbglog(LOGLEVEL, NL)
+
+#ifdef __GNUC__
+
+#define silmark(LOGLEVEL) dbglogf( LOGLEVEL, NL "== in %s ==\t", __PRETTY_FUNCTION__)
+#define silmark_end(LOGLEVEL) dbglogf( LOGLEVEL, NL "== quitting %s ==\t", __PRETTY_FUNCTION__)
+
+#define silmsg(LOGLEVEL, FORMAT, ...) \
+        dbglogf( LOGLEVEL, NL "%s: ", __PRETTY_FUNCTION__); \
+        dbglogf( LOGLEVEL, FORMAT, ##__VA_ARGS__);      \
+        dbglog( LOGLEVEL, NL)
+
+#define silvar(LOGLEVEL, VARNAME, FORMAT) silmsg(#VARNAME "= " #FORMAT NL, VARNAME)
+
+#else /* __GNUC__ */
+
+#define silmark(LOGLEVEL)
+#define silmark_end(LOGLEVEL)
+#define silmsg(LOGLEVEL, FORMAT, ...) dbglogf(LOGLEVEL, FORMAT, ##__VA_ARGS__ )
+#define silvar(LOGLEVEL, VARNAME, FORMAT) silmsg(#VARNAME "= " #FORMAT NL, VARNAME)
+
+#endif /* __GNUC__ */
+
+
+
+/* ==================== Internal! "Don't use this." ==================== */
 
 #ifdef CF_DEBUGLEVEL
 
@@ -83,46 +124,8 @@
 
 #endif /* CF_DEBUGLEVEL */
 
-
-
 #define CDTC_ON_DEBUGLEVEL_GREATER_THAN(LOGLEVEL, ...) CDTC_ON_DEBUGLEVEL_GREATER_THAN_ ## LOGLEVEL (__VA_ARGS__)
 
-#define dbglog_unconditional(msg) platform_print_plain_string(msg)
-#define dbglogf_unconditional(...) platform_print_formatted_string(__VA_ARGS__)
-
-/* #define dbglog_unconditional(msg) */
-/* #define dbglogf_unconditional(...) */
-
-#define dbglogf(LOGLEVEL, FORMAT, ...) CDTC_ON_DEBUGLEVEL_GREATER_THAN_ ## LOGLEVEL ( dbglogf_unconditional( FORMAT, ##__VA_ARGS__) )
-#define dbglog(LOGLEVEL, MSG) CDTC_ON_DEBUGLEVEL_GREATER_THAN_ ## LOGLEVEL ( dbglog_unconditional( MSG ) )
-
-#define dbgvar(LOGLEVEL, VARNAME, FORMAT) dbglogf(LOGLEVEL, #VARNAME "=" FORMAT " ", VARNAME)
-#define dbgvar_d(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%d")
-#define dbgvar_c(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%c")
-#define dbgvar_u(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%u")
-#define dbgvar_lu(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%lu")
-#define dbgvar_s(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%s")
-#define dbglog_nl(LOGLEVEL) dbglog(LOGLEVEL, NL)
-
-#ifdef __GNUC__
-
-#define silmark(LOGLEVEL) dbglogf( LOGLEVEL, NL "== in %s ==\t", __PRETTY_FUNCTION__)
-#define silmark_end(LOGLEVEL) dbglogf( LOGLEVEL, NL "== quitting %s ==\t", __PRETTY_FUNCTION__)
-
-#define silmsg(LOGLEVEL, FORMAT, ...) \
-        dbglogf( LOGLEVEL, NL "%s: ", __PRETTY_FUNCTION__); \
-        dbglogf( LOGLEVEL, FORMAT, ##__VA_ARGS__);      \
-        dbglog( LOGLEVEL, NL)
-
-#define silvar(LOGLEVEL, VARNAME, FORMAT) silmsg(#VARNAME "= " #FORMAT NL, VARNAME)
-
-#else /* __GNUC__ */
-
-#define silmark(LOGLEVEL)
-#define silmark_end(LOGLEVEL)
-#define silmsg(LOGLEVEL, FORMAT, ...) dbglogf(LOGLEVEL, FORMAT, ##__VA_ARGS__ )
-#define silvar(LOGLEVEL, VARNAME, FORMAT) silmsg(#VARNAME "= " #FORMAT NL, VARNAME)
-
-#endif /* __GNUC__ */
+/* ==================== end of "Don't use this." ==================== */
 
 #endif /* __LOG_H__ */
