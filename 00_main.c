@@ -40,7 +40,9 @@ main()
 
                 cf_view_init( &global_model );
 
-                cf_rungame( &global_model );
+                while ( cf_game_one_move( &global_model ) )
+                {
+                }
 
                 {
                         cf_podium_t podium;

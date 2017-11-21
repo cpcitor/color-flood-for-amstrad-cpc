@@ -63,68 +63,65 @@ key_to_action_t key_to_action[key_to_action_count] =
 };
 */
 
-/** TODO FIXME Return id of player that won. */
-uint8_t cf_rungame( cf_model_t *const this_model )
+uint8_t
+cf_game_one_move( cf_model_t *const this_model )
 {
-        //cf_model_draw( &global_model );
-        // wait for key
-        while ( 1 )
-        {
-                cf_model_draw( this_model );
+	cf_model_draw( this_model );
 
-                {
-                        cf_player_i iplayer = this_model->nextPlayer;
+	{
+		cf_player_i iplayer = this_model->nextPlayer;
 
-                        while ( is_player_disabled( this_model, iplayer ) )
-                        {
-                                iplayer = ( iplayer + 1 ) % CF_MAXPLAYERCOUNT;
-                        }
+		while ( is_player_disabled( this_model, iplayer ) )
+		{
+			iplayer = ( iplayer + 1 ) % CF_MAXPLAYERCOUNT;
+		}
 
-                        this_model->nextPlayer = iplayer;
-                }
-                {
-                        char user_choice_char = platform_prompt_next_move( this_model );
-                        const key_to_action_t *ktap = key_to_action + key_to_action_count;
+		this_model->nextPlayer = iplayer;
+	}
 
-                        dbgvar_d( 1, user_choice_char );
-                        dbglog_nl( 1 );
+	{
+		char user_choice_char = platform_prompt_next_move( this_model );
+		const key_to_action_t *ktap = key_to_action + key_to_action_count;
 
-                        do
-                        {
-                                ktap--;
+		dbgvar_d( 1, user_choice_char );
+		dbglog_nl( 1 );
 
-                                if ( ktap->character != user_choice_char )
-                                {
-                                        dbglogf( 4, "!%03d ", ktap->character );
-                                        continue;
-                                }
+		do
+		{
+			ktap--;
 
-                                dbgvar_d( 1, user_choice_char );
-                                dbglog_nl( 1 );
+			if ( ktap->character != user_choice_char )
+			{
+				dbglogf( 4, "!%03d ", ktap->character );
+				continue;
+			}
 
-                                /* if ( ktap->player != this_model->nextPlayer ) */
-                                /* { */
-                                /*         continue; */
-                                /* } */
+			dbgvar_d( 1, user_choice_char );
+			dbglog_nl( 1 );
 
-                                {
-                                        uint8_t rv = cf_model_play( this_model, ktap->color );
+			/* if ( ktap->player != this_model->nextPlayer ) */
+			/* { */
+			/*         continue; */
+			/* } */
 
-                                        if ( rv == 1 )
-                                        {
-                                                //cf_model_draw( &global_model );
-                                                return 0;
-                                        }
+			{
+				uint8_t rv = cf_model_play( this_model, ktap->color );
 
-                                        if ( rv >= 2 )
-                                        {
-                                                dbglogf( 1, "%d!", rv );
-                                        }
-                                }
+				if ( rv == 1 )
+				{
+					//cf_model_draw( &global_model );
+					return 0;
+				}
 
-                                //cf_model_play( this_model, ktap->color );
-                        }
-                        while ( ktap != key_to_action );
-                }
-        }
+				if ( rv >= 2 )
+				{
+					dbglogf( 1, "%d!", rv );
+				}
+			}
+
+			//cf_model_play( this_model, ktap->color );
+		}
+		while ( ktap != key_to_action );
+	}
+	return 1;
 }

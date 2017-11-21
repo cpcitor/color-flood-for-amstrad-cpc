@@ -14,6 +14,6 @@ enum {key_to_action_count = CF_COLORCOUNT };
 
 extern const key_to_action_t const key_to_action[key_to_action_count];
 
-uint8_t cf_rungame( cf_model_t *const this_model );
+uint8_t cf_game_one_move( cf_model_t *const this_model );
 
 #endif /* __CONTROLLER_H__ */
