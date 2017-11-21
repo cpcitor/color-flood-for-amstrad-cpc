@@ -56,7 +56,7 @@ void cf_model_init( cf_model_t *const this_model )
         cf_grid_init( &( this_model->grid ) );
 
         {
-                uint8_t iplayer;
+                cf_player_i iplayer;
 
                 for ( iplayer = 0; iplayer < CF_MAXPLAYERCOUNT; iplayer++ )
                 {
@@ -260,7 +260,7 @@ uint16_t finishFillAndcountArea( cf_grid_t *this_grid,
 /** Return value: 0 if played okay, 1 if game ended, 2+playerindex if color chosen was same as playerindex' current color. */
 uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newState )
 {
-        uint8_t iplayer;
+        cf_player_i iplayer;
         cf_cellState_t oldState;
         cf_coordinates_t *fillStartCoordinates;
         cf_grid_t *grid = &this_model->grid;
@@ -273,7 +273,7 @@ uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newSta
                                 continue;
                         }
 
-                        //cf_cellState_t cf_last_color_of_player( cf_model_t *this_model, uint8_t iplayer )
+                        //cf_cellState_t cf_last_color_of_player( cf_model_t *this_model, cf_player_i iplayer )
                         fillStartCoordinates = &( this_model->playerHomes[iplayer] );
                         oldState = grid->cell[fillStartCoordinates->row][fillStartCoordinates->col];
 
@@ -337,7 +337,7 @@ uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newSta
         return 0;
 }
 
-cf_cellState_t cf_model_get_player_cellstate( const cf_model_t *const this_model, uint8_t const iplayer )
+cf_cellState_t cf_model_get_player_cellstate( const cf_model_t *const this_model, cf_player_i const iplayer )
 {
         const cf_coordinates_t *player_home = &( this_model->playerHomes[iplayer] );
         const cf_cellState_t state = this_model->grid.cell[player_home->row][player_home->col];
