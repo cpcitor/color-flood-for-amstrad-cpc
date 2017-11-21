@@ -56,8 +56,8 @@ typedef struct cf_model_t
         uint16_t domainAreas[CF_MAXPLAYERCOUNT];
 } cf_model_t;
 
-#define is_player_enabled(model, iplayer) ((model->playerEnableBits & (1<<iplayer)) !=0)
-#define is_player_disabled(model, iplayer) ((model->playerEnableBits & (1<<iplayer)) ==0)
+#define is_player_enabled(model, iplayer) (((model)->playerEnableBits & (1<<(iplayer))) !=0)
+#define is_player_disabled(model, iplayer) (((model)->playerEnableBits & (1<<(iplayer))) ==0)
 
 extern cf_model_t global_model;
 
