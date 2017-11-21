@@ -104,7 +104,7 @@ void cf_model_dump( const cf_model_t *const this_model )
                 {
                         if ( is_player_enabled( this_model, iplayer ) )
                         {
-                                const cf_cellState_t state = cf_model_get_current_player_state( this_model, iplayer );
+                                const cf_cellState_t state = cf_model_get_player_cellstate( this_model, iplayer );
                                 fprintf( stderr, "%d ", state );
                         }
                 }

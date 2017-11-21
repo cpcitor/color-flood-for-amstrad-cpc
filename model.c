@@ -337,7 +337,7 @@ uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newSta
         return 0;
 }
 
-cf_cellState_t cf_model_get_current_player_state( const cf_model_t *const this_model, uint8_t const iplayer )
+cf_cellState_t cf_model_get_player_cellstate( const cf_model_t *const this_model, uint8_t const iplayer )
 {
         const cf_coordinates_t *player_home = &( this_model->playerHomes[iplayer] );
         const cf_cellState_t state = this_model->grid.cell[player_home->row][player_home->col];

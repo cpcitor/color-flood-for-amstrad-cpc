@@ -186,7 +186,7 @@ void cf_player_area_bars( const cf_model_t *const this_model )
                 if ( is_player_enabled( this_model, iplayer ) )
                 {
                         const uint16_t area = this_model->domainAreas[iplayer];
-                        const cf_cellState_t player_state = cf_model_get_current_player_state( this_model, iplayer );
+                        const cf_cellState_t player_state = cf_model_get_player_cellstate( this_model, iplayer );
                         const uint8_t color = state_to_color( player_state );
                         fw_gra_set_pen( color );
                         fw_gra_move_absolute( 0, y << 1 );
@@ -311,7 +311,7 @@ void cf_view_print_podium( const cf_podium_t *const podium )
 
                         if ( iplayer != CF_PODIUM_EMPTY_SEATS_VALUE )
                         {
-                                const cf_cellState_t player_state = cf_model_get_current_player_state( &global_model, iplayer );
+                                const cf_cellState_t player_state = cf_model_get_player_cellstate( &global_model, iplayer );
                                 const uint8_t color = state_to_color( player_state );
                                 fw_txt_set_pen( color );
 
