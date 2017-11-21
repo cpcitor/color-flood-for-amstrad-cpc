@@ -10,7 +10,7 @@ HDRS_NATIVE := $(wildcard platform_native/*.h)
 astyle: $(wildcard *.c */*.c *.h */*.h)
 	astyle --mode=c --lineend=linux --indent=spaces=8 --style=ansi --add-brackets --indent-switches --indent-classes --indent-preprocessor --convert-tabs --break-blocks --pad-oper --pad-paren-in --pad-header --unpad-paren --align-pointer=name $^ platform_*/*.c platform_*/*.h #HACK
 
-CC = gcc -W -Wall
+CC = gcc -W -Wall -DCF_DEBUGLEVEL=$(CF_DEBUGLEVEL)
 
 native: $(SRCS) $(SRCS_NATIVE)
 	$(CC) $(CFLAGS) -Wno-missing-field-initializers -g -o $@ $^ -Iplatform_native

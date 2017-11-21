@@ -12,7 +12,7 @@
 int
 main()
 {
-        dbglog( 0, "In C" NL );
+        dbglog( 0, "In C. Compiled with CF_DEBUGLEVEL=" CF_DEBUGLEVEL_STRINGIFIED NL );
 
         cf_platform_init();
 

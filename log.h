@@ -22,6 +22,9 @@
 #define dbgvar_s(LOGLEVEL, VARNAME) dbgvar(LOGLEVEL, VARNAME, "%s")
 #define dbglog_nl(LOGLEVEL) dbglog(LOGLEVEL, NL)
 
+/* Use CF_DEBUGLEVEL to get something that parses as a number,
+   and CF_DEBUGLEVEL_STRINGIFIED to get something that parses as a string. */
+
 #ifdef __GNUC__
 
 #define silmark(LOGLEVEL) dbglogf( LOGLEVEL, NL "== in %s ==\t", __PRETTY_FUNCTION__)
@@ -46,6 +49,12 @@
 
 
 /* ==================== Internal! "Don't use this." ==================== */
+
+// Cf. https://gcc.gnu.org/onlinedocs/gcc-4.9.0/cpp/Stringification.html
+#define __MACRO_STRINGIFICATION_xstr(s) __MACRO_STRINGIFICATION_str(s)
+#define __MACRO_STRINGIFICATION_str(s) #s
+#define CF_DEBUGLEVEL_STRINGIFIED __MACRO_STRINGIFICATION_xstr(CF_DEBUGLEVEL)
+
 
 #ifdef CF_DEBUGLEVEL
 
