@@ -23,7 +23,7 @@ void generic_draw( const char *const decorator, const ui_element_t *const elemen
         fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbours[neighbour_down] );
         fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbours[neighbour_left] );
         fprintf( stderr, "DOT: elem_%p -> elem_%p;\n", element, element->neighbours[neighbour_right] );
-#endif GENERIC_DRAW_ENABLE
+#endif /*GENERIC_DRAW_ENABLE*/
 }
 
 void radioButtonDraw( const ui_element_t *const element )
