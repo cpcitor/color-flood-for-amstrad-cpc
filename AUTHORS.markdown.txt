@@ -1,0 +1,8 @@
+# Authors
+
+* Stéphane Gourichon a.k.a. cpcitor: all code
+
+* Uses cpc-dev-tool-chain written by cpcitor with occasional feedback from Francisco Gallego.
+
+Inspired by existing games "7 colors" in the nineties, "color flood",
+"flood it" on Android and iOS, by various authors.
