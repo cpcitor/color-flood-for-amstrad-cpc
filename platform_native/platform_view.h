@@ -7,7 +7,11 @@
 
 void cf_view_init( cf_model_t *model );
 
-char platform_prompt_next_move( cf_model_t *const model );
+void platform_show_who_plays_next( cf_model_t *const this_model );
+cf_cellState_t platform_show_possible_next_moves( cf_model_t *const this_model );
+void platform_show_player_wished_color( cf_cellState_t player_wished_action );
+
+#define platform_wait_for_key getchar
 
 void cf_model_draw( const cf_model_t *const this_model );
 void cf_model_dump( const cf_model_t *const this_model );

@@ -12,6 +12,7 @@
 #define platform_print_formatted_string(...) printf(__VA_ARGS__)
 #define NL "\015\012"
 
+#define platform_wait_for_key fw_km_wait_key
 
 #include <stdint.h>
 

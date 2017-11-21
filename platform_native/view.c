@@ -128,6 +128,7 @@ void cf_grid_draw( const cf_grid_t *const this_grid )
         cf_grid_dump( this_grid );
 }
 
+/* FIXME
 void show_key_color_association()
 {
         int ik;
@@ -138,15 +139,47 @@ void show_key_color_association()
                 printf( "Key '%c', player %d, state/color %d\n", kta->character, kta->player, kta->color );
         }
 }
+*/
 
-char platform_prompt_next_move( cf_model_t *const this_model )
+void platform_show_who_plays_next( cf_model_t *const this_model )
 {
+        printf( "Next player is: %d\n", this_model->nextPlayer );
+}
+
+cf_cellState_t platform_show_possible_next_moves( cf_model_t *const this_model )
+{
+        cf_cellState_t icolor;
+        cf_cellState_t one_wished_color = ~0;
+
+        for ( icolor = 0; icolor < CF_COLORCOUNT ; icolor++ )
+        {
+                bool okay = cf_model_is_color_allowed_for_current_player( this_model, icolor );
+
+                if ( okay && ( ( one_wished_color ) == ( cf_cellState_t )~0 ) )
+                {
+                        one_wished_color = icolor;
+                }
+
+                printf( "Color %d is %s.\n", icolor, okay ? "OK" : "disallowed" );
+        }
+
+        return one_wished_color;
+}
+
+void platform_show_player_wished_color( cf_cellState_t player_wished_action )
+{
+        printf( "Player is considering color: %d\n", player_wished_action );
+}
+
+
+/*char platform_prompt_next_move( cf_model_t *const this_model )
+{ FIXME
         ( void )this_model;
         show_key_color_association();
         printf( "Enter your choice:\n" );
         char user_choice_char = getchar();
         return user_choice_char;
-}
+}*/
 
 void cf_view_print_podium( const cf_podium_t *const podium )
 {

@@ -144,7 +144,6 @@ void cf_view_init( cf_model_t *model )
                 }
         }
 
-        show_key_color_association();
         cf_grid_byte_offset_from_screen_start = 16;
 }
 
@@ -211,48 +210,7 @@ uint8_t state_to_color( cf_cellState_t state )
         return ( ( uint8_t )state + 2 );
 }
 
-void show_key_color_association()
-{
-        const uint8_t xmin = 0;
-        const uint8_t xmax = 38;
-        uint16_t ymin = 398;
-        const uint8_t yheight = 22;
-
-        fw_gra_win_width( xmin, xmax );
-        fw_gra_set_pen( 0 ); // FIXME hard-coded color number;
-
-        {
-                const key_to_action_t *ktap;
-
-                for ( ktap = key_to_action; ktap < ( key_to_action + key_to_action_count ); ktap++ )
-                {
-                        if ( ktap->color >= CF_COLORCOUNT )
-                        {
-                                break;
-                        }
-
-                        {
-                                uint8_t ink_color = ktap->color + 2;
-
-                                fw_gra_set_paper( ink_color );
-                        }
-
-                        fw_gra_win_height( ymin, ymin - yheight );
-                        fw_gra_clear_window();
-
-                        {
-                                char c = ktap->character;
-                                fw_gra_move_absolute( 4, ymin - 4 );
-                                fw_gra_wr_char( ktap->character );
-                        }
-
-                        ymin = ymin - yheight - 4;
-                }
-        }
-        fw_gra_initialise();
-}
-
-char platform_prompt_next_move( cf_model_t *const this_model )
+void platform_show_who_plays_next( cf_model_t *const this_model )
 {
         const uint8_t ip = this_model->nextPlayer;
         const cf_coordinates_t *const ph = &( this_model->playerHomes[ip] );
@@ -277,10 +235,85 @@ char platform_prompt_next_move( cf_model_t *const this_model )
         fw_gra_line_relative( incellsize_fw_x, -incellsize_fw_y );
         fw_gra_move_relative( -incellsize_fw_x, 0 );
         fw_gra_line_relative( incellsize_fw_x, incellsize_fw_y );
-
-        return fw_km_wait_key();
 }
 
+enum
+{
+        color_pads_xmin = 0,
+        color_pads_xmax = 38,
+        color_pads_yinnerheight = 22,
+        color_pads_ygap = 4,
+};
+
+#define __COLOR_PADS_HEIGHT ((color_pads_yinnerheight+color_pads_ygap)*CF_COLORCOUNT)
+
+const uint16_t color_pads_height = __COLOR_PADS_HEIGHT;
+const uint16_t color_pads_ytop = ( 398 + __COLOR_PADS_HEIGHT ) / 2;
+const uint16_t color_pads_ybottom = ( 398 - __COLOR_PADS_HEIGHT ) / 2;
+const uint16_t color_pads_youterheight = color_pads_yinnerheight + color_pads_ygap;
+
+cf_cellState_t platform_show_possible_next_moves( cf_model_t *const this_model )
+{
+        uint16_t ytop = color_pads_ybottom;
+
+        cf_cellState_t first_allowed_color = CF_STATECOUNT; /* Set it to avoid warning. */
+
+        dbglog( 5, "platform_show_possible_next_moves" NL );
+
+        fw_gra_win_width( color_pads_xmin, color_pads_xmax );
+        fw_gra_set_pen( 0 ); // FIXME hard-coded color number;
+
+        {
+                cf_cellState_t icolor = CF_COLORCOUNT;
+
+                do
+                {
+                        icolor--;
+                        dbgvar_d( 5, icolor );
+                        ytop = ytop + color_pads_youterheight;
+
+                        {
+                                uint8_t ink_color = icolor + 2;
+
+                                fw_gra_set_paper( ink_color );
+                        }
+
+                        fw_gra_win_height( ytop, ytop - color_pads_yinnerheight );
+                        fw_gra_clear_window();
+
+                        if ( cf_model_is_color_allowed_for_current_player( this_model, icolor ) )
+                        {
+                                first_allowed_color = icolor;
+                        }
+                        else
+                        {
+                                fw_gra_move_absolute( 4, ytop - 4 );
+                                fw_gra_wr_char( 0xCB /* CROSS */ );
+                        }
+                }
+                while ( icolor != 0 );
+        }
+        fw_gra_initialise();
+
+        return first_allowed_color;
+}
+
+void platform_show_player_wished_color( cf_cellState_t player_wished_action )
+{
+        uint16_t ytop = color_pads_ytop - color_pads_youterheight * player_wished_action;
+
+        fw_gra_win_width( color_pads_xmax + 4, ( color_pads_xmax + 2 ) * 2 );
+        fw_gra_win_height( color_pads_ytop, color_pads_ybottom );
+        fw_gra_set_paper( 0 ); // FIXME hard-coded color number;
+        fw_gra_clear_window();
+
+        dbgvar_d( 5, ytop );
+
+        fw_gra_set_pen( 1 ); // FIXME hard-coded color number;
+        fw_gra_move_absolute( color_pads_xmax + 4, ytop - 4 );
+        fw_gra_wr_char( 0xf2 );
+        fw_gra_initialise();
+}
 
 void cf_view_print_podium( const cf_podium_t *const podium )
 {

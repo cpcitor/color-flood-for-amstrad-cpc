@@ -7,121 +7,94 @@
 #include "view.h"
 #include "../log.h"
 
-const key_to_action_t const key_to_action[key_to_action_count] =
+const player_key_to_action_t const player_key_to_action_array[CF_MAXPLAYERCOUNT] =
 {
-        { 's', -1, 0 },
-        { 'd', -1, 1 },
-        { 'f', -1, 2 },
-        { 'g', -1, 3 },
-        { 'h', -1, 4 },
-        { 'j', -1, 5 },
-#if CF_COLORCOUNT > 6
-        { 'k', -1, 6 },
-        { 'l', -1, 7 },
-        { '0', -1, 8 },
-        { '1', -1, 9 },
-        { '2', -1, 10 },
-        { '3', -1, 11 },
-        { '4', -1, 12 },
-        { '5', -1, 13 },
-        { 'e', 0, -1 },
-        { 'c', 1, -1 },
-        { 'n', 2, -1 },
-        { 'p', 3, -1 },
-#endif
+        {'e', 'r', 't'},
+        {0x87, 0x88, 0x89},
+        {0x81, 0x82, 0x83},
+        {'v', 'b', 'n'},
+//        {'i', 'o', 'p'},
+//        {0x89 /* f9 */ , 0x86 /* f6 */ , 0x83 /* f3 */ },
+//        {'v', 'b', 'n'},
 };
-
-/*
-enum {key_to_action_count = CF_MAXPLAYERCOUNT * CF_COLORCOUNT };
-
-key_to_action_t key_to_action[key_to_action_count] =
-{
-        { 'e', 0, 0 },
-        { 'r', 0, 1 },
-        { 't', 0, 2 },
-        { 'y', 0, 3 },
-        { 'u', 0, 4 },
-        { 'i', 0, 5 },
-        { '1', 1, 0 },
-        { '2', 1, 1 },
-        { '3', 1, 2 },
-        { '4', 1, 3 },
-        { '5', 1, 4 },
-        { '6', 1, 5 }
-        { 's', 2, 0 },
-        { 'd', 2, 1 },
-        { 'f', 2, 2 },
-        { 'g', 2, 3 },
-        { 'h', 2, 4 },
-        { 'j', 2, 5 },
-        { '7', 3, 0 },
-        { '8', 3, 1 },
-        { '9', 3, 2 },
-        { 'x', 3, 3 },
-        { 'c', 3, 4 },
-        { 'v', 3, 5 }
-};
-*/
 
 uint8_t
 cf_game_one_move( cf_model_t *const this_model )
 {
-	cf_model_draw( this_model );
+        cf_model_draw( this_model );
 
-	{
-		cf_player_i iplayer = this_model->nextPlayer;
+        {
+                cf_player_i iplayer = this_model->nextPlayer;
 
-		while ( is_player_disabled( this_model, iplayer ) )
-		{
-			iplayer = ( iplayer + 1 ) % CF_MAXPLAYERCOUNT;
-		}
+                while ( is_player_disabled( this_model, iplayer ) )
+                {
+                        iplayer = ( iplayer + 1 ) % CF_MAXPLAYERCOUNT;
+                }
 
-		this_model->nextPlayer = iplayer;
-	}
+                this_model->nextPlayer = iplayer;
+        }
 
-	{
-		char user_choice_char = platform_prompt_next_move( this_model );
-		const key_to_action_t *ktap = key_to_action + key_to_action_count;
+        platform_show_who_plays_next( this_model );
+        cf_model_update_allowed_color_table( this_model );
 
-		dbgvar_d( 1, user_choice_char );
-		dbglog_nl( 1 );
+        {
+                cf_cellState_t player_wished_color = platform_show_possible_next_moves( this_model );
+                const player_key_to_action_t *const player_key_to_action = &( player_key_to_action_array[this_model->nextPlayer] );
 
-		do
-		{
-			ktap--;
+                {
+                        unsigned char keycode = 0;
 
-			if ( ktap->character != user_choice_char )
-			{
-				dbglogf( 4, "!%03d ", ktap->character );
-				continue;
-			}
+                        do
+                        {
+                                platform_show_player_wished_color( player_wished_color );
+                                keycode = platform_wait_for_key();
+                                dbgvar_d( 5, keycode );
 
-			dbgvar_d( 1, user_choice_char );
-			dbglog_nl( 1 );
+                                if ( keycode == player_key_to_action->previous_color )
+                                {
+                                        dbglog( 5, "User chose 'previous'" NL );
 
-			/* if ( ktap->player != this_model->nextPlayer ) */
-			/* { */
-			/*         continue; */
-			/* } */
+                                        do
+                                        {
+                                                player_wished_color = color_previous( player_wished_color );
+                                                dbgvar_d( 5, player_wished_color );
+                                        }
+                                        while ( !cf_model_is_color_allowed_for_current_player( this_model, player_wished_color ) );
+                                }
 
-			{
-				uint8_t rv = cf_model_play( this_model, ktap->color );
+                                if ( keycode == player_key_to_action->next_color )
+                                {
+                                        dbglog( 5, "User chose 'next'" NL );
 
-				if ( rv == 1 )
-				{
-					//cf_model_draw( &global_model );
-					return 0;
-				}
+                                        do
+                                        {
+                                                player_wished_color = color_next( player_wished_color );
+                                                dbgvar_d( 5, player_wished_color );
+                                        }
+                                        while ( !cf_model_is_color_allowed_for_current_player( this_model, player_wished_color ) );
+                                }
+                        }
+                        while ( keycode != player_key_to_action->confirm );
+                }
 
-				if ( rv >= 2 )
-				{
-					dbglogf( 1, "%d!", rv );
-				}
-			}
+                dbgvar_d( 5, player_wished_color );
+                dbglog_nl( 5 );
 
-			//cf_model_play( this_model, ktap->color );
-		}
-		while ( ktap != key_to_action );
-	}
-	return 1;
+                {
+                        uint8_t rv = cf_model_play( this_model, player_wished_color );
+
+                        if ( rv == 1 )
+                        {
+                                //cf_model_draw( &global_model );
+                                return 0;
+                        }
+
+                        if ( rv >= 2 )
+                        {
+                                dbglogf( 1, "%d!", rv );
+                        }
+                }
+        }
+
+        return 1;
 }

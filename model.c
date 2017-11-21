@@ -257,7 +257,7 @@ uint16_t finishFillAndcountArea( cf_grid_t *this_grid,
         return newArea;
 }
 
-/** Return value: 0 if played okay, 1 if game ended, 2+playerindex if color chosen was same as playerindex' current color. */
+/** Return value: 0 if played okay, 1 if game ended, 2 if color chosen was not allowed. */
 uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newState )
 {
         cf_player_i iplayer;
@@ -265,23 +265,9 @@ uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newSta
         cf_coordinates_t *fillStartCoordinates;
         cf_grid_t *grid = &this_model->grid;
 
+        if ( !cf_model_is_color_allowed_for_current_player( this_model, newState ) )
         {
-                for ( iplayer = 0; iplayer < CF_MAXPLAYERCOUNT; iplayer++ )
-                {
-                        if ( is_player_disabled( this_model, iplayer ) )
-                        {
-                                continue;
-                        }
-
-                        //cf_cellState_t cf_last_color_of_player( cf_model_t *this_model, cf_player_i iplayer )
-                        fillStartCoordinates = &( this_model->playerHomes[iplayer] );
-                        oldState = grid->cell[fillStartCoordinates->row][fillStartCoordinates->col];
-
-                        if ( newState == oldState )
-                        {
-                                return 2 + newState;
-                        }
-                }
+                return 2;
         }
 
         iplayer = this_model->nextPlayer;
@@ -307,7 +293,7 @@ uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newSta
         {
                 uint16_t newDomainArea = finishFillAndcountArea( grid,
                                          newState );
-                dbglogf( 0, "New area for player %d: %d" NL, iplayer, newDomainArea );
+                dbglogf( 2, "New area for player %d: %d" NL, iplayer, newDomainArea );
                 this_model->domainAreas[iplayer] = newDomainArea;
         }
 
@@ -326,7 +312,7 @@ uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newSta
                         }
                 }
 
-                dbgvar_d( 0, unclaimedArea );
+                dbgvar_d( 2, unclaimedArea );
 
                 if ( unclaimedArea == 0 )
                 {
@@ -344,3 +330,36 @@ cf_cellState_t cf_model_get_player_cellstate( const cf_model_t *const this_model
         return state;
 }
 
+void cf_model_update_allowed_color_table( cf_model_t *const this_model )
+{
+        // All colors allowed a priori.
+        cf_onebitpercolor_t bits = ( ( 1 << CF_COLORCOUNT ) - 1 ) ;
+
+        cf_player_i iplayer;
+
+        for ( iplayer = 0; iplayer < CF_MAXPLAYERCOUNT; iplayer++ )
+        {
+                if ( is_player_disabled( this_model, iplayer ) )
+                {
+                        continue;
+                }
+
+                {
+                        cf_coordinates_t *fillStartCoordinates = &( this_model->playerHomes[iplayer] );
+                        cf_cellState_t iplayer_state = this_model->grid.cell[fillStartCoordinates->row][fillStartCoordinates->col];
+
+                        bits &= ~( 1 << iplayer_state );
+                }
+        }
+
+        this_model->allowedNextColorBits = bits;
+}
+
+//#define cf_model_is_color_allowed_for_current_player( const cf_model_t *const this_model, cf_cellState_t new_state )
+
+bool cf_model_is_color_allowed_for_current_player( const cf_model_t *const this_model, const cf_cellState_t new_state )
+{
+        cf_onebitpercolor_t bits = this_model->allowedNextColorBits;
+
+        return ( bits & ( 1 << new_state ) ) != 0;
+}

@@ -3,6 +3,14 @@
 
 #include "../model.h"
 
+typedef struct player_key_to_action_t
+{
+        // unsigned char player_id; /* ~0 means all players */
+        unsigned char previous_color;
+        unsigned char confirm;
+        unsigned char next_color;
+} player_key_to_action_t;
+
 typedef struct key_to_action_t
 {
         char character;
@@ -11,8 +19,6 @@ typedef struct key_to_action_t
 } key_to_action_t;
 
 enum {key_to_action_count = CF_COLORCOUNT };
-
-extern const key_to_action_t const key_to_action[key_to_action_count];
 
 uint8_t cf_game_one_move( cf_model_t *const this_model );
 

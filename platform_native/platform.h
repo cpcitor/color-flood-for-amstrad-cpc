@@ -4,6 +4,7 @@
 /* PLATFORM NATIVE */
 
 #include <stdio.h>
+#include <stdbool.h> // For portable functions that take or return bool.
 
 #define platform_print_char(c) putchar(c)
 #define platform_print_char_safe(c) putchar(c)
