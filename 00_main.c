@@ -16,7 +16,7 @@ main()
 
         cf_platform_init();
 
-        global_model.playerEnableBits = 0b0101;
+        global_model.playerEnableBits = ( 1 << 0 ) | ( 1 << 2 );
 
         {
                 const uint8_t size = 12;
