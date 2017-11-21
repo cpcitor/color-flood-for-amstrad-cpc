@@ -16,6 +16,8 @@ void draw_window( char *title, uint8_t top, uint8_t height, uint8_t left, uint8_
 
 void generic_draw( const char *const decorator, const ui_element_t *const element )
 {
+        ( void ) decorator;
+        ( void ) element;
 #ifdef GENERIC_DRAW_ENABLE
         fprintf( stderr, "\nDOT: elem_%p [label=\"%s%s\", pos=\"%d,%d!\"];\n",
                  element, decorator, element->text, element->x, element->y );
