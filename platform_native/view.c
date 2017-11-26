@@ -146,6 +146,11 @@ void platform_show_who_plays_next( cf_model_t *const this_model )
         printf( "Next player is: %d\n", this_model->nextPlayer );
 }
 
+void platform_hide_who_plays_next( cf_model_t *const this_model )
+{
+        printf( "Player made their move: %d\n", this_model->nextPlayer );
+}
+
 cf_cellState_t platform_show_possible_next_moves( cf_model_t *const this_model )
 {
         cf_cellState_t icolor;

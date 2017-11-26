@@ -80,6 +80,8 @@ cf_game_one_move( cf_model_t *const this_model )
                 dbgvar_d( 5, player_wished_color );
                 dbglog_nl( 5 );
 
+                platform_hide_who_plays_next( this_model );
+
                 {
                         uint8_t rv = cf_model_play( this_model, player_wished_color );
 

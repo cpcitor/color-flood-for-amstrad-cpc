@@ -210,7 +210,44 @@ uint8_t state_to_color( cf_cellState_t state )
         return ( ( uint8_t )state + 2 );
 }
 
-void platform_show_who_plays_next( cf_model_t *const this_model )
+typedef struct text_coordinates_t
+{
+        uint8_t left;
+        uint8_t top;
+} text_coordinates_t;
+
+const text_coordinates_t player_windows[CF_MAXPLAYERCOUNT] =
+{
+        { 0, 0, 0 },
+        { 16, 0 },
+        { 16, 22 },
+        { 0, 22 },
+};
+
+void platform_player_controls_show_or_hide( uint8_t ip, bool show )
+{
+        {
+                const text_coordinates_t *const w = &( player_windows[ip] );
+                const uint8_t winwidth = 4;
+                const uint8_t winheight = 2;
+                fw_txt_win_enable( w->left, w->left + ( winwidth - 1 ), w->top, w->top + ( winheight - 1 ) );
+                fw_txt_clear_window();
+        }
+
+        if ( show )
+        {
+                const player_key_to_action_t *const kta = &( player_key_to_action_array[ip] );
+                fw_txt_output( 0xf2 );
+                fw_txt_output( 0xe0 );
+                fw_txt_output( 0xf3 );
+                fw_txt_output( ' ' );
+                fw_txt_output( kta->previous_color );
+                fw_txt_output( kta->confirm );
+                fw_txt_output( kta->next_color );
+        }
+}
+
+void platform_show_who_plays_next( const cf_model_t *const this_model )
 {
         const uint8_t ip = this_model->nextPlayer;
         const cf_coordinates_t *const ph = &( this_model->playerHomes[ip] );
@@ -235,6 +272,14 @@ void platform_show_who_plays_next( cf_model_t *const this_model )
         fw_gra_line_relative( incellsize_fw_x, -incellsize_fw_y );
         fw_gra_move_relative( -incellsize_fw_x, 0 );
         fw_gra_line_relative( incellsize_fw_x, incellsize_fw_y );
+
+        platform_player_controls_show_or_hide( ip, true );
+}
+
+void platform_hide_who_plays_next( const cf_model_t *const this_model )
+{
+        const uint8_t ip = this_model->nextPlayer;
+        platform_player_controls_show_or_hide( ip, false );
 }
 
 enum

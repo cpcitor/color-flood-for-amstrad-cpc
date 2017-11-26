@@ -36,6 +36,7 @@ void cf_platform_init()
 void cf_platform_prepare_for_game_board()
 {
         fw_scr_set_mode( 0 );
+        fw_txt_initialise();
 
         cf_screen_line_to_ptr_init();
 
