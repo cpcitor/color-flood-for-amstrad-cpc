@@ -34,8 +34,8 @@ clean2:
 
 clean-full: clean clean2 clean-native
 
-test-sdcc: clean-full dsk2
-	arnold -drivea cf.dsk
+test-sdcc: clean-full cf.dsk
+	-( arnold -at 'run"cf\n' -a cf.dsk & true ; )
 
 test-native: clean-full native
 	./native
