@@ -18,27 +18,32 @@ static uint8_t cf_grid_byte_offset_from_screen_start;
 #define draw_one_byte() screen_write(pos_local, value); ++pos_local
 #define grid_origin(row, col, bytes_per_cell_width, chars_height_per_cell_height) ((screen + row * char_stride * chars_height_per_cell_height + col * bytes_per_cell_width + cf_grid_byte_offset_from_screen_start))
 
+enum
+{
+        PIXEL_ENCODING_BIT_0 = 0x40,
+        PIXEL_ENCODING_BIT_1 = 0x04,
+        PIXEL_ENCODING_BIT_2 = 0x10,
+        PIXEL_ENCODING_BIT_3 = 0x01,
+};
+
 const uint8_t state2byte[CF_STATECOUNT] =
 {
-        0x0C, /* 00001100 2 */
-        0xCC, /* 11001100 3 */
-        0x30, /* 00110000 4 */
-        0xF0, /* 11110000 5 */
-        0x3C, /* 00111100 6 */
-        0xFC, /* 11111100 7 */
-#if CF_COLORCOUNT > 6
-        0x03,
-        0xC3,
-        0x0F,
-        0xCF,
-        0x33,
-        0xF3,
-        0x3F,
-        0xFF,
-#endif /* CF_COLORCOUNT > 6 */
-        0x80,
-        0x08
+        ( uint8_t )( 3 * ( PIXEL_ENCODING_BIT_1 ) ),
+        ( uint8_t )( 3 * ( PIXEL_ENCODING_BIT_1 + PIXEL_ENCODING_BIT_0 ) ),
+        ( uint8_t )( 3 * ( PIXEL_ENCODING_BIT_2 ) ),
+        ( uint8_t )( 3 * ( PIXEL_ENCODING_BIT_2 + PIXEL_ENCODING_BIT_0 ) ),
+        ( uint8_t )( 3 * ( PIXEL_ENCODING_BIT_2 + PIXEL_ENCODING_BIT_1 ) ),
+        ( uint8_t )( 3 * ( PIXEL_ENCODING_BIT_2 + PIXEL_ENCODING_BIT_1 + PIXEL_ENCODING_BIT_0 ) ),
+        ( uint8_t )( 3 * ( PIXEL_ENCODING_BIT_3 ) ),
+        ( uint8_t )( 3 * ( PIXEL_ENCODING_BIT_3 + PIXEL_ENCODING_BIT_0 ) ),
+        ( uint8_t )( 3 * ( PIXEL_ENCODING_BIT_3 + PIXEL_ENCODING_BIT_1 ) ),
+        ( uint8_t )( 3 * ( PIXEL_ENCODING_BIT_3 + PIXEL_ENCODING_BIT_1 + PIXEL_ENCODING_BIT_0 ) ),
+        ( uint8_t )( 3 * ( PIXEL_ENCODING_BIT_3 + PIXEL_ENCODING_BIT_2 ) ),
+        ( uint8_t )( 3 * ( PIXEL_ENCODING_BIT_3 + PIXEL_ENCODING_BIT_2 + PIXEL_ENCODING_BIT_0 ) ),
+        ( uint8_t )( 3 * ( PIXEL_ENCODING_BIT_3 + PIXEL_ENCODING_BIT_2 + PIXEL_ENCODING_BIT_1 ) ),
+        ( uint8_t )( 3 * ( PIXEL_ENCODING_BIT_3 + PIXEL_ENCODING_BIT_2 + PIXEL_ENCODING_BIT_1 + PIXEL_ENCODING_BIT_0 ) ),
 };
+
 typedef void cell_draw_function( uint8_t row, uint8_t col, cf_cellState_t const state );
 
 static struct
