@@ -314,7 +314,9 @@ cf_cellState_t platform_show_possible_next_moves( cf_model_t *const this_model )
                 do
                 {
                         icolor--;
+
                         dbgvar_d( 5, icolor );
+
                         ytop = ytop + color_pads_youterheight;
 
                         {
@@ -322,6 +324,9 @@ cf_cellState_t platform_show_possible_next_moves( cf_model_t *const this_model )
 
                                 fw_gra_set_paper( ink_color );
                         }
+
+                        dbgvar_d( 5, ytop );
+                        dbglog( 0, NL );
 
                         fw_gra_win_height( ytop, ytop - color_pads_yinnerheight );
                         fw_gra_clear_window();
