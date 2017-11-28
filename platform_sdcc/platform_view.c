@@ -237,9 +237,9 @@ void platform_player_controls_show_or_hide( uint8_t ip, bool show )
         if ( show )
         {
                 const player_key_to_action_t *const kta = &( player_key_to_action_array[ip] );
-                fw_txt_output( 0xf2 );
+                fw_txt_output( 0xf4 );
                 fw_txt_output( 0xe0 );
-                fw_txt_output( 0xf3 );
+                fw_txt_output( 0xf5 );
                 fw_txt_output( ' ' );
                 fw_txt_output( kta->previous_color );
                 fw_txt_output( kta->confirm );
