@@ -20,8 +20,6 @@ typedef struct key_to_action_t
         cf_cellState_t color;
 } key_to_action_t;
 
-enum {key_to_action_count = CF_COLORCOUNT };
-
 uint8_t cf_game_one_move( cf_model_t *const this_model );
 
 #endif /* __CONTROLLER_H__ */

@@ -128,19 +128,6 @@ void cf_grid_draw( const cf_grid_t *const this_grid )
         cf_grid_dump( this_grid );
 }
 
-/* FIXME
-void show_key_color_association()
-{
-        int ik;
-
-        for ( ik = 0; ik < key_to_action_count; ik++ )
-        {
-                const key_to_action_t *const kta = &key_to_action[ik];
-                printf( "Key '%c', player %d, state/color %d\n", kta->character, kta->player, kta->color );
-        }
-}
-*/
-
 void platform_show_who_plays_next( cf_model_t *const this_model )
 {
         printf( "Next player is: %d\n", this_model->nextPlayer );
