@@ -245,6 +245,8 @@ void platform_player_controls_show_or_hide( uint8_t ip, bool show )
                 fw_txt_output( kta->confirm );
                 fw_txt_output( kta->next_color );
         }
+
+        fw_txt_win_enable( 4, 19, 0, 24 );
 }
 
 void platform_show_who_plays_next( const cf_model_t *const this_model )
