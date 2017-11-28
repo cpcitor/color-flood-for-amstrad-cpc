@@ -294,10 +294,13 @@ enum
 
 #define __COLOR_PADS_HEIGHT ((color_pads_yinnerheight+color_pads_ygap)*CF_COLORCOUNT-color_pads_ygap)
 
-const uint16_t color_pads_height = __COLOR_PADS_HEIGHT;
-const uint16_t color_pads_ytop = ( 398 + __COLOR_PADS_HEIGHT ) / 2;
-const uint16_t color_pads_ybottom = ( 398 - __COLOR_PADS_HEIGHT ) / 2;
-const uint16_t color_pads_youterheight = color_pads_yinnerheight + color_pads_ygap;
+//const uint16_t color_pads_height = __COLOR_PADS_HEIGHT;
+enum
+{
+        color_pads_ytop = ( ( 398 + __COLOR_PADS_HEIGHT ) / 2 ),
+        color_pads_ybottom = ( ( 398 - __COLOR_PADS_HEIGHT ) / 2 ),
+        color_pads_youterheight = ( color_pads_yinnerheight + color_pads_ygap ),
+};
 
 cf_cellState_t platform_show_possible_next_moves( cf_model_t *const this_model )
 {
