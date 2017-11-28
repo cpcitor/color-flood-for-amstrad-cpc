@@ -290,7 +290,7 @@ enum
         color_pads_ygap = 4,
 };
 
-#define __COLOR_PADS_HEIGHT ((color_pads_yinnerheight+color_pads_ygap)*CF_COLORCOUNT)
+#define __COLOR_PADS_HEIGHT ((color_pads_yinnerheight+color_pads_ygap)*CF_COLORCOUNT-color_pads_ygap)
 
 const uint16_t color_pads_height = __COLOR_PADS_HEIGHT;
 const uint16_t color_pads_ytop = ( 398 + __COLOR_PADS_HEIGHT ) / 2;
@@ -299,7 +299,7 @@ const uint16_t color_pads_youterheight = color_pads_yinnerheight + color_pads_yg
 
 cf_cellState_t platform_show_possible_next_moves( cf_model_t *const this_model )
 {
-        uint16_t ytop = color_pads_ybottom;
+        uint16_t ytop = color_pads_ybottom - color_pads_ygap;
 
         cf_cellState_t first_allowed_color = CF_STATECOUNT; /* Set it to avoid warning. */
 
