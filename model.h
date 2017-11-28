@@ -18,21 +18,7 @@ typedef struct cf_coordinates_t
 
 typedef enum cf_cellState_t
 {
-        red = 0,
-        yellow = 1,
-        green = 2,
-        cyan = 3,
-        blue = 4,
-        magenta = 5,
-        CF_COLORCOUNT,
-        orange = 6,
-        grey = 7,
-        dark_red = 8,
-        dark_yellow = 9,
-        dark_green = 10,
-        dark_cyan = 11,
-        dark_blue = 12,
-        dark_magenta = 13,
+        CF_COLORCOUNT = 9,
         to_process = CF_COLORCOUNT,
         processed,
         CF_STATECOUNT
