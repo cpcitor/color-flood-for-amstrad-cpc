@@ -8,7 +8,7 @@
 #include "platform_view.h"
 
 enum { ink_count = 16 };
-const uint8_t const inks[ink_count] =
+static const uint8_t const inks[ink_count] =
 {
         0, 26,
         rgb_to_cpc_color( 2, 0, 0 ),

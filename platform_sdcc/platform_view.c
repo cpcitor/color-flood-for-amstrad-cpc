@@ -26,7 +26,7 @@ enum
         PIXEL_ENCODING_BIT_3 = 0x01,
 };
 
-const uint8_t state2byte[CF_STATECOUNT] =
+static const uint8_t state2byte[CF_STATECOUNT] =
 {
         ( uint8_t )( 3 * ( PIXEL_ENCODING_BIT_1 ) ),
         ( uint8_t )( 3 * ( PIXEL_ENCODING_BIT_1 + PIXEL_ENCODING_BIT_0 ) ),
@@ -216,7 +216,7 @@ typedef struct text_coordinates_t
         uint8_t top;
 } text_coordinates_t;
 
-const text_coordinates_t player_windows[CF_MAXPLAYERCOUNT] =
+static const text_coordinates_t player_windows[CF_MAXPLAYERCOUNT] =
 {
         { 0, 0, 0 },
         { 16, 0 },
