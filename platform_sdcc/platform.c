@@ -11,13 +11,28 @@ enum { ink_count = 16 };
 const uint8_t const inks[ink_count] =
 {
         0, 26,
-#if CF_PASTEL_COLORS
-        16, 25, 22, 23, 14, 17,
-#else /* CF_PASTEL_COLORS */
-        6, 24, 18, 20, 2, 8,
-#endif /* CF_PASTEL_COLORS */
-        15, 13,
-        3, 12, 9, 10, 1, 4
+        rgb_to_cpc_color( 2, 1, 0 ),
+        rgb_to_cpc_color( 0, 2, 1 ),
+        rgb_to_cpc_color( 1, 0, 2 ),
+
+        // rgb_to_cpc_color( 2, 0, 1 ), too aggressive
+        //rgb_to_cpc_color( 1, 2, 0 ), too similar to 0,2,1
+        rgb_to_cpc_color( 0, 1, 2 ),
+
+        rgb_to_cpc_color( 2, 2, 1 ),
+        rgb_to_cpc_color( 2, 1, 2 ),
+        rgb_to_cpc_color( 1, 2, 2 ),
+
+        rgb_to_cpc_color( 0, 1, 1 ),
+//        rgb_to_cpc_color( 1, 0, 1 ), too similar to 1,0,2
+        rgb_to_cpc_color( 1, 1, 0 ),
+        /* #if CF_PASTEL_COLORS */
+        /*         16, 25, 22, 23, 14, 17, */
+        /* #else /\* CF_PASTEL_COLORS *\/ */
+        /*         6, 24, 18, 20, 2, 8, */
+        /* #endif /\* CF_PASTEL_COLORS *\/ */
+        /*        15, 13,
+                  3, 12, 9, 10, 1, 4*/
 };
 
 void cf_platform_init()
