@@ -77,11 +77,11 @@ void gui_loop( ui_element_t *first_selected_element )
         unsigned char marker = 0x80;
         //config_gui_mark_selected_element( first_selected_element, mark_here );
 
-        fw_scr_set_ink_one( background_pen, rgb_to_cpc_color( 0, 1, 2 ) );
+        fw_scr_set_ink_one( background_pen, rgb_to_cpc_color( 0, 0, 2 ) );
         fw_scr_set_ink_one( text_pen, rgb_to_cpc_color( 2, 1, 1 ) );
         fw_scr_set_ink_one( window_bright_pen, rgb_to_cpc_color( 2, 2, 0 ) );
         fw_scr_set_ink_one( window_dark_pen, rgb_to_cpc_color( 0, 0, 1 ) );
-        fw_scr_set_border_one( rgb_to_cpc_color( 0, 0, 2 ) );
+        fw_scr_set_border_one( rgb_to_cpc_color( 0, 1, 2 ) );
 
         continue_gui_loop = true;
 
