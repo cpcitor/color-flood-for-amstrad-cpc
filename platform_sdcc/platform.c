@@ -11,21 +11,23 @@ enum { ink_count = 16 };
 const uint8_t const inks[ink_count] =
 {
         0, 26,
+        rgb_to_cpc_color( 2, 0, 0 ),
         rgb_to_cpc_color( 2, 1, 0 ),
-        rgb_to_cpc_color( 0, 2, 1 ),
-        rgb_to_cpc_color( 1, 0, 2 ),
+        //rgb_to_cpc_color( 2, 2, 0 ), yellow is too close to green
+        rgb_to_cpc_color( 0, 2, 0 ), // not 0,2,1 too bright
+        rgb_to_cpc_color( 0, 2, 2 ),
+        rgb_to_cpc_color( 0, 0, 2 ), // not 0,1,2 which would be too similar to 1,0,2
+        //rgb_to_cpc_color( 1, 0, 2 ), too similar to 0,0,2 on a real CPC
 
         // rgb_to_cpc_color( 2, 0, 1 ), too aggressive
         //rgb_to_cpc_color( 1, 2, 0 ), too similar to 0,2,1
-        rgb_to_cpc_color( 0, 1, 2 ),
 
-        rgb_to_cpc_color( 2, 2, 1 ),
-        rgb_to_cpc_color( 2, 1, 2 ),
-        rgb_to_cpc_color( 1, 2, 2 ),
+        rgb_to_cpc_color( 2, 0, 2 ),
 
-        rgb_to_cpc_color( 0, 1, 1 ),
 //        rgb_to_cpc_color( 1, 0, 1 ), too similar to 1,0,2
+        rgb_to_cpc_color( 0, 1, 1 ),
         rgb_to_cpc_color( 1, 1, 0 ),
+        rgb_to_cpc_color( 1, 0, 1 ),
         /* #if CF_PASTEL_COLORS */
         /*         16, 25, 22, 23, 14, 17, */
         /* #else /\* CF_PASTEL_COLORS *\/ */
