@@ -50,10 +50,17 @@ void cf_platform_init()
         }
 }
 
+enum {
+	lowest_redefined_character=128
+};
+
+const uint8_t chardef[lowest_redefined_character*8];
+
 void cf_platform_prepare_for_game_board()
 {
         fw_scr_set_mode( 0 );
         fw_txt_initialise();
+        fw_txt_set_m_table( chardef, false, lowest_redefined_character );
 
         cf_screen_line_to_ptr_init();
 
@@ -69,4 +76,91 @@ void cf_platform_prepare_for_game_board()
                 fw_scr_set_border( 0, 0 );
         }
 
+
+        {
+                //enum { char_matrix_definition_char_size }
+                static const unsigned char const chardef[] =
+                {
+                        /*25,
+                        0x80,
+                        0b01001100,
+                        0b10010010,
+                        0b10010110,
+                        0b10011010,
+                        0b11010010,
+                        0b10010010,
+                        0b10001100,
+                        0b00000000,*/
+                        25,
+                        0x81,
+                        0b01000100,
+                        0b10001100,
+                        0b10010100,
+                        0b10000100,
+                        0b11000100,
+                        0b10000100,
+                        0b10011110,
+                        0b00000000,
+                        25,
+                        0x82,
+                        0b01011100,
+                        0b10000010,
+                        0b10000010,
+                        0b10001100,
+                        0b11010000,
+                        0b10010000,
+                        0b10011110,
+                        0b00000000,
+                        25,
+                        0x83,
+                        0b01011100,
+                        0b10000010,
+                        0b10000010,
+                        0b10001100,
+                        0b11000010,
+                        0b10000010,
+                        0b10011100,
+                        0b00000000,
+                        25,
+                        0x87,
+                        0b01011110,
+                        0b10000010,
+                        0b10000100,
+                        0b10001000,
+                        0b11001000,
+                        0b10010000,
+                        0b10010000,
+                        0b00000000,
+                        25,
+                        0x88,
+                        0b01001100,
+                        0b10010010,
+                        0b10010010,
+                        0b10001100,
+                        0b11010010,
+                        0b10010010,
+                        0b10001100,
+                        0b00000000,
+                        25,
+                        0x89,
+                        0b01001100,
+                        0b10010010,
+                        0b10010010,
+                        0b10001110,
+                        0b11000010,
+                        0b10000010,
+                        0b10011100,
+                        0b00000000,
+                };
+
+                int chartogo = sizeof( chardef ) / sizeof( char );
+                char *p_c = chardef;
+
+                while ( chartogo > 0 )
+                {
+                        fw_txt_output( *p_c );
+                        p_c++;
+                        chartogo--;
+                }
+        }
 }
