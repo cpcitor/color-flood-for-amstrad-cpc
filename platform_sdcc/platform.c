@@ -50,11 +50,12 @@ void cf_platform_init()
         }
 }
 
-enum {
-	lowest_redefined_character=128
+enum
+{
+        lowest_redefined_character = 128
 };
 
-const uint8_t chardef[lowest_redefined_character*8];
+const uint8_t chardef[lowest_redefined_character * 8];
 
 void cf_platform_prepare_for_game_board()
 {
