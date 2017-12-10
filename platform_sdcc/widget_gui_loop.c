@@ -92,43 +92,43 @@ void gui_loop( ui_element_t *first_selected_element )
                 if ( userKeyOrNothing & 0xff00 )
                 {
                         unsigned char userKey = userKeyOrNothing;
-                //fw_txt_wr_char( ' ' );
-                //pr_uint( userKey );
+                        //fw_txt_wr_char( ' ' );
+                        //pr_uint( userKey );
 
-                switch ( userKey )
-                {
-                        case cpc_space :
+                        switch ( userKey )
                         {
-                                ui_user_action_function_t *acfunc = selected_element->class->action_func;
-
-                                if ( acfunc != NULL )
+                                case cpc_space :
                                 {
-                                        acfunc( selected_element );
+                                        ui_user_action_function_t *acfunc = selected_element->class->action_func;
+
+                                        if ( acfunc != NULL )
+                                        {
+                                                acfunc( selected_element );
+                                        }
+                                }
+                                break;
+
+                                case 'q':
+                                        global_model.playerEnableBits = 0;
+                                        continue_gui_loop = false;
+                                        break;
+                        }
+
+                        {
+                                uint8_t delta = userKey - cpc_up;
+
+                                const ui_element_t *const new_element =
+                                        ( delta < neighbour_count ) ?
+                                        selected_element->neighbours[userKey - cpc_up] // uses the fact that cpc keys are un same order as our neighbourhood define order.
+                                        : NULL;
+
+                                config_gui_mark_selected_element( selected_element, mark_away );
+
+                                if ( new_element != NULL )
+                                {
+                                        selected_element = new_element;
                                 }
                         }
-                        break;
-
-                        case 'q':
-                                global_model.playerEnableBits = 0;
-                                continue_gui_loop = false;
-                                break;
-                }
-
-                {
-                        uint8_t delta = userKey - cpc_up;
-
-                        const ui_element_t *const new_element =
-                                ( delta < neighbour_count ) ?
-                                selected_element->neighbours[userKey - cpc_up] // uses the fact that cpc keys are un same order as our neighbourhood define order.
-                                : NULL;
-
-                        config_gui_mark_selected_element( selected_element, mark_away );
-
-                        if ( new_element != NULL )
-                        {
-                                selected_element = new_element;
-                        }
-                }
                 }
 
                 config_gui_mark_selected_element( selected_element, marker );
