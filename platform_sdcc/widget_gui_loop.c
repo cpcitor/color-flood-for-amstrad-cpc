@@ -87,7 +87,11 @@ void gui_loop( ui_element_t *first_selected_element )
 
         while ( continue_gui_loop )
         {
-                char userKey = fw_km_read_key();
+                uint16_t userKeyOrNothing = fw_km_read_key();
+
+                if ( userKeyOrNothing & 0xff00 )
+                {
+                        unsigned char userKey = userKeyOrNothing;
                 //fw_txt_wr_char( ' ' );
                 //pr_uint( userKey );
 
@@ -124,6 +128,7 @@ void gui_loop( ui_element_t *first_selected_element )
                         {
                                 selected_element = new_element;
                         }
+                }
                 }
 
                 config_gui_mark_selected_element( selected_element, marker );
