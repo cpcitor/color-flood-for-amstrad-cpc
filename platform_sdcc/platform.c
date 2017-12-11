@@ -55,14 +55,10 @@ enum
         lowest_redefined_character = 128
 };
 
-const uint8_t chardef[lowest_redefined_character * 8];
-
 void cf_platform_prepare_for_game_board()
 {
         fw_scr_set_mode( 0 );
         fw_txt_initialise();
-        fw_txt_set_m_table( chardef, false, lowest_redefined_character );
-
         cf_screen_line_to_ptr_init();
 
         {
@@ -156,6 +152,12 @@ void cf_platform_prepare_for_game_board()
 
                 int chartogo = sizeof( chardef ) / sizeof( char );
                 const char *p_c = chardef;
+
+                extern void aftercode;
+                const uint8_t *chartable = ( uint8_t * )( &aftercode );
+
+                fw_txt_set_m_table( chartable, false, lowest_redefined_character );
+
 
                 while ( chartogo > 0 )
                 {
