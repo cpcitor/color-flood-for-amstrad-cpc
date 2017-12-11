@@ -155,7 +155,7 @@ void cf_platform_prepare_for_game_board()
                 };
 
                 int chartogo = sizeof( chardef ) / sizeof( char );
-                char *p_c = chardef;
+                const char *p_c = chardef;
 
                 while ( chartogo > 0 )
                 {
