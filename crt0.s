@@ -193,8 +193,8 @@ gsinit_next:
 	ret
 
 	.area   _DATA
-	.area   _INITIALIZED
 	.area 	_HOME
 	.area   _INITIALIZER
+	.area   _INITIALIZED
 	.area	_AFTERCODE
 _aftercode::
