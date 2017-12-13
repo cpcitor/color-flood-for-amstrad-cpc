@@ -6,6 +6,7 @@
 
 void cf_platform_prepare_for_config_screen()
 {
+        fw_txt_initialise();
         fw_scr_set_mode( 1 );
         fw_scr_set_ink_one( 0, rgb_to_cpc_color( 0, 0, 2 ) );
         fw_scr_set_ink_one( 1, rgb_to_cpc_color( 0, 0, 2 ) );
