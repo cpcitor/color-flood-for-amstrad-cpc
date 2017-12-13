@@ -191,6 +191,10 @@ gsinit_next:
 
 	.area   _GSFINAL
 	ret
-	
-	.area	AFTERCODE
+
+	.area   _DATA
+	.area   _INITIALIZED
+	.area 	_HOME
+	.area   _INITIALIZER
+	.area	_AFTERCODE
 _aftercode::
