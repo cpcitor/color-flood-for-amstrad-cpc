@@ -154,7 +154,7 @@ void cf_platform_prepare_for_game_board()
                 const char *p_c = chardef;
 
                 extern void aftercode;
-                const uint8_t *chartable = ( uint8_t * )( &aftercode );
+                const fw_txt_character_matrix_t *chartable = ( fw_txt_character_matrix_t * )( &aftercode );
 
                 fw_txt_set_m_table( chartable, false, lowest_redefined_character );
 
