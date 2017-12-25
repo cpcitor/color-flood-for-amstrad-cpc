@@ -25,6 +25,8 @@ Use cursor keys to select your options :
 * grid size 12x12 16x16 or 24x24
 * which corners are occupied by an active player.
 
+![Intro screen](doc/images/color_flood__screenshot_00_intro.png)
+
 ## Game screen
 
 * The next player to play is shown with a cross in the corner.
@@ -34,10 +36,26 @@ Use cursor keys to select your options :
 At the bottom, progress bars allow to compare surface of each player
 (easier than trying to count squares).
 
+Illustration: in game with 4 players.
+
+![In game with 4 players.](doc/images/color_flood_with_redefined_characters.png)
+
+Illustration: older release, 4 players, 6 colors instead of 9.
+
+![Older release](doc/images/cool_4_player_color_flood_game.png)
+
 ## Game end
 
 The program shows the final area of each players.
 Sometimes there are draw games.
+
+Illustration: 2 players end screen
+
+![2 players end screen](doc/images/color_flood_2_players_grid_endgame.png)
+
+Illustration: 4 players end screen
+
+![4 players end screen](doc/images/color_flood_4_players_big_grid_endgame.png)
 
 # How to compile
 
