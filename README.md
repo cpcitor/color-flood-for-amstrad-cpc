@@ -1,8 +1,8 @@
 # Color Flood
 
-By cpcitor https://github.com/cpcitor
+By [cpcitor](https://github.com/cpcitor)
 
-Coded in C + SDCC + cpc-dev-tool-chain
+Coded in C + SDCC + [cpc-dev-tool-chain](https://github.com/cpcitor/cpc-dev-tool-chain)
 
 # Principle of the game
 
