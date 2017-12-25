@@ -59,11 +59,11 @@ Illustration: 4 players end screen
 
 # How to compile
 
-* Get a computer (preferably running Linux, but Windows or Mac should do).
-* Get a copy of https://github.com/cpcitor/cpc-dev-tool-chain .
-* Install it as explained on https://github.com/cpcitor/cpc-dev-tool-chain/blob/master/documentation/how_to_install.md
-* Run the script `cdtc-project-setup.sh` so that your local copy of the current source code knows where to find your local copy of cpc-dev-tool-chain. For example: `/path/to/cpc-dev-tool-chain/cdtc-project-setup.sh /path/to/cpcitor__color_flood__source_code/`
-* Now, in `cpcitor__color_flood__source_code` run `make`
-* You can also yo `make cdt`, `make dsk`, etc.
-* Run the cdt or dsk in an emulator or transfer to real CPC.
-* Enjoy!
+* Get [cpc-dev-tool-chain](https://github.com/cpcitor/cpc-dev-tool-chain) as explained on [How to install](https://github.com/cpcitor/cpc-dev-tool-chain/blob/master/documentation/how_to_install.md) (mostly `git clone ; make`).
+* Get and compile color flood source code
+<pre>
+git clone https://github.com/cpcitor/color-flood-for-amstrad-cpc
+cd color-flood-for-amstrad-cpc ; /path/to/cpc-dev-tool-chain/cdtc-project-setup.sh .
+make 	# also possible: make cdt dsk wav au
+</pre>
+* Run the cdt or dsk in an emulator ([on Linux](http://cpcwiki.eu/index.php/Emulators#Unix_.2F_Linux "Emulators - CPCWiki") for example [caprice32](https://github.com/ColinPitrat/caprice32 "caprice32"), [on Windows](http://cpcwiki.eu/index.php/Emulators#Windows "Emulators - CPCWiki") for example [WinAPE](http://www.winape.net/ "WinAPE : Windows Amstrad Plus Emulator"), [others](http://cpcwiki.eu/index.php/Emulators)) or transfer to real CPC, for example with a specific audio cable `make au ; mplayer *.au`. Enjoy!
