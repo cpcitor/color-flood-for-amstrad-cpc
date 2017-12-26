@@ -30,8 +30,9 @@ Use cursor keys to select your options :
 ## Game screen
 
 * The next player to play is shown with a cross in the corner.
-* Each color is associated with a key in the set s d f g h j.
-* Choose the color you want and press the associated key.  Be careful, no undo!
+* Each player has their own 3 keys to choose the next color (top left
+  player near keyboard top left, and so on).
+* Press up/down keys until you get your preferred color, then confirm.
 
 At the bottom, progress bars allow to compare surface of each player
 (easier than trying to count squares).
