@@ -59,11 +59,54 @@ Illustration: 4 players end screen
 
 # How to compile
 
-* Get [cpc-dev-tool-chain](https://github.com/cpcitor/cpc-dev-tool-chain) as explained on [How to install](https://github.com/cpcitor/cpc-dev-tool-chain/blob/master/documentation/how_to_install.md) (mostly `git clone ; make`).
-* Get and compile color flood source code
+* Linux users will recognize the usual clone/configure/make workflow.
+* Windows users have to fetch a Linux-like environment first.  Details on [How to install](https://github.com/cpcitor/cpc-dev-tool-chain/blob/master/documentation/how_to_install.md).
+
+For a quick start, just copy-paste this!
+
 <pre>
 git clone https://github.com/cpcitor/color-flood-for-amstrad-cpc
-cd color-flood-for-amstrad-cpc ; /path/to/cpc-dev-tool-chain/cdtc-project-setup.sh .
-make 	# also possible: make cdt dsk wav au
+cd color-flood-for-amstrad-cpc
+./configure_cdtc_build_tree.sh
+make
+# PROFIT!
 </pre>
-* Run the cdt or dsk in an emulator ([on Linux](http://cpcwiki.eu/index.php/Emulators#Unix_.2F_Linux "Emulators - CPCWiki") for example [caprice32](https://github.com/ColinPitrat/caprice32 "caprice32"), [on Windows](http://cpcwiki.eu/index.php/Emulators#Windows "Emulators - CPCWiki") for example [WinAPE](http://www.winape.net/ "WinAPE : Windows Amstrad Plus Emulator"), [others](http://cpcwiki.eu/index.php/Emulators)) or transfer to real CPC, for example with a specific audio cable `make au ; mplayer *.au`. Enjoy!
+
+This fetches dependencies (cross-compiler, tools, etc), builds then generates `cf2.dsk` that you can use in an emulator:
+
+* [on Linux](http://cpcwiki.eu/index.php/Emulators#Unix_.2F_Linux "Emulators - CPCWiki") for example [caprice32](https://github.com/ColinPitrat/caprice32 "caprice32"),
+* [on Windows](http://cpcwiki.eu/index.php/Emulators#Windows "Emulators - CPCWiki") for example [WinAPE](http://www.winape.net/ "WinAPE : Windows Amstrad Plus Emulator"),
+* [emulators for all platforms](http://cpcwiki.eu/index.php/Emulators) (mobile, etc)
+* or transfer to real CPC, for example with a specific audio cable `make au ; mplayer *.au`. Enjoy!
+
+## Options for compilation
+
+### Speed up compilation?
+
+HUGE speed bost if your PC has e.g. 8 cores (or even 4 multi-threaded cores):
+
+<pre>
+	make -j8
+</pre>
+
+### Generate audio file, others?
+
+Try different targets:
+
+<pre>
+	make dsk	# Disk file for emulator, can be written to real floppies.
+	make cdt	# Tape file for emulator, can be converted to audio.
+	make wav	# Generate audio file (also voc au)
+</pre>
+
+### Already have a working [cpc-dev-tool-chain](https://github.com/cpcitor/cpc-dev-tool-chain)?
+
+If you already have a copy of [cpc-dev-tool-chain](https://github.com/cpcitor/cpc-dev-tool-chain), you can avoid automatic fetch+compile of another one.
+
+Use the configure script to tell where it is:
+
+	./configure_cdtc_build_tree.sh /path/to/cpc-dev-tool-chain
+
+You can also
+
+	/path/to/cpc-dev-tool-chain/cdtc-project-setup.sh .
