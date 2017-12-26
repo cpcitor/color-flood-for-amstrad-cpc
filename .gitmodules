@@ -1,0 +1,3 @@
+[submodule "cpc-dev-tool-chain"]
+	path = cpc-dev-tool-chain
+	url = https://github.com/cpcitor/cpc-dev-tool-chain/
