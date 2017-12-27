@@ -159,19 +159,19 @@ then
 	if inside_git_workdir
 	then
 	    echo "We're inside a GIT directory, checking out as submodule."
-	    git submodule add "$GITHUB_CDTC"
+	    git submodule add "$GITHUB_CDTC" || echo >&2 "git submodule add failed, moving along as it may already have been configured."
+
+	    PROBE="cpc-dev-tool-chain/sdcc-project.Makefile"
+	    if ! [[ -r "$PROBE" ]]
+	    then
+		echo "No $PROBE"
+		echo "Using git to populate cpc-dev-tool-chain..."
+		git submodule update --remote
+	    fi
 	else
 	    echo "Not inside a GIT directory, doing git clone."
 	    git clone "$GITHUB_CDTC"
 	fi
-    fi
-
-    PROBE="cpc-dev-tool-chain/sdcc-project.Makefile"
-    if ! [[ -r "$PROBE" ]]
-    then
-	echo "No $PROBE"
-	echo "Using git to fetch cpc-dev-tool-chain from network..."
-	git submodule update --remote
     fi
 
     CDTC_ROOT="$( cd -P "cpc-dev-tool-chain" ; pwd ; )"
