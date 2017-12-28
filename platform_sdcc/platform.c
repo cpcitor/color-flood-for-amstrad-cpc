@@ -11,6 +11,7 @@ static const ink_vector16 game_palette =
 {
         {
                 hardware_color_r0_g0_b0_black,
+                hardware_color_r0_g0_b0_black,
                 hardware_color_r2_g2_b2_bright_white,
                 hardware_color_r2_g0_b0_bright_red,
                 hardware_color_r2_g1_b0_orange,
