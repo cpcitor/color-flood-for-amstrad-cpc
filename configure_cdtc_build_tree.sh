@@ -159,18 +159,25 @@ then
 	if inside_git_workdir
 	then
 	    echo "We're inside a GIT directory, checking out as submodule."
+	    set -xv
 	    git submodule add "$GITHUB_CDTC" || echo >&2 "git submodule add failed, moving along as it may already have been configured."
+	    git submodule init -- cpc-dev-tool-chain || echo >&2 "git submodule init failed, moving along."
+	    set +xv
 
 	    PROBE="cpc-dev-tool-chain/sdcc-project.Makefile"
 	    if ! [[ -r "$PROBE" ]]
 	    then
 		echo "No $PROBE"
-		echo "Using git to populate cpc-dev-tool-chain..."
+		echo "Using git submodule to populate cpc-dev-tool-chain..."
+		set -xv
 		git submodule update --remote
+		set +xv
 	    fi
 	else
+	    set -xv
 	    echo "Not inside a GIT directory, doing git clone."
 	    git clone "$GITHUB_CDTC"
+	    set +xv
 	fi
     fi
 
