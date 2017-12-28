@@ -150,7 +150,7 @@ if ! is_CDTC_ROOT_suitable
 then
     echo 'Checking `cpc-dev-tool-chain` subdirectory'
 
-    PROBE="cpc-dev-tool-chain"
+    PROBE="cpc-dev-tool-chain/sdcc-project.Makefile"
     if ! [[ -d "$PROBE" ]]
     then
 	echo "No subdirectory $PROBE"
