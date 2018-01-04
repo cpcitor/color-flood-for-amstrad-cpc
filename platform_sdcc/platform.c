@@ -45,12 +45,6 @@ void cf_platform_init()
         fw_gra_initialise();
         fw_scr_initialise();
         fw_scr_set_mode( 1 );
-
-        {
-                long unsigned int cpctime = fw_kl_time_please();
-                dbgvar_lu( 0, cpctime );
-                srand( cpctime );
-        }
 }
 
 enum
@@ -60,6 +54,12 @@ enum
 
 void cf_platform_prepare_for_game_board()
 {
+        {
+                long unsigned int cpctime = fw_kl_time_please();
+                dbgvar_lu( 0, cpctime );
+                srand( cpctime );
+        }
+	
         fw_scr_set_mode( 0 );
         fw_txt_initialise();
         cf_screen_line_to_ptr_init();
