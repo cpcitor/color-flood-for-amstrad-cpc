@@ -64,7 +64,7 @@ void cf_platform_prepare_for_game_board()
         fw_txt_initialise();
         cf_screen_line_to_ptr_init();
 
-        fw_kl_choke_off();
+        fw_kl_choke_off__ignore_return_value();
         fw_mc_set_inks__16( &game_palette );
 
         {
