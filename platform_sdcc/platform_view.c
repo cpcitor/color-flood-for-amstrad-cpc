@@ -421,7 +421,7 @@ void cf_view_print_podium( const cf_podium_t *const podium )
 
 void cf_view_display_endgame_pause( cf_model_t *this_model, cf_podium_t *podium )
 {
-        fw_scr_clear();
+        cf_platform_prepare_screen_for_game_board();
         cf_grid_byte_offset_from_screen_start = 0;
         cf_model_draw( this_model );
         fw_txt_win_enable( 12, 19, 0, 24 );

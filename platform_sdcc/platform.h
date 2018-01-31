@@ -22,6 +22,7 @@
 #include "screen.h"
 
 void cf_platform_init();
+void cf_platform_prepare_screen_for_game_board();
 void cf_platform_prepare_for_game_board();
 
 // for memcpy

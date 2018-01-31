@@ -52,6 +52,13 @@ enum
         lowest_redefined_character = 128
 };
 
+void cf_platform_prepare_screen_for_game_board()
+{
+        fw_scr_set_mode( 0 );
+        fw_kl_choke_off();
+        fw_mc_set_inks__16( &game_palette );
+}
+
 void cf_platform_prepare_for_game_board()
 {
         {
@@ -59,13 +66,10 @@ void cf_platform_prepare_for_game_board()
                 dbgvar_lu( 0, cpctime );
                 srand( cpctime );
         }
-	
-        fw_scr_set_mode( 0 );
-        fw_txt_initialise();
-        cf_screen_line_to_ptr_init();
 
-        fw_kl_choke_off__ignore_return_value();
-        fw_mc_set_inks__16( &game_palette );
+        fw_txt_initialise();
+	cf_platform_prepare_screen_for_game_board();
+        cf_screen_line_to_ptr_init();
 
         {
                 //enum { char_matrix_definition_char_size }
