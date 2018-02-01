@@ -55,7 +55,7 @@ enum
 void cf_platform_prepare_screen_for_game_board()
 {
         fw_scr_set_mode( 0 );
-        fw_kl_choke_off();
+        fw_kl_choke_off__ignore_return_value();
         fw_mc_set_inks__16( &game_palette );
 }
 
