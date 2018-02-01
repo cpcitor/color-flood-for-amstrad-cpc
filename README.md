@@ -69,8 +69,8 @@ For a quick start, just copy-paste this!
 git clone https://github.com/cpcitor/color-flood-for-amstrad-cpc
 cd color-flood-for-amstrad-cpc
 ./configure_cdtc_build_tree.sh
-make
-# PROFIT!
+make    # on Linux, try "make run" it will even run the project on caprice32 emulator!
+# While the project compiles, read on.
 </pre>
 
 This fetches dependencies (cross-compiler, tools, etc), builds then generates `cf2.dsk` that you can use in an emulator:
@@ -95,6 +95,7 @@ HUGE speed bost if your PC has e.g. 8 cores (or even 4 multi-threaded cores):
 Try different targets:
 
 <pre>
+	make run	# Linux only at the moment: runs project in caprice32 emulator.
 	make dsk	# Disk file for emulator, can be written to real floppies.
 	make cdt	# Tape file for emulator, can be converted to audio.
 	make wav	# Generate audio file (also voc au)
