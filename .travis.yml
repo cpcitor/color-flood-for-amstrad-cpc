@@ -36,6 +36,9 @@ script:
  - ls -al
  - ./configure_cdtc_build_tree.sh
  - make dsk -j2
+ - make cdt -j2
+ - make voc -j2
+ - make au -j2
  - make -j2
 #To uncomment in case a core occurs:
 # - find ./ -name 'core*'

@@ -4,6 +4,10 @@ By [cpcitor](https://github.com/cpcitor)
 
 Coded in C + SDCC + [cpc-dev-tool-chain](https://github.com/cpcitor/cpc-dev-tool-chain)
 
+Build status | Linux result
+---- | ----
+Full build: SDCC cross-compiler + binutils + tape/disk image tools + tape/disk images + audio file | [![Build Status](https://travis-ci.org/cpcitor/color-flood-for-amstrad-cpc.svg?branch=master)](https://travis-ci.org/cpcitor/color-flood-for-amstrad-cpc)
+
 # Principle of the game
 
 A puzzle game for 2 to 4 player.
