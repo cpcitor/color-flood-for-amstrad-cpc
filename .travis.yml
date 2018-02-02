@@ -1,5 +1,11 @@
 # Modified from https://github.com/ColinPitrat/caprice32/blob/fed782e5a05180a90049360f60755f356d79634d/.travis.yml
 language: cpp
+
+# safelist
+branches:
+  only:
+  - master
+
 #To uncomment in case a core occurs:
 #sudo: required
 addons:
