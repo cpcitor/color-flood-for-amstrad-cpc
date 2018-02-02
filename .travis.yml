@@ -21,16 +21,8 @@ addons:
     - bison
     - flex
     - libboost-dev
-    - pkgconf
     - libncurses-dev
-    - libsdl1.2-dev
-    - libfreetype6-dev
-    - zlib1g-dev
-    - libpng-dev
-    - gcc-4.8
-    - g++-4.8
-    - clang-3.8
-    - clang-tidy-3.8
+    - astyle
 #To uncomment in case a core occurs:
 #    - gdb
 before_script:
@@ -40,7 +32,11 @@ script:
 #To uncomment in case a core occurs:
 # - ulimit -c unlimited
 # - sudo sysctl kernel.core_pattern=core
- - make dsk
+ - pwd
+ - ls -al
+ - ./configure_cdtc_build_tree.sh
+ - make dsk -j2
+ - make -j2
 #To uncomment in case a core occurs:
 # - find ./ -name 'core*'
 # - for i in $(find ./ -name 'core*' -print); do gdb ./test/test_runner $i -ex "thread apply all bt" -ex "set pagination 0" -batch; done;
