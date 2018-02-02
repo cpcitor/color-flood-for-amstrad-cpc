@@ -68,7 +68,7 @@ void cf_platform_prepare_for_game_board()
         }
 
         fw_txt_initialise();
-	cf_platform_prepare_screen_for_game_board();
+        cf_platform_prepare_screen_for_game_board();
         cf_screen_line_to_ptr_init();
 
         {
