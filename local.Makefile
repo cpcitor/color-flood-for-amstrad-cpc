@@ -1,4 +1,4 @@
-localproject: astyle cf2.dsk native
+localproject: cf2.dsk native
 
 full: clean clean-native localproject
 
