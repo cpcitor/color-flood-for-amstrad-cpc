@@ -41,6 +41,7 @@ script:
  - pwd
  - ls -al
  - ./configure_cdtc_build_tree.sh
+ - touch .build_dependencies_checked
  - make dsk -j2
  - make cdt -j2
  - make voc -j2
