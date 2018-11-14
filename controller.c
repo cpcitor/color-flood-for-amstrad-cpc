@@ -6,6 +6,7 @@
 #include "controller.h"
 #include "view.h"
 #include "../log.h"
+#include "widget_classes.h"
 
 const player_key_to_action_t const player_key_to_action_array[CF_MAXPLAYERCOUNT] =
 {
@@ -72,6 +73,35 @@ cf_game_one_move( cf_model_t *const this_model )
                                                 dbgvar_d( 5, player_wished_color );
                                         }
                                         while ( !cf_model_is_color_allowed_for_current_player( this_model, player_wished_color ) );
+                                }
+
+                                //platform_print_formatted_string("%d", keycode);
+
+                                if (keycode == 252)
+                                {
+                                    const int left = 1;
+                                    const int right = 12;
+                                    const int top = 10;
+                                    const int bottom = 15;
+                                    draw_window( "Quit?", top, bottom, left, right );
+                                    platform_move_cursor( top + 1 , left + 1 );
+                                    platform_print_plain_string( "Press q   ");
+                                    platform_move_cursor( top + 2 , left + 1 );
+                                    platform_print_plain_string( "to quit,  " );
+                                    platform_move_cursor( top + 3 , left + 1 );
+                                    platform_print_plain_string( "any other " );
+                                    platform_move_cursor( top + 4 , left + 1 );
+                                    platform_print_plain_string( "continues." );
+
+                                    keycode = platform_wait_for_key();
+                                    dbgvar_d( 5, keycode );
+
+                                    if (keycode =='q')
+                                    {
+                                        return 0;
+                                    }
+
+                                    cf_model_draw( this_model );
                                 }
                         }
                         while ( keycode != player_key_to_action->confirm );

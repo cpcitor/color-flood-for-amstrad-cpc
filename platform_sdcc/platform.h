@@ -10,6 +10,7 @@
 #define platform_print_char_safe(c) fw_txt_wr_char(c)
 #define platform_print_plain_string(msg) cfwi_txt_str0_output(msg)
 #define platform_print_formatted_string(...) printf(__VA_ARGS__)
+#define platform_move_cursor(y,x) fw_txt_set_cursor(y, x)
 #define NL "\015\012"
 
 #define platform_wait_for_key fw_km_wait_key
