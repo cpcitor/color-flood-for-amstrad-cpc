@@ -6,7 +6,6 @@
 #include "controller.h"
 #include "view.h"
 #include "../log.h"
-#include "widget_classes.h"
 
 const player_key_to_action_t player_key_to_action_array[CF_MAXPLAYERCOUNT] =
 {
@@ -19,21 +18,23 @@ const player_key_to_action_t player_key_to_action_array[CF_MAXPLAYERCOUNT] =
 //        {'v', 'b', 'n'},
 };
 
+void
+cf_game_next_player( cf_model_t *const this_model )
+{
+    cf_player_i iplayer = this_model->nextPlayer;
+    
+    while ( is_player_disabled( this_model, iplayer ) )
+    {
+        iplayer = ( iplayer + 1 ) % CF_MAXPLAYERCOUNT;
+    }
+    
+    this_model->nextPlayer = iplayer;
+}
+
 uint8_t
 cf_game_one_move( cf_model_t *const this_model )
 {
         cf_model_draw( this_model );
-
-        {
-                cf_player_i iplayer = this_model->nextPlayer;
-
-                while ( is_player_disabled( this_model, iplayer ) )
-                {
-                        iplayer = ( iplayer + 1 ) % CF_MAXPLAYERCOUNT;
-                }
-
-                this_model->nextPlayer = iplayer;
-        }
 
         platform_show_who_plays_next( this_model );
         cf_model_update_allowed_color_table( this_model );
@@ -79,29 +80,7 @@ cf_game_one_move( cf_model_t *const this_model )
 
                                 if (keycode == 252)
                                 {
-                                    const int left = 1;
-                                    const int right = 12;
-                                    const int top = 10;
-                                    const int bottom = 15;
-                                    draw_window( "Quit?", top, bottom, left, right );
-                                    platform_move_cursor( top + 1 , left + 1 );
-                                    platform_print_plain_string( "Press q   ");
-                                    platform_move_cursor( top + 2 , left + 1 );
-                                    platform_print_plain_string( "to quit,  " );
-                                    platform_move_cursor( top + 3 , left + 1 );
-                                    platform_print_plain_string( "any other " );
-                                    platform_move_cursor( top + 4 , left + 1 );
-                                    platform_print_plain_string( "continues." );
-
-                                    keycode = platform_wait_for_key();
-                                    dbgvar_d( 5, keycode );
-
-                                    if (keycode =='q')
-                                    {
-                                        return 0;
-                                    }
-
-                                    cf_model_draw( this_model );
+                                    return 2;
                                 }
                         }
                         while ( keycode != player_key_to_action->confirm );
@@ -118,7 +97,7 @@ cf_game_one_move( cf_model_t *const this_model )
                         if ( rv == 1 )
                         {
                                 //cf_model_draw( &global_model );
-                                return 0;
+                            return 0; // game ended
                         }
 
                         if ( rv >= 2 )

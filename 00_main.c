@@ -6,6 +6,7 @@
 #include "view.h"
 #include "platform_ui.h"
 #include "platform_view.h"
+#include "widget_classes.h"
 
 #include "controller.h"
 
@@ -40,8 +41,37 @@ main()
 
                 cf_view_init( &global_model );
 
-                while ( cf_game_one_move( &global_model ) )
                 {
+                    uint8_t moveResult;
+                    while ( (moveResult = cf_game_one_move( &global_model )) )
+                    {
+                        if (moveResult==2) // Esc pressed
+                        {
+                            const int left = 1;
+                            const int right = 12;
+                            const int top = 10;
+                            const int bottom = 15;
+                            draw_window( "Quit?", top, bottom, left, right );
+                            platform_move_cursor( top + 1 , left + 1 );
+                            platform_print_plain_string( "Press q   ");
+                            platform_move_cursor( top + 2 , left + 1 );
+                            platform_print_plain_string( "to quit,  " );
+                            platform_move_cursor( top + 3 , left + 1 );
+                            platform_print_plain_string( "any other " );
+                            platform_move_cursor( top + 4 , left + 1 );
+                            platform_print_plain_string( "continues." );
+
+                            {
+                                unsigned char keycode = platform_wait_for_key();
+                                dbgvar_d( 5, keycode );
+
+                                if (keycode =='q')
+                                {
+                                        break; // abort game
+                                }
+                            }
+                        }
+                    }
                 }
 
                 {
