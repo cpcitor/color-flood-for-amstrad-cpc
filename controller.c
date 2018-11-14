@@ -19,15 +19,17 @@ const player_key_to_action_t player_key_to_action_array[CF_MAXPLAYERCOUNT] =
 };
 
 void
-cf_game_next_player( cf_model_t *const this_model )
+cf_game_next_player( cf_model_t *const this_model ) // FIXME should be cf_model_next_player?
 {
     cf_player_i iplayer = this_model->nextPlayer;
-    
+
+    iplayer = ( iplayer + 1 ) % CF_MAXPLAYERCOUNT;
+
     while ( is_player_disabled( this_model, iplayer ) )
     {
         iplayer = ( iplayer + 1 ) % CF_MAXPLAYERCOUNT;
     }
-    
+
     this_model->nextPlayer = iplayer;
 }
 

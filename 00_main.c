@@ -42,10 +42,19 @@ main()
                 cf_view_init( &global_model );
 
                 {
-                    uint8_t moveResult;
-                    while ( (moveResult = cf_game_one_move( &global_model )) )
+                    uint8_t gameIsActive=(uint8_t)~0;
+                    while ( gameIsActive )
                     {
-                        if (moveResult==2) // Esc pressed
+                        uint8_t moveResult = cf_game_one_move( &global_model );
+                        switch (moveResult)
+                        {
+                        case 0:
+                            gameIsActive = 0;
+                            break;
+                        case 1:
+                            cf_game_next_player(&global_model);
+                            break;
+                        case 2:
                         {
                             const int left = 1;
                             const int right = 12;
@@ -67,10 +76,11 @@ main()
 
                                 if (keycode =='q')
                                 {
-                                        break; // abort game
+                                    gameIsActive = 0;
                                 }
                             }
                         }
+                        }// switch
                     }
                 }
 
