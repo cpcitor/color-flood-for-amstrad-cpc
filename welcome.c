@@ -23,7 +23,7 @@ void welcome()
         /* print_literal_line_centered( "Welcome to" ); */
         el();
         platform_print_plain_string( " Welcome to Color Flood for Amstrad CPC" NL );
-        platform_print_plain_string( " \xa4" "2014-2017  https://github.com/cpcitor" NL );
+        platform_print_plain_string( " \xa4" "2014-2018  https://github.com/cpcitor" NL );
         el();
         // platform_print_plain_string( " Coded in C + SDCC + cpc-dev-tool-chain" NL );
         el();
