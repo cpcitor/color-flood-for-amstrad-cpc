@@ -98,7 +98,6 @@ cf_game_one_move( cf_model_t *const this_model )
 
                         if ( rv == 1 )
                         {
-                                //cf_model_draw( &global_model );
                             return 0; // game ended
                         }
 
