@@ -163,4 +163,25 @@ void cf_platform_prepare_for_game_board()
                         chartogo--;
                 }
         }
+
+        fw_txt_win_enable( 17, 17, 7, 17 );
+        cfwi_txt_str0_output("\340confirms.");
+        fw_txt_win_enable( 19, 19, 7, 17 );
+        cfwi_txt_str0_output("Esc quits.");
+
+        /* fw_txt_win_enable( 16, 19, 5, 21 ); */
+        /* cfwi_txt_str0_output( */
+        /*     "Use " */
+        /*     "keys" */
+        /*     "to  " */
+        /*     "pick" */
+        /*     "colo" */
+        /*     "r & " */
+        /*     "conf" */
+        /*     "irm." */
+        /*     "Esc " */
+        /*     "to  " */
+        /*     "quit" */
+        /*     ); */
+
 }
