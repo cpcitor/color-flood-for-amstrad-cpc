@@ -11,7 +11,7 @@ typedef struct player_key_to_action_t
         unsigned char next_color;
 } player_key_to_action_t;
 
-extern const player_key_to_action_t const player_key_to_action_array[CF_MAXPLAYERCOUNT];
+extern const player_key_to_action_t player_key_to_action_array[CF_MAXPLAYERCOUNT];
 
 typedef struct key_to_action_t
 {

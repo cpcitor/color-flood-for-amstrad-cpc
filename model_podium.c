@@ -17,7 +17,7 @@ void cf_model_podium_init( cf_podium_t *this_podium )
 
 cf_podium_row_t *cf_model_podium_insert_row( cf_podium_t *const this_podium, uint16_t area, uint8_t irow )
 {
-        const uint8_t const number_of_rows_to_copy = CF_PODIUM_ROW_COUNT - irow - 1;
+        const uint8_t number_of_rows_to_copy = CF_PODIUM_ROW_COUNT - irow - 1;
         cf_podium_row_t *const where_new_row_will_be = &( this_podium->row[irow] );
 
         // dbglogf_unconditional( "Copying %d rows from %d to %d\n", number_of_rows_to_copy, irow, irow + 1 );
