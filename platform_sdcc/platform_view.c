@@ -119,7 +119,7 @@ void cf_cell_draw_24( uint8_t row, uint8_t col, cf_cellState_t const state )
         }
 }
 
-static uint8_t player_bar_width_multiplier_to_adapt_to_screen_width;
+static uint8_t player_bar_width_exponent_to_adapt_to_screen_width;
 
 void cf_view_init( cf_model_t *model )
 // setup_viewparameters(const cf_grid_t *const this_grid)
@@ -147,7 +147,8 @@ void cf_view_init( cf_model_t *model )
 
         cf_grid_byte_offset_from_screen_start = 16;
 
-        player_bar_width_multiplier_to_adapt_to_screen_width = 640;
+        player_bar_width_exponent_to_adapt_to_screen_width = 8;
+        cf_view_on_area_grow(2);
 }
 
 void cf_grid_draw( const cf_grid_t *const this_grid )
@@ -182,30 +183,36 @@ void cf_grid_draw( const cf_grid_t *const this_grid )
 
 void cf_view_on_area_grow( uint16_t newArea )
 {
-        uint8_t old_multiplier = player_bar_width_multiplier_to_adapt_to_screen_width;
+        uint8_t old_exponent = player_bar_width_exponent_to_adapt_to_screen_width;
 
-        while ((player_bar_width_multiplier_to_adapt_to_screen_width * newArea > 640) && (player_bar_width_multiplier_to_adapt_to_screen_width>1))
+        while ( ( ( newArea << player_bar_width_exponent_to_adapt_to_screen_width ) > 159) && (player_bar_width_exponent_to_adapt_to_screen_width>0))
         {
-            player_bar_width_multiplier_to_adapt_to_screen_width-=4;
+            --player_bar_width_exponent_to_adapt_to_screen_width;
         }
 
-        if (old_multiplier == player_bar_width_multiplier_to_adapt_to_screen_width)
+        if (old_exponent == player_bar_width_exponent_to_adapt_to_screen_width)
         {
             return;
         }
         
         fw_txt_win_enable( 0, 19, 24, 24);
         fw_txt_clear_window();
-
-        if ( player_bar_width_multiplier_to_adapt_to_screen_width > 8 )
+#if DEBUG
+        fw_txt_win_enable( 0, 19, 0, 24);
+#endif /* DEBUG */
+        
+        if ( player_bar_width_exponent_to_adapt_to_screen_width > 0 )
         {
-            int x = player_bar_width_multiplier_to_adapt_to_screen_width - 1;
+            uint8_t multiplier = 1 << player_bar_width_exponent_to_adapt_to_screen_width;
+            
+            uint8_t x = multiplier - 1;
+            
             fw_gra_set_pen( 15 );
-            while (x < 640)
+            while (x < 160)
             {
-                fw_gra_move_absolute( x, 0);
-                fw_gra_line_absolute( x, (total_height << 1) - 3);
-                x += player_bar_width_multiplier_to_adapt_to_screen_width;
+                fw_gra_move_absolute( x << 2, 0);
+                fw_gra_line_relative( 0, (total_height << 1) - 3);
+                x += multiplier;
             }
         }
 }
@@ -226,7 +233,7 @@ void cf_player_area_bars( const cf_model_t *const this_model )
                         const uint8_t color = state_to_color( player_state );
                         fw_gra_move_absolute( 0, fwy );
                         fw_gra_set_pen( color );
-                        fw_gra_line_absolute( area * player_bar_width_multiplier_to_adapt_to_screen_width, fwy );
+                        fw_gra_line_absolute( area << (player_bar_width_exponent_to_adapt_to_screen_width+2), fwy );
                         fw_gra_set_pen( 0 );
                         fw_gra_line_absolute( 640, fwy );
                }
