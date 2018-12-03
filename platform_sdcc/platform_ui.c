@@ -8,8 +8,8 @@ void cf_pause()
         fw_km_wait_key();
 }
 
-void cf_pause_message( char *msg )
-{
-        cfwi_txt_str0_output( msg );
-        fw_km_wait_key();
-}
+/* void cf_pause_message( char *msg ) */
+/* { */
+/*         cfwi_txt_str0_output( msg ); */
+/*         fw_km_wait_key(); */
+/* } */

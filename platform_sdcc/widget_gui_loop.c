@@ -135,7 +135,7 @@ void gui_loop( ui_element_t *first_selected_element )
 
                 fw_mc_wait_flyback();
 
-                marker = ( ++marker ) | 0x80;
+                marker = ( marker+ 1 ) | 0x80;
         }
 
         fw_txt_set_cursor( 5, 1 );

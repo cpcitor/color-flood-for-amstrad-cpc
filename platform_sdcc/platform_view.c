@@ -87,12 +87,11 @@ void cf_cell_draw_16( uint8_t row, uint8_t col, cf_cellState_t const state )
         {
                 const uint8_t bytes_per_cell_width = 3;
                 uint8_t *pos_this_sel = line_to_ptr[row * 12] + cf_grid_byte_offset_from_screen_start + col * bytes_per_cell_width;
-                uint8_t *pos_local;
                 uint8_t this_cell_row_i;
 
                 for ( this_cell_row_i = 0; this_cell_row_i < 12; this_cell_row_i++ )
                 {
-                        pos_local = pos_this_sel;
+                        uint8_t *pos_local = pos_this_sel;
                         draw_one_byte();
                         draw_one_byte();
                         draw_one_byte();

@@ -12,16 +12,16 @@ void pr_uint( unsigned int n )
         platform_print_char_safe( ( n % 10 ) + '0' );
 }
 
-void pr_int( int n )
-{
-        if ( n < 0 )
-        {
-                platform_print_char_safe( '-' );
-                n = -n;
-        }
+/* void pr_int( int n ) */
+/* { */
+/*         if ( n < 0 ) */
+/*         { */
+/*                 platform_print_char_safe( '-' ); */
+/*                 n = -n; */
+/*         } */
 
-        pr_uint( ( unsigned int ) n );
-}
+/*         pr_uint( ( unsigned int ) n ); */
+/* } */
 
 /*
 

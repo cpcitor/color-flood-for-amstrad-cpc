@@ -87,7 +87,7 @@ void cf_model_init( cf_model_t *const this_model )
 
                         iph->row = maxRow;
                         iph->col = 0;
-                        iph++;
+                        // iph++;
                 }
         }
 
