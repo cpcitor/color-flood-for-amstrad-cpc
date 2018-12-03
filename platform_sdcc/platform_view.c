@@ -185,6 +185,8 @@ void cf_view_on_area_grow( uint16_t newArea )
 {
         uint8_t old_exponent = player_bar_width_exponent_to_adapt_to_screen_width;
 
+        dbgvar_d( 0, old_exponent );
+
         while ( ( ( newArea << player_bar_width_exponent_to_adapt_to_screen_width ) > 159) && (player_bar_width_exponent_to_adapt_to_screen_width>0))
         {
             --player_bar_width_exponent_to_adapt_to_screen_width;
@@ -194,12 +196,12 @@ void cf_view_on_area_grow( uint16_t newArea )
         {
             return;
         }
+
+        dbgvar_d( 0, player_bar_width_exponent_to_adapt_to_screen_width );
         
         fw_txt_win_enable( 0, 19, 24, 24);
         fw_txt_clear_window();
-#if DEBUG
-        fw_txt_win_enable( 0, 19, 0, 24);
-#endif /* DEBUG */
+        CDTC_ON_DEBUGLEVEL_GREATER_THAN_1( fw_txt_win_enable( 0, 19, 4, 23) );
         
         if ( player_bar_width_exponent_to_adapt_to_screen_width > 0 )
         {
@@ -210,11 +212,15 @@ void cf_view_on_area_grow( uint16_t newArea )
             fw_gra_set_pen( 15 );
             while (x < 160)
             {
+                dbgvar_d( 0, x );
+                
                 fw_gra_move_absolute( x << 2, 0);
                 fw_gra_line_relative( 0, (total_height << 1) - 3);
                 x += multiplier;
             }
         }
+
+        CDTC_ON_DEBUGLEVEL_GREATER_THAN_1( cf_pause() );
 }
 
 void cf_player_area_bars( const cf_model_t *const this_model )
@@ -287,7 +293,7 @@ void platform_player_controls_show_or_hide( uint8_t ip, bool show )
                 fw_txt_output( kta->next_color );
         }
 
-        fw_txt_win_enable( 4, 19, 0, 24 );
+        CDTC_ON_DEBUGLEVEL_GREATER_THAN_1( fw_txt_win_enable( 0, 19, 0, 23) );
 }
 
 void platform_show_who_plays_next( const cf_model_t *const this_model )
@@ -465,7 +471,7 @@ void cf_view_display_endgame_pause( cf_model_t *this_model, cf_podium_t *podium 
         cf_platform_prepare_screen_for_game_board();
         cf_grid_byte_offset_from_screen_start = 0;
         cf_model_draw( this_model );
-        fw_txt_win_enable( 12, 19, 0, 24 );
+        fw_txt_win_enable( 12, 19, 0, 23 );
         fw_txt_set_pen( text_pen );
         cfwi_txt_str0_output( "Game" NL "Over" NL NL );
         cf_view_print_podium( podium );

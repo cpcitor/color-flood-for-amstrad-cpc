@@ -168,6 +168,7 @@ void cf_platform_prepare_for_game_board()
         cfwi_txt_str0_output("\340confirms.");
         fw_txt_win_enable( 19, 19, 7, 17 );
         cfwi_txt_str0_output("Esc quits.");
+        CDTC_ON_DEBUGLEVEL_GREATER_THAN_1( fw_txt_win_enable( 0, 19, 0, 23) );
 
         /* fw_txt_win_enable( 16, 19, 5, 21 ); */
         /* cfwi_txt_str0_output( */

@@ -12,6 +12,8 @@ astyle: $(wildcard *.c */*.c *.h */*.h)
 
 CC = gcc -W -Wall -DCF_DEBUGLEVEL=$(CF_DEBUGLEVEL)
 
+CFLAGS += "-DCF_DEBUGLEVEL=$(CF_DEBUGLEVEL)"
+
 native: $(SRCS) $(SRCS_NATIVE)
 	$(CC) $(CFLAGS) -Wno-missing-field-initializers -g -o $@ $^ -Iplatform_native
 

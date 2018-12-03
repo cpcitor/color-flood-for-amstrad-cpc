@@ -13,7 +13,7 @@ void cf_pause()
 void cf_pause_message( char *msg )
 {
         cfwi_txt_str0_output( msg );
-        fw_km_wait_key();
+        cf_pause();
 }
 
 #endif

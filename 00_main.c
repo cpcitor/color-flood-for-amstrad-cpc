@@ -15,6 +15,8 @@ main()
 {
         dbglog( 0, "In C. Compiled with CF_DEBUGLEVEL=" CF_DEBUGLEVEL_STRINGIFIED NL );
 
+        CDTC_ON_DEBUGLEVEL_GREATER_THAN_0( cf_pause_message( "Compiled with CF_DEBUGLEVEL=" CF_DEBUGLEVEL_STRINGIFIED NL ) );
+        
         cf_platform_init();
 
         global_model.playerEnableBits = ( 1 << 0 ) | ( 1 << 2 );
