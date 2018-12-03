@@ -2,7 +2,7 @@
 
 #include "platform.h"
 
-#ifdef DEBUG
+#ifndef NDEBUG
 
 void cf_pause()
 {
@@ -16,4 +16,4 @@ void cf_pause_message( char *msg )
         cf_pause();
 }
 
-#endif
+#endif /* NDEBUG */

@@ -63,7 +63,7 @@ void cf_platform_prepare_for_game_board()
 {
         {
                 long unsigned int cpctime = fw_kl_time_please();
-                dbgvar_lu( 0, cpctime );
+                dbgvar_lu( 1, cpctime );
                 srand( cpctime );
         }
 

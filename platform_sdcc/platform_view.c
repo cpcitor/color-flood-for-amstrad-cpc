@@ -185,7 +185,7 @@ void cf_view_on_area_grow( uint16_t newArea )
 {
         uint8_t old_exponent = player_bar_width_exponent_to_adapt_to_screen_width;
 
-        dbgvar_d( 0, old_exponent );
+        dbgvar_d( 1, old_exponent );
 
         while ( ( ( newArea << player_bar_width_exponent_to_adapt_to_screen_width ) >= 640) && (player_bar_width_exponent_to_adapt_to_screen_width>0))
         {
@@ -197,13 +197,13 @@ void cf_view_on_area_grow( uint16_t newArea )
             return;
         }
 
-        dbgvar_d( 0, player_bar_width_exponent_to_adapt_to_screen_width );
+        dbgvar_d( 1, player_bar_width_exponent_to_adapt_to_screen_width );
         
         fw_txt_win_enable( 0, 19, 24, 24);
         fw_txt_clear_window();
         CDTC_ON_DEBUGLEVEL_GREATER_THAN_1( fw_txt_win_enable( 0, 19, 4, 23) );
         
-        if ( player_bar_width_exponent_to_adapt_to_screen_width > 0 )
+        if ( player_bar_width_exponent_to_adapt_to_screen_width >= 3 )
         {
             uint8_t multiplier = 1 << player_bar_width_exponent_to_adapt_to_screen_width;
             
@@ -212,7 +212,7 @@ void cf_view_on_area_grow( uint16_t newArea )
             fw_gra_set_pen( 15 );
             while (x < 640)
             {
-                dbgvar_d( 0, x );
+                dbgvar_d( 1, x );
                 
                 fw_gra_move_absolute( x, 0);
                 fw_gra_line_relative( 0, (total_height << 1) - 3);
@@ -378,7 +378,7 @@ cf_cellState_t platform_show_possible_next_moves( cf_model_t *const this_model )
                         }
 
                         dbgvar_d( 5, ytop );
-                        dbglog( 0, NL );
+                        dbglog( 1, NL );
 
                         fw_gra_win_height( ytop, ytop - color_pads_yinnerheight );
                         fw_gra_clear_window();
