@@ -8,6 +8,7 @@
 #define cf_model_dump(...)
 
 void cf_view_init( cf_model_t *model );
+void cf_view_on_area_grow( uint16_t newArea );
 
 void platform_show_who_plays_next( cf_model_t *const this_model );
 cf_cellState_t platform_show_possible_next_moves( cf_model_t *const this_model );

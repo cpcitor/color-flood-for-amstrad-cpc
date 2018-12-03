@@ -119,6 +119,8 @@ void cf_cell_draw_24( uint8_t row, uint8_t col, cf_cellState_t const state )
         }
 }
 
+static uint8_t player_bar_width_multiplier_to_adapt_to_screen_width;
+
 void cf_view_init( cf_model_t *model )
 // setup_viewparameters(const cf_grid_t *const this_grid)
 {
@@ -144,6 +146,8 @@ void cf_view_init( cf_model_t *model )
         }
 
         cf_grid_byte_offset_from_screen_start = 16;
+
+        player_bar_width_multiplier_to_adapt_to_screen_width = 640;
 }
 
 void cf_grid_draw( const cf_grid_t *const this_grid )
@@ -176,25 +180,56 @@ void cf_grid_draw( const cf_grid_t *const this_grid )
 #define total_height_exponent 3
 #define total_height (1 << total_height_exponent)
 
+void cf_view_on_area_grow( uint16_t newArea )
+{
+        uint8_t old_multiplier = player_bar_width_multiplier_to_adapt_to_screen_width;
+
+        while ((player_bar_width_multiplier_to_adapt_to_screen_width * newArea > 640) && (player_bar_width_multiplier_to_adapt_to_screen_width>1))
+        {
+            player_bar_width_multiplier_to_adapt_to_screen_width-=4;
+        }
+
+        if (old_multiplier == player_bar_width_multiplier_to_adapt_to_screen_width)
+        {
+            return;
+        }
+        
+        fw_txt_win_enable( 0, 19, 24, 24);
+        fw_txt_clear_window();
+
+        if ( player_bar_width_multiplier_to_adapt_to_screen_width > 8 )
+        {
+            int x = player_bar_width_multiplier_to_adapt_to_screen_width - 1;
+            fw_gra_set_pen( 15 );
+            while (x < 640)
+            {
+                fw_gra_move_absolute( x, 0);
+                fw_gra_line_absolute( x, (total_height << 1) - 3);
+                x += player_bar_width_multiplier_to_adapt_to_screen_width;
+            }
+        }
+}
+
 void cf_player_area_bars( const cf_model_t *const this_model )
 {
         // static const int total_height_exponent = 3;
         // static const int total_height = 1 << total_height_exponent; // SDCC claims "Initializer element is not constant"
-        int8_t y = 1 << total_height_exponent;
+        uint8_t iplayer = CF_MAXPLAYERCOUNT;
 
-        while ( y-- != 0 ) // small hack, not really necessary, for shorter ASM
+        while ( (iplayer--) > 0 )
         {
-                const uint8_t iplayer = ( y * CF_MAXPLAYERCOUNT ) >> total_height_exponent;
-
                 if ( is_player_enabled( this_model, iplayer ) )
                 {
+                        uint8_t fwy = iplayer << 2;
                         const uint16_t area = this_model->domainAreas[iplayer];
                         const cf_cellState_t player_state = cf_model_get_player_cellstate( this_model, iplayer );
                         const uint8_t color = state_to_color( player_state );
+                        fw_gra_move_absolute( 0, fwy );
                         fw_gra_set_pen( color );
-                        fw_gra_move_absolute( 0, y << 1 );
-                        fw_gra_line_relative( area << 2, 0 ); // A grid 18x18 has area 240, (area<<2) will reach limit when one player area >= 160, not a big deal.
-                }
+                        fw_gra_line_absolute( area * player_bar_width_multiplier_to_adapt_to_screen_width, fwy );
+                        fw_gra_set_pen( 0 );
+                        fw_gra_line_absolute( 640, fwy );
+               }
         }
 }
 

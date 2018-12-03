@@ -295,6 +295,8 @@ uint8_t cf_model_play( cf_model_t *const this_model, cf_cellState_t const newSta
                                          newState );
                 dbglogf( 2, "New area for player %d: %d" NL, iplayer, newDomainArea );
                 this_model->domainAreas[iplayer] = newDomainArea;
+
+                cf_view_on_area_grow(newDomainArea);
         }
 
         {

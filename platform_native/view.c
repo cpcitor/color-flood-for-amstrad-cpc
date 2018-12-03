@@ -11,6 +11,11 @@ void cf_view_init( cf_model_t *model )
         puts( "Welcome to Color flood portable interface.\n" );
 }
 
+void cf_view_on_area_grow( uint16_t newArea )
+{
+        fprintf( stderr, "cf_view_on_area_grow(%d)", newArea );
+}
+
 void cf_coordinates_dump( const cf_coordinates_t *const this_coordinates )
 {
         fprintf( stderr, "(row %d, col %d)", this_coordinates->row, this_coordinates->col );
