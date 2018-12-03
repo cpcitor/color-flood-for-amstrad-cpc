@@ -147,7 +147,7 @@ void cf_view_init( cf_model_t *model )
 
         cf_grid_byte_offset_from_screen_start = 16;
 
-        player_bar_width_exponent_to_adapt_to_screen_width = 8;
+        player_bar_width_exponent_to_adapt_to_screen_width = 10;
         cf_view_on_area_grow(2);
 }
 
@@ -187,7 +187,7 @@ void cf_view_on_area_grow( uint16_t newArea )
 
         dbgvar_d( 0, old_exponent );
 
-        while ( ( ( newArea << player_bar_width_exponent_to_adapt_to_screen_width ) > 159) && (player_bar_width_exponent_to_adapt_to_screen_width>0))
+        while ( ( ( newArea << player_bar_width_exponent_to_adapt_to_screen_width ) >= 640) && (player_bar_width_exponent_to_adapt_to_screen_width>0))
         {
             --player_bar_width_exponent_to_adapt_to_screen_width;
         }
@@ -207,14 +207,14 @@ void cf_view_on_area_grow( uint16_t newArea )
         {
             uint8_t multiplier = 1 << player_bar_width_exponent_to_adapt_to_screen_width;
             
-            uint8_t x = multiplier - 1;
+            uint16_t x = multiplier - 1;
             
             fw_gra_set_pen( 15 );
-            while (x < 160)
+            while (x < 640)
             {
                 dbgvar_d( 0, x );
                 
-                fw_gra_move_absolute( x << 2, 0);
+                fw_gra_move_absolute( x, 0);
                 fw_gra_line_relative( 0, (total_height << 1) - 3);
                 x += multiplier;
             }
@@ -239,7 +239,7 @@ void cf_player_area_bars( const cf_model_t *const this_model )
                         const uint8_t color = state_to_color( player_state );
                         fw_gra_move_absolute( 0, fwy );
                         fw_gra_set_pen( color );
-                        fw_gra_line_absolute( area << (player_bar_width_exponent_to_adapt_to_screen_width+2), fwy );
+                        fw_gra_line_absolute( area << (player_bar_width_exponent_to_adapt_to_screen_width), fwy );
                         fw_gra_set_pen( 0 );
                         fw_gra_line_absolute( 640, fwy );
                }
