@@ -43,7 +43,9 @@ At the bottom, progress bars allow to compare surface of each player
 
 Illustration: in game with 4 players.
 
-![In game with 4 players.](doc/images/color_flood_with_redefined_characters.png)
+![In game with 4 players.](doc/images/dump_2018y12m03d_19h24m32s_174836371.png)
+![In game with 4 players.](doc/images/dump_2018y12m03d_19h30m28s_520983763.png)
+![In game with 4 players.](doc/images/dump_2018y12m03d_19h34m30s_522981601.png)
 
 Illustration: older release, 4 players, 6 colors instead of 9.
 
@@ -60,7 +62,8 @@ Illustration: 2 players end screen
 
 Illustration: 4 players end screen
 
-![4 players end screen](doc/images/color_flood_4_players_big_grid_endgame.png)
+![4 players end screen](doc/images/dump_2018y12m03d_19h35m17s_038260821.png)
+
 
 # How to compile
 
