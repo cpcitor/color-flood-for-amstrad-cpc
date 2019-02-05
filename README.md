@@ -80,6 +80,8 @@ make    # on Linux, try "make run" it will even run the project on caprice32 emu
 # While the project compiles, read on.
 </pre>
 
+If you don't have all prerequisites you can install them and do `make` again.
+
 This fetches dependencies (cross-compiler, tools, etc), builds then generates `cf2.dsk` that you can use in an emulator:
 
 * [on Linux](http://cpcwiki.eu/index.php/Emulators#Unix_.2F_Linux "Emulators - CPCWiki") for example [caprice32](https://github.com/ColinPitrat/caprice32 "caprice32"),
@@ -96,6 +98,8 @@ HUGE speed bost if your PC has e.g. 8 cores (or even 4 multi-threaded cores):
 <pre>
 	make -j8
 </pre>
+
+Beware, though, it consumes more memory, especially to compile SDCC. For example, 2GB is okay for `make -j4`.
 
 ### Generate audio file, others?
 
