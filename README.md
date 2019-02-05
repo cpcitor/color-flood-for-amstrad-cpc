@@ -67,7 +67,7 @@ Illustration: 4 players end screen
 
 # How to compile
 
-* Linux users will recognize the usual clone/configure/make workflow.
+* Linux users will recognize the usual clone/configure/make workflow.  Dependencies may already be there, or as simple to get as running this command line: `sudo apt-get --no-install-recommends --assume-yes install git ca-certificates wget make patch gcc bzip2 unzip g++ texinfo bison flex libboost-dev libsdl1.2-dev pkgconf libfreetype6-dev libncurses-dev` [details](https://github.com/cpcitor/cpc-dev-tool-chain/blob/master/documentation/how_to_install.md#do-i-need-to-prepare-my-system- "Do I need to prepare my system ?").
 * Windows users have to fetch a Linux-like environment first.  Details on [How to install](https://github.com/cpcitor/cpc-dev-tool-chain/blob/master/documentation/how_to_install.md).
 
 For a quick start, just copy-paste this!
