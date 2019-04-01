@@ -8,7 +8,7 @@ Build status | Linux result
 ---- | ----
 Full build: SDCC cross-compiler + binutils + tape/disk image tools + tape/disk images + audio file | [![Build Status](https://travis-ci.org/cpcitor/color-flood-for-amstrad-cpc.svg?branch=master)](https://travis-ci.org/cpcitor/color-flood-for-amstrad-cpc)
 
-# Principle of the game
+## Principle of the game
 
 A puzzle game for 2 to 4 player.
 
@@ -20,9 +20,9 @@ What makes the game somewhat interesting is that it's sometimes good
 to play not what is the best for you (sometimes nothing is really
 better than another) but playing what will slow down your opponent.
 
-# How to use
+## How to use
 
-## First screen
+### First screen
 
 Use cursor keys to select your options :
 
@@ -31,7 +31,7 @@ Use cursor keys to select your options :
 
 ![Intro screen](doc/images/color_flood__screenshot_00_intro.png)
 
-## Game screen
+### Game screen
 
 * The next player to play is shown with a cross in the corner.
 * Each player has their own 3 keys to choose the next color (top left
@@ -51,7 +51,7 @@ Illustration: older release, 4 players, 6 colors instead of 9.
 
 ![Older release](doc/images/cool_4_player_color_flood_game.png)
 
-## Game end
+### Game end
 
 The program shows the final area of each players.
 Sometimes there are draw games.
@@ -64,21 +64,20 @@ Illustration: 4 players end screen
 
 ![4 players end screen](doc/images/dump_2018y12m03d_19h35m17s_038260821.png)
 
-
-# How to compile
+## How to compile
 
 * Linux users will recognize the usual clone/configure/make workflow.  Dependencies may already be there, or as simple to get as running this command line: `sudo apt-get --no-install-recommends --assume-yes install git ca-certificates wget make patch gcc bzip2 unzip g++ texinfo bison flex libboost-dev libsdl1.2-dev pkgconf libfreetype6-dev libncurses-dev` [details](https://github.com/cpcitor/cpc-dev-tool-chain/blob/master/documentation/how_to_install.md#do-i-need-to-prepare-my-system- "Do I need to prepare my system ?").
 * Windows users have to fetch a Linux-like environment first.  Details on [How to install](https://github.com/cpcitor/cpc-dev-tool-chain/blob/master/documentation/how_to_install.md).
 
 For a quick start, just copy-paste this!
 
-<pre>
+```bash
 git clone https://github.com/cpcitor/color-flood-for-amstrad-cpc
 cd color-flood-for-amstrad-cpc
 ./configure_cdtc_build_tree.sh
 make    # on Linux, try "make run" it will even run the project on caprice32 emulator!
-# While the project compiles, read on.
-</pre>
+## While the project compiles, read on.
+```
 
 If you don't have all prerequisites you can install them and do `make` again.
 
@@ -89,37 +88,37 @@ This fetches dependencies (cross-compiler, tools, etc), builds then generates `c
 * [emulators for all platforms](http://cpcwiki.eu/index.php/Emulators) (mobile, etc)
 * or transfer to real CPC, for example with a specific audio cable `make au ; mplayer *.au`. Enjoy!
 
-## Options for compilation
+### Options for compilation
 
-### Speed up compilation?
+#### Speed up compilation
 
 HUGE speed bost if your PC has e.g. 8 cores (or even 4 multi-threaded cores):
 
-<pre>
-	make -j8
-</pre>
+```bash
+    make -j8
+```
 
 Beware, though, it consumes more memory, especially to compile SDCC. For example, 2GB is okay for `make -j4`.
 
-### Generate audio file, others?
+#### Generate audio file, others
 
 Try different targets:
 
-<pre>
-	make run	# Linux only at the moment: runs project in caprice32 emulator.
-	make dsk	# Disk file for emulator, can be written to real floppies.
-	make cdt	# Tape file for emulator, can be converted to audio.
-	make wav	# Generate audio file (also voc au)
-</pre>
+```bash
+    make run    # Linux only at the moment: runs project in caprice32 emulator.
+    make dsk    # Disk file for emulator, can be written to real floppies.
+    make cdt    # Tape file for emulator, can be converted to audio.
+    make wav    # Generate audio file (also voc au)
+```
 
-### Already have a working [cpc-dev-tool-chain](https://github.com/cpcitor/cpc-dev-tool-chain)?
+#### If you already have a working [cpc-dev-tool-chain](https://github.com/cpcitor/cpc-dev-tool-chain)
 
 If you already have a copy of [cpc-dev-tool-chain](https://github.com/cpcitor/cpc-dev-tool-chain), you can avoid automatic fetch+compile of another one.
 
 Use the configure script to tell where it is:
 
-	./configure_cdtc_build_tree.sh /path/to/cpc-dev-tool-chain
+    ./configure_cdtc_build_tree.sh /path/to/cpc-dev-tool-chain
 
 You can also
 
-	/path/to/cpc-dev-tool-chain/cdtc-project-setup.sh .
+    /path/to/cpc-dev-tool-chain/cdtc-project-setup.sh .
