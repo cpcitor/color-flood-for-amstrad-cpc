@@ -23,3 +23,4 @@ cdtc_local_machine.conf
 config_gui_dump.dot
 config_gui_dump.png
 *.au
+.build_dependencies_checked
