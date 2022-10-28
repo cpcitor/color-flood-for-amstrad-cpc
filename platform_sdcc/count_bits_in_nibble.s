@@ -3,8 +3,10 @@
 _count_bits_in_nibble::
         ld      hl,#2
         add     hl,sp
-        ld      a,(hl)
-        ld      l,#0
+
+        ld      a,(hl)          ; a = input number
+
+        ld      l,#0            ; l = count, 0 so far
         rrca
         jr      NC, SKIP1
         inc     l
