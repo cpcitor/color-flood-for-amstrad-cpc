@@ -7,7 +7,7 @@ SRCS_STDIO := $(wildcard platform_stdio/*.c)
 HDRS := $(wildcard *.h)
 HDRS_STDIO := $(wildcard platform_stdio/*.h)
 
-astyle: $(wildcard *.c */*.c *.h */*.h)
+astyle_local: $(wildcard *.c */*.c *.h */*.h)
 	astyle --mode=c --lineend=linux --indent=spaces=8 --style=ansi --add-brackets --indent-switches --indent-classes --indent-preprocessor --convert-tabs --break-blocks --pad-oper --pad-paren-in --pad-header --unpad-paren --align-pointer=name $^ platform_*/*.c platform_*/*.h #HACK
 
 CC = gcc -W -Wall -DCF_DEBUGLEVEL=$(CF_DEBUGLEVEL)
