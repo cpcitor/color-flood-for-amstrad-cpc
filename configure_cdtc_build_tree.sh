@@ -151,8 +151,11 @@ then
     echo 'Checking `cpc-dev-tool-chain` subdirectory'
 
     PROBE="cpc-dev-tool-chain/sdcc-project.Makefile"
-    if ! [[ -d "$PROBE" ]]
+    if [[ -f "$PROBE" ]]
     then
+        echo "Found $PROBE"
+        CDTC_ROOT="$( cd -P "cpc-dev-tool-chain" ; pwd ; )"
+    else
         echo "Probing did not find: $PROBE"
 
         echo "Using git to fetch cpc-dev-tool-chain from network..."
@@ -167,10 +170,10 @@ then
                 CDTC_ROOT="$( cd -P "cpc-dev-tool-chain" ; pwd ; )"
                 echo "Fetched using git submodule: $CDTC_ROOT"
             else
-                set +xv ; echo >&2 "git submodule update --init failed, moving along." ; break ; 
+                set +xv ; echo >&2 "git submodule update --init failed, moving along." ; break ;
             fi
         fi
-        if ! [[ -d "$PROBE" ]]
+        if ! [[ -f "$PROBE" ]]
         then
             echo "Mkay, git submodule option did not work.  Trying plain git clone."
             set -xv
@@ -184,7 +187,7 @@ then
                 echo >&2 "git clone failed, moving along." ; break ;
             fi
         fi
-        if ! [[ -d "$PROBE" ]]
+        if ! [[ -f "$PROBE" ]]
         then
             echo "Still not found. Mpfmfpfmmmf."
         fi
