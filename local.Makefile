@@ -1,3 +1,6 @@
+myproject: auto_setup_cdtc
+	$(MAKE) run
+
 localproject: cf2.dsk stdio
 
 full: clean clean-stdio localproject
