@@ -74,7 +74,13 @@ For a quick start, just copy-paste this!
 ```bash
 git clone https://github.com/cpcitor/color-flood-for-amstrad-cpc
 cd color-flood-for-amstrad-cpc
+
 ./configure_cdtc_build_tree.sh
+# The configure script will automatically find a cpc-dev-tool-chain
+# tree if CDTC_ROOT environment variable is set.
+# Alternatively you can do:
+# /path/to/your/cpc-dev-tool-chain/copy/configure_cdtc_build_tree.sh .
+
 make    # on Linux, try "make run" it will even run the project on caprice32 emulator!
 ## While the project compiles, read on.
 ```
@@ -90,15 +96,23 @@ This fetches dependencies (cross-compiler, tools, etc), builds then generates `c
 
 ### Options for compilation
 
-#### Speed up compilation
+#### More or less parallel compilation
 
-HUGE speed bost if your PC has e.g. 8 cores (or even 4 multi-threaded cores):
+cpc-dev-tool-chain features an automatic parallel build for the longest dependencies (sdcc, caprice32).
+
+You can force more parallel builds manually when e.g. if your PC has e.g. 8 cores (or even 4 multi-threaded cores):
 
 ```bash
     make -j8
 ```
 
 Beware, though, it consumes more memory, especially to compile SDCC. For example, 2GB is okay for `make -j4`.
+
+On the contrary, you may limit memory consumption by disabling parallel builds:
+
+```bash
+    make NPROC=1
+```
 
 #### Generate audio file, others
 
@@ -110,15 +124,3 @@ Try different targets:
     make cdt    # Tape file for emulator, can be converted to audio.
     make wav    # Generate audio file (also voc au)
 ```
-
-#### If you already have a working [cpc-dev-tool-chain](https://github.com/cpcitor/cpc-dev-tool-chain)
-
-If you already have a copy of [cpc-dev-tool-chain](https://github.com/cpcitor/cpc-dev-tool-chain), you can avoid automatic fetch+compile of another one.
-
-Use the configure script to tell where it is:
-
-    ./configure_cdtc_build_tree.sh /path/to/cpc-dev-tool-chain
-
-You can also
-
-    /path/to/cpc-dev-tool-chain/cdtc-project-setup.sh .
